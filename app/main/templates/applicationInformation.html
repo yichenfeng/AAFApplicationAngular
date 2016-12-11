@@ -12,47 +12,112 @@
 				<div class="col-sm-2 ">
 
 					<!-- list group -->
-					<navigation/>
+                    <navigation/>
 
 				</div>
 
         <div class="col-md-4">
           <form>
-						<form>
 	            <div class="form-group">
-	              <label for="exampleInputEmail1">Email address</label>
-	              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-	            </div>
-	            <div class="form-group">
-	              <label for="exampleInputPassword1">Password</label>
-	              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+	              <label >First Name</label>
+	              <input type="email" class="form-control" id="exampleInputEmail1">
 	            </div>
 	            <div class="form-group">
-	              <label for="exampleInputFile">File input</label>
-	              <input type="file" id="exampleInputFile">
-	              <p class="help-block">Example block-level help text here.</p>
+	              <label >Last Name</label>
+	              <input type="password" class="form-control" id="exampleInputPassword1" >
 	            </div>
-	            <div class="checkbox">
-	              <label>
-	                <input type="checkbox"> Check me out
-	              </label>
+							<div class="form-group">
+	              <label >Position</label>
+	              <input type="password" class="form-control" id="exampleInputPassword1" >
 	            </div>
-	            <button type="submit" class="btn btn-default">Submit</button>
-	          </form>
+							<div class="form-group">
+								<label >Store Number</label>
+								<input type="password" class="form-control" id="exampleInputPassword1" >
+							</div>
           </form>
+					<form class="form-inline">
+						<label >Permanent Address  </label>
+								<div class="checkbox">
+										<label><input type="checkbox" value="">  Own</label>
+										<label><input type="checkbox" value="">  Rent</label>
+								</div>
+					</form>
+					<br>
+					<div class="form-group">
+						<label>Address 1</label>
+						<input type="password" class="form-control" id="exampleInputPassword1" >
+					</div>
+					<div class="form-group">
+						<label >Address 2</label>
+						<input type="password" class="form-control" id="exampleInputPassword1" >
+					</div>
+					<div class="form-group">
+						<label >City</label>
+						<input type="password" class="form-control" id="exampleInputPassword1" >
+					</div>
 
-          <!-- Pager -->
-          <nav>
-            <ul class="pager">
-              <li class="previous"><a href="#"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Previous</a></li>
-              <li class="next"><a href="#">Next <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></li>
-            </ul>
-          </nav>
+			    <div class="" uib-dropdown is-open="status.isopen">
+			      <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+			        State <span class="caret"></span>
+			      </button>
+			      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+			        <li role="menuitem"><a href="#">Alabama</a></li>
+			        <li role="menuitem"><a href="#">Arkansas</a></li>
+			        <li role="menuitem"><a href="#">New York</a></li>
+			        <li role="menuitem"><a href="#">Tennessee</a></li>
+			      </ul>
+			    </div>
+					<br>
+					<div class="form-group">
+						<label for="exampleInputPassword1">Zip</label>
+						<input type="password" class="form-control" id="exampleInputPassword1" >
+					</div>
+					<div class="form-group">
+						<label >Daytime Telephone #</label>
+						<input type="password" class="form-control" id="exampleInputPassword1" >
+					</div>
+					<div class="form-group">
+						<label >NightTime Telephone #</label>
+						<input type="password" class="form-control" id="exampleInputPassword1" >
+					</div>
+					<div class="form-group">
+						<label>Email Address</label>
+						<input type="password" class="form-control" id="exampleInputPassword1" >
+					</div>
+
+        </div>
+				<div class="col-md-4">
+          <form>
+	            <div class="form-group">
+								<label for="exampleInputEmail1">Middle Name </label>
+	              <input type="email" class="form-control" id="exampleInputEmail1">
+	            </div>
+							<div class="form-group">
+	              <label for="exampleInputEmail1">Employee ID</label>
+	              <input type="email" class="form-control" id="exampleInputEmail1">
+	            </div>
+							<div class="form-group">
+							<label >Status</label>
+							<div class="checkbox">
+									<label><input type="checkbox" value="">Full Time</label>
+									<label><input type="checkbox" value="">Part Time</label>
+							</div>
+							</div>
+
+
+          </form>
 
         </div>
 
 			</div>
 			<!-- /.row -->
+			<!-- Pager -->
+			<nav>
+				<ul class="pager">
+					<li class="previous"><a href="#"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Previous</a></li>
+					<li class="next"><a href="#">Next <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></li>
+				</ul>
+			</nav>
 
       </div>
       <hr>
