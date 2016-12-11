@@ -2,12 +2,9 @@
 
 // Declare app level module which depends on views, and components
 angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router'])
-  .run([
-    "$rootScope", "$state", "$stateParams", function ($rootScope, $state, $stateParams) {
-      $rootScope.$state = $state;
-      // return $rootScope.$stateParams = $stateParams;
-    }
-  ])
+  .factory('SignaturePad', function(){
+    return SignaturePad;
+  })
   .config(function ($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise('/home');
