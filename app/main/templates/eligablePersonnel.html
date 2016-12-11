@@ -1,73 +1,79 @@
 <!-- Page Content -->
-		<div class="container-fluid" style="padding-top:10px;">
-			<div class="row">
-				<div class="col-sm-8 col-sm-push-4">
-				<h1>Eligible Personnel</h1>
-				</div>
-			</div>
-			<!-- /.row -->
+<div class="container-fluid" style="padding-top:10px;">
+    <div class="row">
+        <div class="col-sm-8 col-sm-push-4">
+            <h1>Eligible Personnel</h1>
+        </div>
+    </div>
+    <!-- /.row -->
 
-			<div class="row">
+    <div class="row">
 
         <div class="col-md-12">
 
-					<div class="col-sm-2 ">
-					<!-- list group -->
-						<navigation/>
-					</div>
-					<div class="col-sm-10 ">
-						<form>
-								<div class = "form-group">
-									<div class="col-xs-12">
-										<label for="EligiblePersonnelFirstName"><b>ELIGIBLE AUTOZONER:</b> Full and part-time AutoZoners, spouse of AutoZoner and/or legal dependants. If commom-law marriage, please attach legal court documents.<b>Please list all those who are eligible and attach a sheet for additonal names.</b></label>
-									</div>
-										<!-- first names,M.I. last name,age, relationship -->
-									<div class="col-xs-3">
-										<label for="EligiblePersonnelFirstName">First Name</label>
-									</div>
-									<div class="col-xs-1">
-										<label for="EligiblePersonnelMiddlename">M.I.</label>
-									</div>
-									<div class="col-xs-3">
-										<label for="EligiblePersonnelLastName">Last Name</label>
-									</div>
-									<div class="col-xs-1">
-										<label for="EligiblePersonnelAge">Age</label>
-									</div>
-									<div class="col-xs-4">
-										<label for="EligiblePersonnelRelationshipToAutoZoner">Relationship to AutoZoner</label>
-									</div>
-									<!-- first names,M.I. last name,age, relationship form -->
-									<eligiblepersonnelrow ng-repeat="person in persons"/>
+            <div class="col-sm-2 ">
+                <!-- list group -->
+                <navigation/>
+            </div>
+            <div class="col-sm-10 ">
+                <form>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for="EligiblePersonnelFirstName"><b>ELIGIBLE AUTOZONER:</b> Full and part-time
+                                AutoZoners, spouse of AutoZoner and/or legal dependants. If commom-law marriage, please
+                                attach legal court documents.<b>Please list all those who are eligible and attach a
+                                    sheet for additonal names.</b></label>
+                        </div>
+                        <!-- first names,M.I. last name,age, relationship -->
+                        <div class="col-xs-3">
+                            <label for="EligiblePersonnelFirstName">First Name</label>
+                        </div>
+                        <div class="col-xs-1">
+                            <label for="EligiblePersonnelMiddlename">M.I.</label>
+                        </div>
+                        <div class="col-xs-3">
+                            <label for="EligiblePersonnelLastName">Last Name</label>
+                        </div>
+                        <div class="col-xs-1">
+                            <label for="EligiblePersonnelAge">Age</label>
+                        </div>
+                        <div class="col-xs-4">
+                            <label for="EligiblePersonnelRelationshipToAutoZoner">Relationship to AutoZoner</label>
+                        </div>
+                        <!-- first names,M.I. last name,age, relationship form -->
+                        <eligiblepersonnelrow ng-repeat="person in persons"/>
 
 
-									</div>
-						</form>
-					</div>
+                    </div>
+                </form>
+            </div>
 
-					</div>
-				<nav>
-						<!-- Pager -->
-						<ul class="pager">
-							<li class="previous"><a href="#"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Previous</a></li>
-							<li class="next"><a href="#">Next <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></li>
-						</ul>
-					</nav>
-				</div>
-			<!-- /.row -->
-
-
-
-		</div>
-
-      </div>
-      <hr>
-      <footer class="margin-tb-3">
-        <div class="row">
-          <div class="col-lg-12">
-            <p>Copyright &copy; AZ Hackathon 2016</p>
-          </div>
         </div>
-      </footer>
-		</div>
-		<!-- /.container-fluid -->
+    </div>
+</div>
+
+<!-- Pager -->
+<div class="row">
+    <div class="pull-right">
+        <nav>
+            <ul class="pager">
+                <li class="previous"><a href="#"><span class="glyphicon glyphicon-menu-left"
+                                                       aria-hidden="true"></span> Previous</a></li>
+                <li class="next"><a href="#">Next <span class="glyphicon glyphicon-menu-right"
+                                                        aria-hidden="true"></span></a></li>
+            </ul>
+        </nav>
+    </div>
+</div> <!-- /.row -->
+
+
+<hr>
+<footer class="margin-tb-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <p>Copyright &copy; AZ Hackathon 2016</p>
+        </div>
+    </div>
+</footer>
+<!-- /.container-fluid -->
+
