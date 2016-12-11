@@ -1,9 +1,9 @@
 <!-- Page Content -->
 		<div class="container-fluid" style="padding-top:10px;">
 			<div class="row">
-				<h1 align="center">Review and Submission</h1>
-				<hr>
-				<br>
+				<div class="col-sm-8 col-sm-push-4">
+				<h1>Review and Submission</h1>
+				</div>
 			</div>
 			<!-- /.row -->
 
@@ -11,59 +11,29 @@
         <div class="col-md-12">
 				<div class="col-sm-2 ">
 					<!-- Search -->
+
 					<!-- list group -->
                     <navigation/>
+
 				</div>
 
-
-        <div class="col-md-8">
-					<h3>Signatures </h3>
-					<p>I hereby certify that the information provided herein is true and accurate. I am verifying that I have no personal funds, such as savings or checking account funds, available to me. I am also aware that any statements made herein which are willfully false are subject to penalty under applicable state and federal laws. Submission of this request does not entitle me to any claim against the AutoZoner Assistance Fund, but constitutes a request for assistance.
-By signing this form, I also authorize AutoZone, Inc., and its subsidiaries and af liates to release any and all information that is necessary to determine the needs of the employee applying to the AutoZoner Assistance Fund Administrators and/or its representatives. I understand that my records are protected under Federal and State con dentiality regulations and cannot be disclosed without my written consent unless otherwise provided for in the regulations. I also understand that I may revoke this consent at any time in writing, except to the extent that action has been taken in reliance on it. I also acknowledge that the information released was fully explained to me and this consent is given of my own free will. A photocopy of this authorization is valid as the original. </p>
-          <!-- <form>
+        <div class="col-md-4">
+          <form>
               <signaturepad/>
-          </form> -->
-        </div>
-				<div class="col-md-4">
-					<form class="form-inline">
-							<div class="form-group">
-								<label class="form-control-static">Print Name : </label>
-							</div>
-							<div class="form-group">
-								<input type="password" class="form-control" >
-							</div>
-				</form>
-				</div>
-				<div class="col-md-4">
-					<div ng-controller="DatepickerDemoCtrl">
-				    <div class="row">
-				        <div class="col-md-6">
-				            <p class="input-group">
-				              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" placeholder="Date" close-text="Close" />
-				              <span class="input-group-btn">
-				                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-				              </span>
-				            </p>
-				        </div>
-				    </div>
-				</div>
-				</div>
-				<br>
-				<div class="col-md-8">
-						<label>Signature</label>
-							<signaturepad/>
-				</div>
+          </form>
 
-				<br>
+          <!-- Pager -->
+          <nav>
+            <ul class="pager">
+              <li class="previous"><a href="#"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Previous</a></li>
+              <li class="next"><a href="#">Next <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></li>
+            </ul>
+          </nav>
+
+        </div>
 
 			</div>
 			<!-- /.row -->
-			<nav>
-				<ul class="pager">
-					<li class="previous"><a href="#"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Previous</a></li>
-					<li class="next"><a href="#">Next <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></li>
-				</ul>
-			</nav>
 
       </div>
       <hr>
