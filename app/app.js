@@ -5,6 +5,12 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router'])
   .factory('SignaturePad', function(){
     return SignaturePad;
   })
+  .run([
+      "$rootScope", "$state", "$stateParams", function ($rootScope, $state, $stateParams) {
+          $rootScope.$state = $state;
+          // return $rootScope.$stateParams = $stateParams;
+      }
+  ])
   .config(function ($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise('/home');
