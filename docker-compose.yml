@@ -1,0 +1,15 @@
+# web: #docker run -p 80:80 -p 443:443 -v /home/ryan_turner/workspace/AAFApplicationAngular/app:/var/www/html -d eboraas/apache
+#   build: .
+#   ports:
+#    - "5000:5000"
+#   volumes:
+#    - .:/code
+web:
+  image: "eboraas/apache"
+  ports:
+    - "80:80"
+    - "443:443"
+  volumes:
+    - ./app:/var/www/html
+data: #docker run --name some-mongo -d mongo
+  image: "mongo"
