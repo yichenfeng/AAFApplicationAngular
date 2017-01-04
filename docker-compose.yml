@@ -6,11 +6,12 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./app:/var/www/html
+      - ./app:/usr/local/apache2/htdocs
+      - ./configs/httpd.conf:/usr/local/apache2/conf/httpd.conf
     depends_on:
       - api
 
-  data: #docker run --name some-mongo -d mongo
+  data:
     image: "mongo"
     expose:
      - "27017"
