@@ -1,0 +1,24 @@
+version: '2'
+services:
+  web_2:
+    image: "httpd"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./app:/usr/local/apache2/htdocs
+      - ./configs/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    depends_on:
+      - api
+
+  data:
+    image: "mongo"
+    expose:
+     - "27017"
+
+  api:
+    build: ./api
+    expose:
+     - "5555"
+    depends_on:
+     - data

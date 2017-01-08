@@ -1,0 +1,46 @@
+##Sucessuful submit
+curl -X POST http://skyline.autozone.com:5555/api/assistance_request -H "OpenAMHeaderID: 10705332" -H "Content-Type: application/json" -d '{"user_id" : "10705332", "name" : "Trevor Robinson", "data" : "test_request"}'
+{'result': ObjectId('584c887cba35bee1ce2b57e0')}
+
+#Submitter - Able to retrieve
+curl -X GET http://skyline.autozone.com:5555/api/assistance_request/584c887cba35bee1ce2b57e0 -H "OpenAMHeaderID: 10705332"
+{'status': 'success', 'result': {'data': 'test_request', '_id': ObjectId('584c887cba35bee1ce2b57e0'), 'user_id': '10705332', 'name': 'Trevor Robinson'}}
+
+
+#Admin User - Able to retrieve
+curl -X GET http://skyline.autozone.com:5555/api/assistance_request/584c887cba35bee1ce2b57e0 -H "OpenAMHeaderID: 10705432"
+{'status': 'success', 'result': {'data': 'test_request', '_id': ObjectId('584c887cba35bee1ce2b57e0'), 'user_id': '10705332', 'name': 'Trevor Robinson'}}
+
+
+#non-admin - not able to retrieve
+curl -X GET http://skyline.autozone.com:5555/api/assistance_request/584c887cba35bee1ce2b57e0 -H "OpenAMHeaderID: 10705431"
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<title>401 Unauthorized</title>
+<h1>Unauthorized</h1>
+<p>The server could not verify that you are authorized to access the URL requested.  You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.</p>
+
+curl -X GET http://10.0.0.10:5555/assistance_request/search -H "OpenAMHeaderID: 10705431"
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<title>500 Internal Server Error</title>
+<h1>Internal Server Error</h1>
+<p>The server encountered an internal error and was unable to complete your request.  Either the server is overloaded or there is an error in the application.</p>
+
+
+##non admin / non submitter - no search results
+curl -X GET http://skyline.autozone.com:5555/api/assistance_request -H "OpenAMHeaderID: 10705431"
+{'result': [], 'status': 'success'}
+
+##nonadmin - can see own search results
+curl -X GET http://skyline.autozone.com:5555/api/assistance_request -H "OpenAMHeaderID: 10705332"
+{'result': [{'id': '10705332', 'data': 'test_request', 'name': 'Trevor Robinson', '_id': ObjectId('584c1f41ba35bea2e1708d92')}, {'id': '10705332', 'data': 'test_request', 'name': 'Trevor Robinson', '_id': ObjectId('584c1f94ba35bea2f497a0a0')}, {'id': '10705332', 'data': 'test_request', 'name': 'Trevor Robinson', '_id': ObjectId('584c3a56ba35beaee47e132f')}, {'data': 'test_request', 'name': 'Trevor Robinson', 'user_id': '10705332', '_id': ObjectId('584c887cba35bee1ce2b57e0')}], 'status': 'success'}
+
+##admin search
+curl -X GET http://skyline.autozone.com:5555/api/assistance_request -H "OpenAMHeaderID: 10705334"
+{'result': [{'id': '10705332', 'data': 'test_request', 'name': 'Trevor Robinson', '_id': ObjectId('584c1f41ba35bea2e1708d92')}, {'id': '10705332', 'data': 'test_request', 'name': 'Trevor Robinson', '_id': ObjectId('584c1f94ba35bea2f497a0a0')}, {'id': '10705332', 'data': 'test_request', 'name': 'Trevor Robinson', '_id': ObjectId('584c3a56ba35beaee47e132f')}, {'data': 'test_request', 'name': 'Trevor Robinson', 'user_id': '10705332', '_id': ObjectId('584c887cba35bee1ce2b57e0')}], 'status': 'success'}
+
+#upload doc
+curl -X POST http://skyline.autozone.com:5555/api/assistance_request/<req_id>/document 
+
+#get doc
+
+#get socs for request
