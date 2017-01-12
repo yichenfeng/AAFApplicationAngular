@@ -1,1 +1,9 @@
-Use docker and docker-compose to get up-and-running quick. Make sure that you have the latest version of docker-compose (install via `pip install docker-compose`). Start the web/app/mongo server by doing `docker-compose up` and check your localhost:80. Any time you change the API, you have to stop running the containers, do a`docker-compose build`, and then re-run `docker-compose up`.
+# Quickstart
+
+```
+pip install docker-compose && npm install
+docker-compose up
+```
+Then, open http://localhost:80. Your changes to Angular will take effect once you reload your browser.
+
+If you make changes to the backend services, you'll need to rebuild the api container; do that with `docker-compose build`.
