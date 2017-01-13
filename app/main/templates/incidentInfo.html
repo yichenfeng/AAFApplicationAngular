@@ -19,7 +19,7 @@
             </div>
 
             <div class="col-md-10">
-                <form>
+                <form name="incidentInfoForm">
                     <div class="form-group">
                     <div ng-controller="IncidentInfoCtrl">
                         <label>When did the event occur </label>
@@ -28,7 +28,7 @@
                                 <p class="input-group">
                                     <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
                                            ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions"
-                                           ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
+                                           ng-required="true" close-text="Close" alt-input-formats="altInputFormats" placeholder="Date" />
                                     <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
                                     </span>
@@ -41,9 +41,10 @@
 
                     <div class="form-group">
                         <label for="Reason">Describe in detail the reason for your request. Include a description of the event that occurred that is causing your current hardship (e.g. flood, fire, tornado, death, etc.)</label>
-                        <textarea class="form-control" rows="10" id="Reason"></textarea>
+                        <textarea class="form-control" rows="10" id="Reason" limit-words></textarea>
                     </div>
 
+                    <button type="submit" class="btn btn-primary" ng-click="saveInfo()">Save</button>
                 </form>
 
             </div>
@@ -56,9 +57,9 @@
     <div class="pull-right">
         <nav>
             <ul class="pager">
-                <li class="previous"><a href="#"><span class="glyphicon glyphicon-menu-left"
+                <li class="previous"><a ui-sref="eligiblePersonnel"><span class="glyphicon glyphicon-menu-left"
                                                        aria-hidden="true"></span> Previous</a></li>
-                <li class="next"><a href="#">Next <span class="glyphicon glyphicon-menu-right"
+                <li class="next"><a ui-sref="assistanceRequest">Next <span class="glyphicon glyphicon-menu-right"
                                                         aria-hidden="true"></span></a></li>
             </ul>
         </nav>

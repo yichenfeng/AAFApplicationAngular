@@ -1,9 +1,5 @@
 'use strict';
-angular.module('myApp').controller('IncidentInfoCtrl', function ($scope) {
-    $scope.today = function() {
-        $scope.dt = new Date();
-    };
-    $scope.today();
+angular.module('myApp').controller('IncidentInfoCtrl', function ($scope, $http) {
 
     $scope.clear = function() {
         $scope.dt = null;
@@ -93,4 +89,45 @@ angular.module('myApp').controller('IncidentInfoCtrl', function ($scope) {
 
         return '';
     }
-});
+
+    $scope.max = 1000;
+    $scope.count = 0;
+
+    $scope.saveInfo = function() {
+      var url = "http://skyline.autozone.com:5555/api/";
+      var config = {
+        headers : {
+            'Content-Type': 'application/json;',
+            'OpenAMHeaderID': '10705334'
+        }
+      };
+      // var data = {
+      //   user_id: passedIn.employeeID,
+      //   name: passedIn.firstName,
+      //   data: passedIn.address1
+      // };
+      // console.log(data);
+
+      $http.get(url).success(function (data, status, headers, config) {
+         console.log("success");
+         console.log(data);
+        //  $state.go('eligiblePersonnel',[]);
+       }).error(function (data, status, header, config) {
+         console.log("error");
+         console.log(data);
+       });
+    };
+
+}).directive('limitWords', [
+    function() {
+      return function(scope, element, attrs) {
+        element.bind('keyup', function() {
+          scope.count = this.value.split(' ').length;
+
+          if (scope.count > scope.max) {
+            this.maxLength = this.value.length;
+          }
+        });
+      };
+    }
+  ]);
