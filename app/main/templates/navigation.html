@@ -1,9 +1,9 @@
 <div class="list-group">
-  <a ng-class="{active: $state.includes('home')}" ui-sref="home" class=" list-group-item">Application Status</a>
-  <a ng-class="{active: $state.includes('applicationInformation')}" ui-sref="applicationInformation" class="list-group-item">Applicant Information</a>
-  <a ng-class="{active: $state.includes('eligiblePersonnel')}" ui-sref="eligiblePersonnel" class="list-group-item">Eligible Personnel</a>
-  <a ng-class="{active: $state.includes('incidentInfo')}" ui-sref="incidentInfo" class="list-group-item">Incident Info</a>
-  <a ng-class="{active: $state.includes('assistanceRequest')}" ui-sref="assistanceRequest" class="list-group-item">Assistance Request</a>
-  <a ng-class="{active: $state.includes('other')}" ui-sref="other" class="list-group-item">Other</a>
-  <a ng-class="{active: $state.includes('review-submission')}" ui-sref="review-submission" class="list-group-item">Review and Submission</a>
+  <a ng-class="{active: $state.includes('applicationStatus')}" ui-sref="applicationStatus" class=" complete formsteps">Application Status</a>
+  <a ng-class="{active: $state.includes('applicationInformation')}" ui-sref="applicationInformation" class="complete formsteps">Applicant Information</a>
+  <a ng-class="{active: $state.includes('eligiblePersonnel')}" ui-sref="eligiblePersonnel" class="formsteps working">Eligible Personnel</a>
+  <a ng-class="{active: $state.includes('incidentInfo')}" ui-sref="incidentInfo" class="formsteps todo">Incident Info</a>
+  <a ng-class="{active: $state.includes('assistanceRequest')}" ui-sref="assistanceRequest" class="formsteps todo">Assistance Request</a>
+  <a ng-class="{active: $state.includes('other')}" ui-sref="other" class="formsteps todo">Other</a>
+  <a ng-class="{active: $state.includes('review-submission')}" ui-sref="review-submission" class="formsteps todo">Review and Submission</a>
 </div>
