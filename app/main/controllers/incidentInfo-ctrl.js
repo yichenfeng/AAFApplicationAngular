@@ -1,133 +1,160 @@
 'use strict';
-angular.module('myApp').controller('IncidentInfoCtrl', function ($scope, $http) {
+angular.module('myApp').controller('IncidentInfoCtrl', function ($scope, $http, $state, DataService, $rootScope) {
 
-    $scope.clear = function() {
-        $scope.dt = null;
-    };
+  var userId = '10705332';
 
-    $scope.inlineOptions = {
-        customClass: getDayClass,
-        minDate: new Date(),
-        showWeeks: true
-    };
-
-    $scope.dateOptions = {
-        dateDisabled: disabled,
-        formatYear: 'yy',
-        maxDate: new Date(2020, 5, 22),
-        minDate: new Date(),
-        startingDay: 1
-    };
-
-    // Disable weekend selection
-    function disabled(data) {
-        var date = data.date,
-            mode = data.mode;
-        return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+  $scope.getApplication = function () {
+    var data = DataService.getApplicationById(userId);
+    console.log(data);
+    if (data !== false) {
+      $scope.response = data;
     }
+  };
 
-    $scope.toggleMin = function() {
-        $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
-        $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
-    };
+  $scope.getApplication();
 
-    $scope.toggleMin();
+  if ($scope.response) {
+    $rootScope.objectId = $scope.response.result;
+  }
 
-    $scope.open1 = function() {
-        $scope.popup1.opened = true;
-    };
+  $scope.max = 1000;
+  $scope.count = 0;
 
-    $scope.open2 = function() {
-        $scope.popup2.opened = true;
-    };
+  $scope.today = function() {
+    $scope.dt = new Date();
+  };
 
-    $scope.setDate = function(year, month, day) {
-        $scope.dt = new Date(year, month, day);
-    };
+  $scope.clear = function() {
+    $scope.dt = null;
+  };
 
-    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[0];
-    $scope.altInputFormats = ['M!/d!/yyyy'];
+  $scope.inlineOptions = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: true
+  };
 
-    $scope.popup1 = {
-        opened: false
-    };
+  $scope.dateOptions = {
+    formatYear: 'yy',
+    maxDate: new Date(2020, 5, 22),
+    minDate: new Date(),
+    startingDay: 1
+  };
 
-    $scope.popup2 = {
-        opened: false
-    };
+  $scope.toggleMin = function() {
+    $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
+    $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+  };
 
-    var tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    var afterTomorrow = new Date();
-    afterTomorrow.setDate(tomorrow.getDate() + 1);
-    $scope.events = [
-        {
-            date: tomorrow,
-            status: 'full'
-        },
-        {
-            date: afterTomorrow,
-            status: 'partially'
-        }
-    ];
+  $scope.toggleMin();
 
-    function getDayClass(data) {
-        var date = data.date,
-            mode = data.mode;
-        if (mode === 'day') {
-            var dayToCheck = new Date(date).setHours(0,0,0,0);
+  $scope.open1 = function() {
+    $scope.popup1.opened = true;
+  };
 
-            for (var i = 0; i < $scope.events.length; i++) {
-                var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+  $scope.setDate = function(year, month, day) {
+    $scope.dt = new Date(year, month, day);
+  };
 
-                if (dayToCheck === currentDay) {
-                    return $scope.events[i].status;
-                }
-            }
-        }
+  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd/MM/yyyy', 'MM/dd/yyyy', 'shortDate'];
+  $scope.format = $scope.formats[3];
+  $scope.altInputFormats = ['M!/d!/yyyy'];
 
-        return '';
+  $scope.popup1 = {
+    opened: false
+  };
+
+  var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var afterTomorrow = new Date();
+  afterTomorrow.setDate(tomorrow.getDate() + 1);
+  $scope.events = [
+    {
+      date: tomorrow,
+      status: 'full'
+    },
+    {
+      date: afterTomorrow,
+      status: 'partially'
     }
+  ];
 
-    $scope.max = 1000;
-    $scope.count = 0;
-
-    $scope.saveInfo = function() {
-      var url = "http://skyline.autozone.com:5555/api/";
-      var config = {
-        headers : {
-            'Content-Type': 'application/json;',
-            'OpenAMHeaderID': '10705334'
+  function getDayClass(data) {
+    var date = data.date,
+        mode = data.mode;
+    if (mode === 'day') {
+      var dayToCheck = new Date(date).setHours(0,0,0,0);
+      for (var i = 0; i < $scope.events.length; i++) {
+        var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+        if (dayToCheck === currentDay) {
+          return $scope.events[i].status;
         }
+      }
+    }
+    return '';
+  }
+
+  $scope.saveForLater = function () {
+    $state.go('home');
+  };
+
+  $scope.saveInfo = function() {
+    if ($scope.incidentInfoForm.$valid) {
+      $scope.dt = new Date(document.getElementById('date').value);
+      console.log($scope.dt);
+
+      var url = "/api/request/assistance";
+      var req = {
+         method : 'POST',
+         url : url,
+         headers : {
+             'Content-Type': 'application/json;',
+             'OpenAMHeaderID': '10705332'
+         },
+         data : {
+           'user_id' : '10705332',
+           'name' : 'Test User',
+           'data' : {
+             'incident_date' : $scope.dt,
+             'incident_description' : $scope.description
+           }
+         }
       };
-      // var data = {
-      //   user_id: passedIn.employeeID,
-      //   name: passedIn.firstName,
-      //   data: passedIn.address1
+      // var openAMHeaderId = '10705332';
+      // var info = {
+      //   'user_id' : '10705332',
+      //   'data' : {
+      //     'incident_date' : $scope.dt,
+      //     'incident_description' : $scope.description
+      //   }
       // };
-      // console.log(data);
-
-      $http.get(url).success(function (data, status, headers, config) {
+      $http(req).success(function (data) {
          console.log("success");
          console.log(data);
-        //  $state.go('eligiblePersonnel',[]);
+         $scope.saved = true;
        }).error(function (data, status, header, config) {
          console.log("error");
          console.log(data);
        });
-    };
+    }
+  };
+
+  $scope.next = function () {
+    if ($scope.incidentInfoForm.$valid) {
+      $scope.saveInfo();
+      $state.go('assistanceRequest');
+    }
+  };
 
 }).directive('limitWords', [
-    function() {
-      return function(scope, element, attrs) {
-        element.bind('keyup', function() {
-          scope.count = this.value.split(' ').length;
-
-          if (scope.count > scope.max) {
-            this.maxLength = this.value.length;
-          }
-        });
-      };
-    }
-  ]);
+  function() {
+    return function(scope, element, attrs) {
+      element.bind('keyup', function() {
+        scope.count = this.value.split(' ').length;
+        if (scope.count > scope.max) {
+          this.maxLength = this.value.length;
+        }
+      });
+    };
+  }
+]);

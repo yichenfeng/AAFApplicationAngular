@@ -59,6 +59,7 @@
 </head>
 <body ng-app="routerApp">
 
+<<<<<<< Updated upstream
 <!-- NAVIGATION -->
 <nav>
   <div class="topnav w-nav" data-animation="default" data-collapse="medium" data-duration="400">
@@ -76,6 +77,23 @@
     </div>
 </div>
 </nav>
+=======
+  <!-- NAVIGATION -->
+  <nav class="navbar navbar-inverse" role="navigation">
+      <div class="navbar-header">
+          <a class="navbar-brand" ui-sref="home">AutoZone Assistance Fund</a>
+      </div>
+      <ul class="nav navbar-nav">
+          <li><a ui-sref="home">Home</a></li>
+          <li><a ui-sref="about">About</a></li>
+          <!-- <li><a ui-sref="login">Logout</a></li> -->
+      </ul>
+      <ul class="nav navbar-nav" style="float:right">
+          <li><a ui-sref="login">Logout</a></li>
+      </ul>
+  </nav>
+
+>>>>>>> Stashed changes
 <!-- MAIN CONTENT -->
 <div class="container">
     <div ui-view></div>

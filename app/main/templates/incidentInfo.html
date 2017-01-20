@@ -1,78 +1,52 @@
-<!-- Page Content -->
-<div class="container-fluid" style="padding-top:10px;">
-    <div class="row">
-        <div class="col-sm-8 col-sm-push-4">
-            <h1>Incident Info</h1>
+<div>
+  <div class="main-section" id="posts">
+    <div class="w-container">
+      <div class="w-row">
+        <div class="w-col w-col-3">
+          <h3>Application form</h3>
+          <a class="complete formsteps">Application Status</a>
+          <a class="complete formsteps">Applicant Information</a>
+          <a class="complete formsteps">Eligible Personnel</a>
+          <a class="formsteps working">Incident Info</a>
+          <a class="formsteps todo">Assistance Request</a>
+          <a class="formsteps todo">Other</a>
+          <a class="formsteps todo">Review and Submission</a>
         </div>
-    </div>
-    <hr>
-    <!-- /.row -->
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="col-sm-2 ">
-                <!-- Search -->
-
-                <!-- list group -->
-                <navigation/>
-
-            </div>
-
-            <div class="col-md-10">
-                <form name="incidentInfoForm">
-                    <div class="form-group">
-                    <div ng-controller="IncidentInfoCtrl">
-                        <label>When did the event occur </label>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p class="input-group">
-                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
-                                           ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions"
-                                           ng-required="true" close-text="Close" alt-input-formats="altInputFormats" placeholder="Date" />
-                                    <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-
+        <div class="w-col w-col-9">
+          <h3>Incident Info</h3>
+            <form name="incidentInfoForm">
+              <div class="form-group">
+                <div>
+                  <label>When did the event occur?</label>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <p class="input-group">
+                        <input id="date" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt"
+                          is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                          alt-input-formats="altInputFormats" placeholder="Date" />
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-default" ng-click="open1()">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                          </button>
+                        </span>
+                      </p>
                     </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="Reason">Describe in detail the reason for your request. Include a description of the event that occurred that is causing your current hardship (e.g. flood, fire, tornado, death, etc.)</label>
-                        <textarea class="form-control" rows="10" id="Reason" limit-words></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary" ng-click="saveInfo()">Save</button>
-                </form>
-
-            </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="Reason">Describe in detail the reason for your request. Include a description of the event
+                    that occurred that is causing your current hardship (e.g. flood, fire, tornado, death, etc.)</label>
+                  <textarea class="form-control" rows="10" id="Reason" limit-words></textarea>
+                </div>
+                <div class="form-nav">
+                  <button type="submit" class="button inverse w-button" ng-click="saveForLater()">Save for Later</button>
+                  <button class="button w-button" ng-click="next()">Next</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
-
-<!-- Pager -->
-<div class="row">
-    <div class="pull-right">
-        <nav>
-            <ul class="pager">
-                <li class="previous"><a ui-sref="eligiblePersonnel"><span class="glyphicon glyphicon-menu-left"
-                                                       aria-hidden="true"></span> Previous</a></li>
-                <li class="next"><a ui-sref="assistanceRequest">Next <span class="glyphicon glyphicon-menu-right"
-                                                        aria-hidden="true"></span></a></li>
-            </ul>
-        </nav>
-    </div>
-</div> <!-- /.row -->
-
-
-<hr>
-<footer class="margin-tb-3">
-    <div class="row">
-        <div class="col-lg-12">
-            <p>Copyright &copy; AZ Hackathon 2016</p>
-        </div>
-    </div>
-</footer>
-<!-- /.container-fluid -->
