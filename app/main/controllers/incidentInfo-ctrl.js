@@ -1,21 +1,5 @@
 'use strict';
-angular.module('myApp').controller('IncidentInfoCtrl', function ($scope, $http, $state, DataService, $rootScope) {
-
-  var userId = '10705332';
-
-  $scope.getApplication = function () {
-    var data = DataService.getApplicationById(userId);
-    console.log(data);
-    if (data !== false) {
-      $scope.response = data;
-    }
-  };
-
-  $scope.getApplication();
-
-  if ($scope.response) {
-    $rootScope.objectId = $scope.response.result;
-  }
+angular.module('myApp').controller('IncidentInfoCtrl', function ($scope, $http, $state, DataService, $rootScope, $filter) {
 
   $scope.max = 1000;
   $scope.count = 0;
@@ -101,41 +85,25 @@ angular.module('myApp').controller('IncidentInfoCtrl', function ($scope, $http, 
   $scope.saveInfo = function() {
     if ($scope.incidentInfoForm.$valid) {
       $scope.dt = new Date(document.getElementById('date').value);
-      console.log($scope.dt);
+      $scope.dt = $filter('date')($scope.dt, 'MM/dd/yyyy');
 
-      var url = "/api/request/assistance";
-      var req = {
-         method : 'POST',
-         url : url,
-         headers : {
-             'Content-Type': 'application/json;',
-             'OpenAMHeaderID': '10705332'
-         },
-         data : {
-           'user_id' : '10705332',
-           'name' : 'Test User',
-           'data' : {
-             'incident_date' : $scope.dt,
-             'incident_description' : $scope.description
-           }
-         }
-      };
-      // var openAMHeaderId = '10705332';
-      // var info = {
-      //   'user_id' : '10705332',
-      //   'data' : {
-      //     'incident_date' : $scope.dt,
-      //     'incident_description' : $scope.description
-      //   }
-      // };
-      $http(req).success(function (data) {
-         console.log("success");
-         console.log(data);
-         $scope.saved = true;
-       }).error(function (data, status, header, config) {
-         console.log("error");
-         console.log(data);
-       });
+      if ($rootScope.application) { //application created
+        console.log('description = ' + $scope.description);
+        $rootScope.application.request_content.updatedData = {
+           'incident_date' : $scope.dt,
+           'incident_description' : $scope.description
+        };
+        DataService.updateApplication($rootScope.application).then(function(result) {
+          if(result) {
+            var updatedApplication = result;
+            console.log('Updated data:');
+            console.log(updatedApplication);
+            //For now, let's do it this way; this means we'll need a save button on each page, but converting it to be event-driven or watching the form adds a lot more complexity that we're not yet ready for.
+          } else {
+            //Todo: handle the error state
+          }
+        });
+      }
     }
   };
 
