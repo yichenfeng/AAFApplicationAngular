@@ -1,15 +1,32 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'])
+angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap', 'ui.bootstrap.tpls'])
   .factory('SignaturePad', function(){
     return SignaturePad;
   })
   .run([
-      "$rootScope", "$state", "$stateParams", function ($rootScope, $state, $stateParams) {
-          $rootScope.$state = $state;
-          // return $rootScope.$stateParams = $stateParams;
-      }
+    "$rootScope", "$state", "$stateParams", "DataService", function ($rootScope, $state, $stateParams, DataService) {
+      $rootScope.$state = $state;
+      // return $rootScope.$stateParams = $stateParams;
+      DataService.createApplication({foo: 'bar'}).then(function (result) {
+        if (result) {
+          $rootScope.application = result;
+          $rootScope.$watch(function() { return $rootScope.application; }, function (newValue) {
+            console.log(newValue);
+            DataService.updateApplication(newValue).then(function (result) {
+              if(result) {
+                console.log('Updated application!');
+              } else {
+                console.log('Error updating application');
+              }
+            });
+          }, true);
+        } else {
+          console.log('Error creating application');
+        }
+      });
+    }
   ])
   .config(function ($stateProvider, $urlRouterProvider) {
 
