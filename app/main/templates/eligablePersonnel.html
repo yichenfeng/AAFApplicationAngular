@@ -1,16 +1,15 @@
 <!-- Page Content -->
-<div class="container-fluid" style="padding-top:180px;">
+<div class="container-fluid">
   <div class="main-section" id="posts">
     <div class="w-container">
       <div class="w-row">
-        <div class="w-col w-col-3">
+        <div class="sidenav w-col w-col-3">
           <h3>Application form</h3>
-          <a class="complete formsteps">Application Status</a>
           <a class="complete formsteps">Applicant Information</a>
           <a class="formsteps working">Eligible Personnel</a>
           <a class="formsteps todo">Incident Info</a>
           <a class="formsteps todo">Assistance Request</a>
-          <a class="formsteps todo">Other</a>
+          <a class="formsteps todo">Assistance Requested and/or Received</a>
           <a class="formsteps todo">Review and Submission</a>
         </div>
         <div class="w-col w-col-9">
@@ -24,50 +23,43 @@
                           sheet for additonal names.</b></label>
                           <br>
                 </div>
-                <table class="epTable">
-                 <tr>
-                    <th class="col-xs-3">First Name</th>
-                    <th class="col-xs-1">M.I.</th>
-                    <th class="col-xs-3">Last Name</th>
-                    <th class="col-xs-1">Age</th>
-                    <th class="col-xs-4">Relationship to AutoZoner</th>
-                 </tr>
-                 <tr>
-                    <td class="col-xs-3"><input type="text" class="form-control" ng-model="fName1"></td>
-                    <td class="col-xs-1"><input type="text" class="form-control" ng-model="initial1"></td>
-                    <td class="col-xs-3"><input type="text" class="form-control" ng-model="lName1"></td>
-                    <td class="col-xs-1"><input type="text" class="form-control" ng-model="age1"></td>
-                    <td class="col-xs-4"><input type="text" class="form-control" ng-model="relationship1"></td>
-                 </tr>
-                 <tr>
-                    <td class="col-xs-3"><input type="text" class="form-control" ng-model="fName2"></td>
-                    <td class="col-xs-1"><input type="text" class="form-control" ng-model="initial2"></td>
-                    <td class="col-xs-3"><input type="text" class="form-control" ng-model="lName2"></td>
-                    <td class="col-xs-1"><input type="text" class="form-control" ng-model="age2"></td>
-                    <td class="col-xs-4"><input type="text" class="form-control" ng-model="relationship2"></td>
-                 </tr>
-                 <tr>
-                    <td class="col-xs-3"><input type="text" class="form-control" ng-model="fName3"></td>
-                    <td class="col-xs-1"><input type="text" class="form-control" ng-model="initial3"></td>
-                    <td class="col-xs-3"><input type="text" class="form-control" ng-model="lName3"></td>
-                    <td class="col-xs-1"><input type="text" class="form-control" ng-model="age3"></td>
-                    <td class="col-xs-4"><input type="text" class="form-control" ng-model="relationship3"></td>
-                 </tr>
-                 <tr>
-                    <td class="col-xs-3"><input type="text" class="form-control" ng-model="fName4"></td>
-                    <td class="col-xs-1"><input type="text" class="form-control" ng-model="initial4"></td>
-                    <td class="col-xs-3"><input type="text" class="form-control" ng-model="lName4"></td>
-                    <td class="col-xs-1"><input type="text" class="form-control" ng-model="age4"></td>
-                    <td class="col-xs-4"><input type="text" class="form-control" ng-model="relationship4"></td>
-                 </tr>
-                 <tr>
-                    <td class="col-xs-3"><input type="text" class="form-control" ng-model="fName5"></td>
-                    <td class="col-xs-1"><input type="text" class="form-control" ng-model="initial5"></td>
-                    <td class="col-xs-3"><input type="text" class="form-control" ng-model="lName5"></td>
-                    <td class="col-xs-1"><input type="text" class="form-control" ng-model="age5"></td>
-                    <td class="col-xs-4"><input type="text" class="form-control" ng-model="relationship5"></td>
-                 </tr>
-              </table>
+                <div class="col-xs-3">
+                    <label for="EligiblePersonnelFirstName">First Name</label>
+                </div>
+                <div class="col-xs-1">
+                    <label for="EligiblePersonnelMiddlename">M.I.</label>
+                </div>
+                <div class="col-xs-3">
+                    <label for="EligiblePersonnelLastName">Last Name</label>
+                </div>
+                <div class="col-xs-1">
+                    <label for="EligiblePersonnelAge">Age</label>
+                </div>
+                <div class="col-xs-4">
+                    <label for="EligiblePersonnelRelationshipToAutoZoner">Relationship to AutoZoner</label>
+                </div>
+                <div ng-repeat="person in persons track by person.row">
+                  <div class="col-xs-3">
+                    <input type="text" class="form-control" ng-model="person.fName">
+                    <br>
+                  </div>
+                  <div class="col-xs-1">
+                    <input type="text" class="form-control" ng-model="person.initial">
+                    <br>
+                  </div>
+                  <div class="col-xs-3">
+                    <input type="text" class="form-control" ng-model="person.lName">
+                    <br>
+                  </div>
+                  <div class="col-xs-1">
+                    <input type="Integer" class="form-control" ng-model="person.age">
+                    <br>
+                  </div>
+                  <div class="col-xs-4">
+                    <input type="Integer" class="form-control" ng-model="person.relationship">
+                    <br>
+                  </div>
+                </div>
               </div>
               <div class="form-nav">
                 <button type="submit" class="button inverse w-button" ng-click="saveForLater()">Save for Later</button>
