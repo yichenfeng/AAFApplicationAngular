@@ -1,3 +1,11 @@
+.container-fluid {
+  padding-top:180px;
+}
+.error {
+  color: red;
+  font-family: Lora, sans-serif;
+  font-size: 14px;
+}
 body {
   font-family: Lora, sans-serif;
   color: #333;
@@ -1428,4 +1436,3 @@ html.w-mod-js *[data-ix="view-more"] {
     line-height: 27px;
   }
 }
-
