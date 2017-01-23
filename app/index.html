@@ -23,8 +23,8 @@
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
-
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="bower_components/signature_pad/signature_pad.min.js"></script>
@@ -59,42 +59,42 @@
 </head>
 <body ng-app="routerApp">
 
-<!-- NAVIGATION -->
-<nav>
-  <div class="topnav w-nav" data-animation="default" data-collapse="medium" data-duration="400">
-    <div class="w-container">
-      <a class="w-nav-brand" href="#">
-        <img class="brand" height="70" sizes="(max-width: 767px) 98vw, 554px" src="/main/assets/images/i_Brand.png" srcset="/main/assets/images/i_Brand-p-500x64.png 500w, /main/assets/images/i_Brand.png 602w">
-      </a>
-      <nav class="w-nav-menu" role="navigation">
-        <a class="nav-link w-nav-link" ui-serf="">Español</a>
-        <a class="nav-link signin w-nav-link" ui-sref="login">Sign In</a>
-      </nav>
-      <div class="w-nav-button">
-        <div class="w-icon-nav-menu"></div>
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="topnav w-nav" data-animation="default" data-collapse="medium" data-duration="400">
+      <div class="w-container">
+        <a class="w-nav-brand" href="#">
+          <img class="brand" height="70" sizes="(max-width: 767px) 98vw, 554px" src="/main/assets/images/i_Brand.png" srcset="/main/assets/images/i_Brand-p-500x64.png 500w, /main/assets/images/i_Brand.png 602w">
+        </a>
+        <nav class="w-nav-menu" role="navigation">
+          <a class="nav-link w-nav-link" ui-serf="">Español</a>
+          <a class="nav-link signin w-nav-link" ui-sref="login">Sign In</a>
+        </nav>
+        <div class="w-nav-button">
+          <div class="w-icon-nav-menu"></div>
+        </div>
       </div>
-    </div>
-</div>
-</nav>
-<!-- MAIN CONTENT -->
-<div class="container">
-    <div ui-view></div>
-</div>
-
-</body>
-<footer>
-  <div class="dark main-section">
-    <div class="w-container">
-      <div class="section-heading">
-          <h2 class="white">Contact the AAF</h2>
-          <div class="med-divider"></div>
-      </div>
-      <div class="contact">Phone: 901.555.1212
-          <br>Fax: 901.555.1212
-          <br>Email: test@autozone.com
-      </div>
-    </div>
   </div>
-</footer>
-<!-- /.container-fluid -->
-</html>
+  </nav>
+  <!-- MAIN CONTENT -->
+  <div class="container">
+      <div ui-view></div>
+  </div>
+
+  </body>
+  <footer>
+    <div class="dark main-section">
+      <div class="w-container">
+        <div class="section-heading">
+            <h2 class="white">Contact the AAF</h2>
+            <div class="med-divider"></div>
+        </div>
+        <div class="contact">Phone: 901.555.1212
+            <br>Fax: 901.555.1212
+            <br>Email: test@autozone.com
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- /.container-fluid -->
+  </html>
