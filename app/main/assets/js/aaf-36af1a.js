@@ -1215,7 +1215,7 @@
     var api = {};
 
     // Cross-Domain AJAX for IE8
-    
+
 
     var $doc = $(document);
     var $forms;
