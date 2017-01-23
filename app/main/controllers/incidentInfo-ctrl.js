@@ -88,21 +88,10 @@ angular.module('myApp').controller('IncidentInfoCtrl', function ($scope, $http, 
       $scope.dt = $filter('date')($scope.dt, 'MM/dd/yyyy');
 
       if ($rootScope.application) { //application created
-        console.log('description = ' + $scope.description);
         $rootScope.application.request_content.updatedData = {
            'incident_date' : $scope.dt,
            'incident_description' : $scope.description
         };
-        DataService.updateApplication($rootScope.application).then(function(result) {
-          if(result) {
-            var updatedApplication = result;
-            console.log('Updated data:');
-            console.log(updatedApplication);
-            //For now, let's do it this way; this means we'll need a save button on each page, but converting it to be event-driven or watching the form adds a lot more complexity that we're not yet ready for.
-          } else {
-            //Todo: handle the error state
-          }
-        });
       }
     }
   };
