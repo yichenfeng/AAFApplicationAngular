@@ -20,7 +20,7 @@
                             <p ng-show="astReqForm.amount.$invalid && submitted" class="help-block">Please enter a requested amount</p>
                         </div>
                             <div class="form-group" ng-class="{ 'has-error' :astReqForm.shelter.$invalid && astReqForm.funeral.$invalid && astReqForm.utilities.$invalid && astReqForm.fire.$invalid && astReqForm.disaster.$invalid && astReqForm.other.$invalid && submitted }" required>
-                                <p name="top"  ng-model="user.top"> <b><u> Check atleast one of the following that applies to you:</u></b></p>
+                                <p name="top"  ng-model="user.top"> <b><u>Select atleast one of the following:</u></b></p>
                                 <p ng-show=" astReqForm.shelter.$invalid && astReqForm.funeral.$invalid && astReqForm.funeral.$invalid && astReqForm.utilities.$invalid && astReqForm.fire.$invalid && astReqForm.disaster.$invalid  &&  astReqForm.other.$invalid &&submitted" class="help-block">Please select atleast one of the following</p>
                             </div>
 
