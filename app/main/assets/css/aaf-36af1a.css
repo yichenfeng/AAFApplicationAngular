@@ -1,3 +1,10 @@
+td.col-xs-1 {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.epTable tr {
+  border-bottom: 15px solid white;
+}
 body {
   font-family: Lora, sans-serif;
   color: #333;
@@ -1428,4 +1435,3 @@ html.w-mod-js *[data-ix="view-more"] {
     line-height: 27px;
   }
 }
-
