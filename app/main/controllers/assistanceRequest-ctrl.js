@@ -1,30 +1,41 @@
 'use strict';
 angular.module('myApp')
-.controller('AssistanceRequestCtrl', function ($scope, $state, ModalService) {
+.controller('AssistanceRequestCtrl', function ($scope, $state) {
 
+var data = $scope.user;
+// console.log(data);
+$scope.submitForm = function(isValid) {
 
-  $scope.saveRequestInfo = function (info)
-  {
+$scope.submitted = true;
+// console.log(isValid.amount);
 
-  {
-    var amount = info.amount;
-      var shelter = info.shelter;
-      var funeral = info.funeral;
-      var utilities = info.utilities;
-      var fire = info.fire;
-      var naturalDisaster = info.naturalDisaster;
-      var other = info.other;
+console.log($scope.user);
 
-console.log(info);
-
-if (fire || funeral == true){
-console.log("true");
-}
-else {
-  console.log("not true");
+if (( $scope.user.options || $scope.user.fire || $scope.user.other || $scope.user.utilities || $scope.user.disaster || $scope.user.funeral) == true){
+$state.go('other');
 }
 
   };
-    };
+
+  // $scope.nextValidation = function (info)
+  // {
+  //
+  //   var amount = info.amount;
+  //     var shelter = info.shelter;
+  //     var funeral = info.funeral;
+  //     var utilities = info.utilities;
+  //     var fire = info.fire;
+  //     var naturalDisaster = info.naturalDisaster;
+  //     var other = info.other;
+  //
+  //     if (fire || funeral == true){
+  //         $state.go('other');
+  //     }
+  //     else {
+  //       console.log("not true");
+  //     }
+  //
+  // };
+
 
 });
