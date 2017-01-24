@@ -529,13 +529,14 @@ img {
   top: 0px;
   right: 0px;
   bottom: 0px;
+  height: 280px;
   margin-top: 0px;
   margin-bottom: 0px;
   border-radius: 3px;
   background-image: url('../images/3f4eb74a.jpg');
   background-position: 50% 50%;
   background-size: cover;
-  text-align: center;
+  text-align: right;
 }
 
 .featured-image.goodnews {
@@ -1016,7 +1017,6 @@ img {
 }
 
 .brand {
-  overflow: auto;
   margin-top: 27px;
 }
 
@@ -1040,7 +1040,6 @@ img {
 }
 
 .button-div {
-  margin-top: 10px;
   text-align: center;
 }
 
@@ -1218,9 +1217,6 @@ html.w-mod-js *[data-ix="view-more"] {
   .featured-description {
     font-size: 18px;
   }
-  .featured-image {
-    height: auto;
-  }
   .author-picture {
     width: 210px;
     margin-right: 13px;
@@ -1258,19 +1254,6 @@ html.w-mod-js *[data-ix="view-more"] {
   }
   .success-text {
     font-size: 18px;
-  }
-  .brand {
-    width: 75%;
-    height: 75%;
-  }
-  .content-copy {
-    margin-top: 10px;
-  }
-  .image-container {
-    text-align: center;
-  }
-  .sidenav {
-    display: none;
   }
 }
 
@@ -1457,3 +1440,4 @@ html.w-mod-js *[data-ix="view-more"] {
     line-height: 27px;
   }
 }
+

@@ -1,5 +1,5 @@
 'use strict';
-angular.module('myApp').controller('IncidentInfoCtrl', function ($scope, $http, $state, DataService, $rootScope, $filter) {
+angular.module('myApp').controller('IncidentInfoCtrl', function ($scope, $state, $rootScope, $filter) {
 
   $scope.max = 1000;
   $scope.count = 0;
@@ -32,5 +32,4 @@ angular.module('myApp').controller('IncidentInfoCtrl', function ($scope, $http, 
       event.preventDefault();
     }
   };
-
 });
