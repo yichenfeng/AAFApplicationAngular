@@ -5,18 +5,17 @@
         <hr>
         <br>
     </div>
-    <!-- /.row -->
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="col-sm-2 ">
-                <!-- Search -->
-                <!-- list group -->
-                <navigation/>
-            </div>
+<div class="row">
+   <div class="col-md-12">
 
+        <div class="col-sm-2 ">
+            <navigation/>
+        </div>
 
-            <div class="col-md-8">
+  <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-10">
                 <h3>Signatures </h3>
                 <p>I hereby certify that the information provided herein is true and accurate. I am verifying that I
                     have no personal funds, such as savings or checking account funds, available to me. I am also aware
@@ -32,69 +31,46 @@
                     reliance on it. I also acknowledge that the information released was fully explained to me and this
                     consent is given of my own free will. A photocopy of this authorization is valid as the
                     original. </p>
-                <!-- <form>
-                    <signaturepad/>
-                </form> -->
-            </div>
-            <div class="col-md-4">
-                <form class="form-inline">
+          </div>
+      </div>
+
+    <div class="row">
+          <div class="col-md-10">
+                <div class=" col-md-5">
                     <div class="form-group">
-                        <label class="form-control-static">Print Name : </label>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control">
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-4">
-                <div ng-controller="DatepickerDemoCtrl">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p class="input-group">
-                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt"
-                                       is-open="opened" min-date="minDate" max-date="'2015-06-22'"
-                                       datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
-                                       ng-required="true" placeholder="Date" close-text="Close"/>
-                                <span class="input-group-btn">
-				                <button type="button" class="btn btn-default" ng-click="open($event)"><i
-                                        class="glyphicon glyphicon-calendar"></i></button>
-				              </span>
-                            </p>
-                        </div>
+                      <label>Print Name :</label>
+                      <input type="name" placeholder="Print Name" class="form-control">
                     </div>
                 </div>
-            </div>
-            <br>
-            <div class="col-md-8">
-                <label>Signature</label>
-                <signaturepad/>
-            </div>
-
-            <br>
-
-        </div>
+                <div class="col-md-5">
+                  <label>Date : </label>
+                  <p class="input-group">
+                  <input id="date" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt"
+                      is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                      alt-input-formats="altInputFormats" placeholder="Date" />
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default" ng-click="open1()">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                      </button>
+                    </span>
+                  </p>
+                </div>
+          </div>
+     </div>
+     <div class="row">
+          <div class="col-md-10">
+              <label>Signature</label>
+              <signaturepad/>
+          </div>
     </div>
+  </div>
+
+  <div class="form-nav">
+    <button type="submit" class="button inverse w-button" ng-click="saveForLater()">Save for Later</button>
+    <button class="button w-button" ng-click="next()">Next</button>
+  </div>
+</div>
+</div>
+
 </div>
 <!-- Pager -->
-<div class="row">
-    <div class="pull-right">
-        <nav>
-            <ul class="pager">
-                <li class="previous"><a href="#"><span class="glyphicon glyphicon-menu-left"
-                                                       aria-hidden="true"></span> Previous</a></li>
-                <li class="next"><a href="#">Next <span class="glyphicon glyphicon-menu-right"
-                                                        aria-hidden="true"></span></a></li>
-            </ul>
-        </nav>
-    </div>
-</div> <!-- /.row -->
-
-
-<hr>
-<footer class="margin-tb-3">
-    <div class="row">
-        <div class="col-lg-12">
-            <p>Copyright &copy; AZ Hackathon 2016</p>
-        </div>
-    </div>
-</footer>
