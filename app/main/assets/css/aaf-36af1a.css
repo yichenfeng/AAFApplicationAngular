@@ -1,3 +1,15 @@
+.container-fluid {
+  padding-top:180px;
+}
+.error {
+  color: red;
+  font-family: Lora, sans-serif;
+  font-size: 14px;
+}
+div.col-xs-1 {
+  padding-left: 8px;
+  padding-right: 8px;
+}
 body {
   font-family: Lora, sans-serif;
   color: #333;
