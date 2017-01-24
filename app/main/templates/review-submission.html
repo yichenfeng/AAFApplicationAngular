@@ -39,13 +39,13 @@
                 <div class=" col-md-5">
                     <div class="form-group">
                       <label>Print Name :</label>
-                      <input type="name" placeholder="Print Name" class="form-control">
+                      <input type="name" placeholder="Print Name" class="form-control" ng-model="printedName">
                     </div>
                 </div>
                 <div class="col-md-5">
                   <label>Date : </label>
                   <p class="input-group">
-                  <input id="date" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt"
+                  <input id="date" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="signatureDate"
                       is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"
                       alt-input-formats="altInputFormats" placeholder="Date" />
                     <span class="input-group-btn">
@@ -58,16 +58,15 @@
           </div>
      </div>
      <div class="row">
-          <div class="col-md-10">
-              <label>Signature</label>
+       <div class="col-md-10">
               <signaturepad/>
-          </div>
+      </div>
     </div>
   </div>
 
   <div class="form-nav">
-    <button type="submit" class="button inverse w-button" ng-click="saveForLater()">Save for Later</button>
-    <button class="button w-button" ng-click="next()">Next</button>
+    <button type="submit" class="button inverse w-button" id="save">Save for Later</button>
+    <button class="button w-button" ng-click="submit()">Submit</button>
   </div>
 </div>
 </div>

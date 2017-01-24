@@ -1,16 +1,27 @@
 'use strict';
-angular.module('myApp')
-.controller('ReviewSubmissionCtrl', function ($scope, $http, $state, DataService, $rootScope, $filter) {
+ angular.module('myApp')
+.controller('ReviewSubmissionCtrl', function ($scope, $http, $state, DataService, $document, $rootScope, $filter, SignaturePad) {
+
+      // var cancelButton = document.getElementById('clear');
+      //
+      // cancelButton.addEventListener('click', function (event) {
+      //   signaturePad.clear();
+      // });
+
+
+     function phil(){
+      console.log(rollTide);
+    }
 
     $scope.max = 1000;
     $scope.count = 0;
 
     $scope.today = function() {
-      $scope.dt = new Date();
+      $scope.signatureDate = new Date();
     };
 
     $scope.clear = function() {
-      $scope.dt = null;
+      $scope.signatureDate = null;
     };
 
     $scope.inlineOptions = {
@@ -38,7 +49,7 @@ angular.module('myApp')
     };
 
     $scope.setDate = function(year, month, day) {
-      $scope.dt = new Date(year, month, day);
+      $scope.signatureDate = new Date(year, month, day);
     };
 
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd/MM/yyyy', 'MM/dd/yyyy', 'shortDate'];
