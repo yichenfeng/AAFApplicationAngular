@@ -3,6 +3,12 @@ class RequestType(object):
     DONATION = 'donation'
     FILE = 'documents'
 
+class RequestActions(object):
+    SUBMIT = 'submit'
+    APPROVE = 'approve'
+    DENY = 'deny'
+    CLOSE = 'close'
+
 class RequestStatus(object):
     CREATED = 'Created'
     SUBMITTED = 'Submitted'
