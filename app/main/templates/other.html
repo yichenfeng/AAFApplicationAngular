@@ -1,74 +1,53 @@
 <!-- Page Content -->
-<div class="container-fluid" style="padding-top:10px;">
-    <div class="row">
-        <h1 align="center">Other</h1>
-        <hr>
-        <br>
-    </div>
+<div class="container-fluid" style="padding-top:180px;">
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="col-sm-2 ">
-                <!-- Search -->
-                <!-- list group -->
-                <navigation/>
+			<!-- /.row -->
+	<div class="w-row">
+			    <div class="sidenav w-col w-col-3">
+					<!-- list group -->
+                    <h3>Application form</h3>
+                        <a ng-class="{active: $state.includes('applicationStatus')}" ui-sref="applicationStatus" class=" complete formsteps">Application Status</a>
+                        <a ng-class="{active: $state.includes('applicationInformation')}" ui-sref="applicationInformation" class="complete formsteps">Applicant Information</a>
+                        <a ng-class="{active: $state.includes('eligiblePersonnel')}" ui-sref="eligiblePersonnel" class="complete formsteps">Eligible Personnel</a>
+                        <a ng-class="{active: $state.includes('incidentInfo')}" ui-sref="incidentInfo" class="complete formsteps">Incident Info</a>
+                        <a ng-class="{active: $state.includes('assistanceRequest')}" ui-sref="assistanceRequest" class="complete formsteps">Assistance Request</a>
+                        <a ng-class="{active: $state.includes('other')}" ui-sref="other" class="formsteps working">Assistance Requested and/or Received</a>
+                        <a ng-class="{active: $state.includes('review-submission')}" ui-sref="review-submission" class="formsteps todo">Review and Submission</a>
+                </div>
 
-            </div>
-
-            <div class="col-md-4">
+        <div class="w-col w-col-9">
+            <header>
+                <h3>Assistance Requested and/or Received</h3>
+            </header>
                 <form>
                     <div class="form-group">
                         <label>The Salvation Army</label>
-                        <input type="email" class="form-control" placeholder="$">
+                        <input type="number" ng-model = "application.request_content.updatedData.salvationArmy" class="form-control" placeholder="$">
                     </div>
                     <div class="form-group">
                         <label>American Red Cross</label>
-                        <input type="password" class="form-control" placeholder="$">
+                        <input type="number" ng-model = "application.request_content.updatedData.redCross" class="form-control" placeholder="$">
                     </div>
                     <div class="form-group">
                         <label>City/County/State/Federal Social Services</label>
-                        <input type="password" class="form-control" placeholder="$">
+                        <input type="number" ng-model = "application.request_content.updatedData.cCS" class="form-control" placeholder="$">
                     </div>
                     <div class="form-group">
                         <label>Employer</label>
-                        <input type="password" class="form-control" placeholder="$">
+                        <input type="number" ng-model = "application.request_content.updatedData.employer" class="form-control" placeholder="$">
                     </div>
                     <div class="form-group">
                         <label>Other Forms of income(please describe)</label>
-                        <input type="password" class="form-control" placeholder="$">
+                        <input type="number" ng-model = "application.request_content.updatedData.other" class="form-control" placeholder="$">
+                    </div>
+
+                    <div class="form-nav">
+                        <button ng-click="saveLaterBtn()" class="button inverse w-button">Save For Later</button>
+                        <button ng-click="nextButton()" class="button w-button">Next</button>
                     </div>
                 </form>
-
-            </div>
-            </form>
 
         </div>
 
     </div>
 </div>
-
-<!-- /.row -->
-<!-- Pager -->
-<div class="row">
-    <div class="pull-right">
-        <nav>
-            <ul class="pager">
-                <li class="previous"><a href="#"><span class="glyphicon glyphicon-menu-left"
-                                                       aria-hidden="true"></span> Previous</a></li>
-                <li class="next"><a href="#">Next <span class="glyphicon glyphicon-menu-right"
-                                                        aria-hidden="true"></span></a></li>
-            </ul>
-        </nav>
-    </div>
-</div> <!-- /.row -->
-
-
-<hr>
-<footer class="margin-tb-3">
-    <div class="row">
-        <div class="col-lg-12">
-            <p>Copyright &copy; AZ Hackathon 2016</p>
-        </div>
-    </div>
-</footer>
-<!-- /.container-fluid -->

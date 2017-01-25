@@ -1,8 +1,8 @@
-<div class="container-fluid" style="padding-top:180px;">
+<div class="container-fluid">
   <div class="main-section" id="posts">
     <div class="w-container">
       <div class="w-row">
-        <div class="w-col w-col-3">
+        <div class="sidenav w-col w-col-3">
           <h3>Application form</h3>
           <a ng-class="{active: $state.includes('applicationInformation')}" ui-sref="applicationInformation" class="complete formsteps">Applicant Information</a>
           <a ng-class="{active: $state.includes('eligiblePersonnel')}" ui-sref="eligiblePersonnel" class="complete formsteps">Eligible Personnel</a>
@@ -20,14 +20,14 @@
                   <div class="row">
                     <div class="col-md-6">
                       <p class="input-group">
-                        <input id="date" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt"
-                          is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"
-                          alt-input-formats="altInputFormats" placeholder="Date" />
+                        <input id="date" type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="dt"
+                          is-open="isOpen" ng-required="true" close-text="Close" placeholder="Date" ng-focus="dateChanged()" />
                         <span class="input-group-btn">
-                          <button type="button" class="btn btn-default" ng-click="open1()">
+                          <button type="button" class="btn btn-default" ng-click="isOpen = true">
                             <i class="glyphicon glyphicon-calendar"></i>
                           </button>
                         </span>
+                        <p class="error" ng-show="showErrorMessage">Please enter a date.</p>
                       </p>
                     </div>
                   </div>
@@ -35,11 +35,12 @@
                 <div class="form-group">
                   <label for="Reason">Describe in detail the reason for your request. Include a description of the event
                     that occurred that is causing your current hardship (e.g. flood, fire, tornado, death, etc.)</label>
-                  <textarea class="form-control" ng-model="description" rows="10" id="Reason" limit-words></textarea>
+                  <textarea class="form-control" ng-model="application.request_content.updatedData.incident_description"
+                    rows="10" id="Reason" limit-words></textarea>
                 </div>
                 <div class="form-nav">
                   <button type="submit" class="button inverse w-button" ng-click="saveForLater()">Save for Later</button>
-                  <button class="button w-button" ng-click="next()">Next</button>
+                  <button class="button w-button" ng-click="next($event)">Next</button>
                 </div>
               </div>
             </form>
