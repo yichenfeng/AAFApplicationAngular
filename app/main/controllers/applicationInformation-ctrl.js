@@ -14,10 +14,6 @@ angular.module('myApp')
     $scope.showPermAddressError = false;
   };
 
-  $scope.jobTypeSelected = function () {
-    $scope.showJobTypeError = false;
-  };
-
   $scope.saveForLater = function() {
     $state.go('home');
   };
