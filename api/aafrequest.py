@@ -72,6 +72,7 @@ class AAFRequest(object):
             return False 
 
     def IsReadyToSubmit(self):
+        ##Add validation
         return True
 
     def Update(self, user_id, data):

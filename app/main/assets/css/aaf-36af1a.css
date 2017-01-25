@@ -17,12 +17,12 @@
   display: inline;
   margin-right: 15px;
 }
+.container-fluid {
+  padding-top:180px;
+}
 div.col-xs-1 {
   padding-left: 8px;
   padding-right: 8px;
-}
-.container-fluid {
-  padding-top: 180px;
 }
 body {
   font-family: Lora, sans-serif;

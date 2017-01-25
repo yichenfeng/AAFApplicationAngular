@@ -11,13 +11,25 @@ from os import environ
 from functools import wraps
 import json
 import base64
+import logging
+import time
+from logging.handlers import RotatingFileHandler
+from logging import Formatter
 #constants file in this directory
-from const import RequestType, ResponseType
+from const import RequestType, ResponseType, RequestActions
 from auth import AuthHelper
 from aafrequest import AAFRequest, AAFSearch
 
 #move this to init script - stest up the base app object
 app = Flask(__name__)
+
+handler = RotatingFileHandler('/var/log/aaf_api.log', maxBytes=10000, backupCount=1)
+handler.setLevel(logging.INFO)
+handler.setFormatter(Formatter(
+    '%(asctime)s %(levelname)s: %(message)s '
+    '[in %(pathname)s:%(lineno)d]'
+))
+app.logger.addHandler(handler)
 
 #check request type from the path
 def IsValidRequest(request_type):
@@ -76,7 +88,7 @@ def get_upd_request(request_type, request_id=None):
         if request_id and not aaf_request.IsExistingRequest():
             return abort(404)
         elif not IsUserAdmin(user_id) and not aaf_request.IsUserCreator(user_id):
-            return abort(401)
+            return abort(403)
         if request.method == 'POST':
            if request.json:
                aaf_request.Update(user_id, request.json)
@@ -88,7 +100,17 @@ def get_upd_request(request_type, request_id=None):
 
 @app.route('/api/request/<request_type>/<request_id>/<action>', methods=['POST'])
 def request_action(request_type, request_id, action):
-    return('type: %s - id: %s - action: %s' % (request_type, request_id, action))
+    user_id = int(request.headers['OpenAMHeaderID'])
+
+    #non-admin users may only submit new requests
+    if action != RequestActions.SUBMIT and not IsUserAdmin(user_id):
+        return abort(403)
+    if not IsValidRequest(request_type):
+        return GetResponseJson(ResponseType.ERROR, "invalid request")
+    else:
+        #aaf_request = AAFRequest(request_type, request_id)
+        return('type: %s - id: %s - action: %s' % (request_type, request_id, action))
+
 
 @app.route('/api/request/<request_type>/<request_id>/document', methods=['GET'])
 def get_request_docs():
@@ -116,6 +138,10 @@ def document(request_type, request_id, document_id=None):
                 abort(404)
             return GetResponseJson(ResponseType.SUCCESS, document)
 
+@app.errorhandler(500)
+def server_error(e):
+    return GetResponseJson(ResponseType.ERROR, "Unexpected server error, please see app logs for additional details.")
+
 
 #run the app, needs to be moved to init file
 if __name__ == '__main__':
@@ -124,4 +150,5 @@ if __name__ == '__main__':
         PORT = int(environ.get('SERVER_PORT', '5555'))
     except ValueError:
         PORT = 5555
+
     app.run(HOST, PORT)
