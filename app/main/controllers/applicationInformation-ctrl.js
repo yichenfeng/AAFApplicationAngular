@@ -2,18 +2,6 @@
 angular.module('myApp')
 .controller('ApplicationInformationCtrl', function ($scope, $state, $rootScope) {
 
-  $scope.changeBehalf = function () {
-    $scope.showBehalfError = false;
-  };
-
-  $scope.changeJobType = function () {
-    $scope.showJobTypeError = false;
-  };
-
-  $scope.changePermAddress = function () {
-    $scope.showPermAddressError = false;
-  };
-
   $scope.saveForLater = function() {
     $state.go('home');
   };
