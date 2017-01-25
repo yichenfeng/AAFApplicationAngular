@@ -1,6 +1,6 @@
 'use strict';
 angular.module('myApp')
-.controller('ApplicationInformationCtrl', function ($scope, $state, $http, $rootScope) {
+.controller('ApplicationInformationCtrl', function ($scope, $state, $rootScope) {
 
   $scope.showBehalfError = false;
   $scope.showPermAddressError = false;

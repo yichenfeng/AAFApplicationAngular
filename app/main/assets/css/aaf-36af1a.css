@@ -2,6 +2,9 @@
   height: 33px;
   width: 100%;
 }
+#app-info-col-2 {
+  clear: both;
+}
 .error {
    color: red;
    font-family: Lora, sans-serif;
