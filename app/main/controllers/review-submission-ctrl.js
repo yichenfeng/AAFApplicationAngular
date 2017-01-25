@@ -2,16 +2,14 @@
  angular.module('myApp')
 .controller('ReviewSubmissionCtrl', function ($scope, $http, $state, DataService, $document, $rootScope, $filter, SignaturePad) {
 
-      // var cancelButton = document.getElementById('clear');
-      //
-      // cancelButton.addEventListener('click', function (event) {
-      //   signaturePad.clear();
-      // });
 
+      $scope.submit = function() {
+    // var SendData =  $rootScope.application.request_content.updatedData;
+    // console.log(MathService.data.image);
+    //  SendData = MathService.data.image;
 
-     function phil(){
-      console.log(rollTide);
-    }
+      };
+
 
     $scope.max = 1000;
     $scope.count = 0;

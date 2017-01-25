@@ -1,22 +1,24 @@
 <!-- Page Content -->
-<div class="container-fluid" style="padding-top:10px;">
-    <div class="row">
-        <h1 align="center">Review and Submission</h1>
-        <hr>
-        <br>
-    </div>
+<div class="container-fluid" style="padding-top:160px;">
 
 <div class="row">
    <div class="col-md-12">
 
-        <div class="col-sm-2 ">
-            <navigation/>
-        </div>
-
-  <div class="col-md-10">
+     <div class="sidenav w-col w-col-3">
+     <!-- list group -->
+               <h3>Review and Submission</h3>
+                   <a ng-class="{active: $state.includes('applicationStatus')}" ui-sref="applicationStatus" class=" complete formsteps">Application Status</a>
+                   <a ng-class="{active: $state.includes('applicationInformation')}" ui-sref="applicationInformation" class="complete formsteps">Applicant Information</a>
+                   <a ng-class="{active: $state.includes('eligiblePersonnel')}" ui-sref="eligiblePersonnel" class="complete formsteps">Eligible Personnel</a>
+                   <a ng-class="{active: $state.includes('incidentInfo')}" ui-sref="incidentInfo" class="complete formsteps">Incident Info</a>
+                   <a ng-class="{active: $state.includes('assistanceRequest')}" ui-sref="assistanceRequest" class="complete formsteps">Assistance Request</a>
+                   <a ng-class="{active: $state.includes('other')}" ui-sref="other" class="complete formsteps">Assistance Requested and/or Received</a>
+                   <a ng-class="{active: $state.includes('review-submission')}" ui-sref="review-submission" class="formsteps working">Review and Submission</a>
+       </div>
+  <div class="col-md-9">
       <div class="row">
-        <div class="col-md-10">
-                <h3>Signatures </h3>
+        <div class="col-md-9">
+                <h3>Review and Submission</h3>
                 <p>I hereby certify that the information provided herein is true and accurate. I am verifying that I
                     have no personal funds, such as savings or checking account funds, available to me. I am also aware
                     that any statements made herein which are willfully false are subject to penalty under applicable
@@ -35,17 +37,17 @@
       </div>
 
     <div class="row">
-          <div class="col-md-10">
+          <div class="col-md-9">
                 <div class=" col-md-5">
                     <div class="form-group">
                       <label>Print Name :</label>
-                      <input type="name" placeholder="Print Name" class="form-control" ng-model="printedName">
+                      <input type="name" placeholder="Print Name" class="form-control" ng-model="application.request_content.updatedData.review.printedName">
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                   <label>Date : </label>
                   <p class="input-group">
-                  <input id="date" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="signatureDate"
+                  <input id="date" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="application.request_content.updatedData.review.signatureDate"
                       is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"
                       alt-input-formats="altInputFormats" placeholder="Date" />
                     <span class="input-group-btn">
@@ -65,7 +67,7 @@
   </div>
 
   <div class="form-nav">
-    <button type="submit" class="button inverse w-button" id="save">Save for Later</button>
+    <button type="submit" ui-sref="home" class="button inverse w-button" id="save">Save for Later</button>
     <button class="button w-button" ng-click="submit()">Submit</button>
   </div>
 </div>
