@@ -2,25 +2,19 @@
 angular.module('myApp')
 .controller('ApplicationInformationCtrl', function ($scope, $state, $rootScope) {
 
-  $scope.showBehalfError = false;
-  $scope.showPermAddressError = false;
-  $scope.showJobTypeError = false;
-  var isBehalfSelected = false;
-  var isPermAddressSelected = false;
-  var isJobTypeSelected = false;
-
-  $scope.behalfSelected = function () {
-    isBehalfSelected = true;
+  $scope.changeBehalf = function () {
     $scope.showBehalfError = false;
   };
 
-  $scope.permAddressSelected = function () {
-    isPermAddressSelected = true;
+  $scope.changeJobType = function () {
+    $scope.showJobTypeError = false;
+  };
+
+  $scope.changePermAddress = function () {
     $scope.showPermAddressError = false;
   };
 
   $scope.jobTypeSelected = function () {
-    isJobTypeSelected = true;
     $scope.showJobTypeError = false;
   };
 
@@ -34,14 +28,14 @@ angular.module('myApp')
       $state.go('eligiblePersonnel');
     } else {
       event.preventDefault();
-      if (!isBehalfSelected) {
+      if ($scope.showBehalfError !== false) {
         $scope.showBehalfError = true;
       }
-      if (!isPermAddressSelected) {
-        $scope.showPermAddressError = true;
-      }
-      if (!isJobTypeSelected) {
+      if ($scope.showJobTypeError !== false) {
         $scope.showJobTypeError = true;
+      }
+      if ($scope.showPermAddressError !== false) {
+        $scope.showPermAddressError = true;
       }
     }
   };
