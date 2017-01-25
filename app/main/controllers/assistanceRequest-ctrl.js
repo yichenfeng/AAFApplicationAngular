@@ -1,6 +1,6 @@
 'use strict';
 angular.module('myApp')
-.controller('AssistanceRequestCtrl', function ($scope, $http, $state, DataService, $rootScope) {
+.controller('AssistanceRequestCtrl', function ($scope, $http, $state, $rootScope) {
 
 var data = $scope.user;
 $scope.submitForm = function(isValid) {
