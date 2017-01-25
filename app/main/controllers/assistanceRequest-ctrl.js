@@ -1,30 +1,19 @@
 'use strict';
 angular.module('myApp')
-.controller('AssistanceRequestCtrl', function ($scope, $state, ModalService) {
+.controller('AssistanceRequestCtrl', function ($scope, $http, $state, DataService, $rootScope) {
 
+var data = $scope.user;
+$scope.submitForm = function(isValid) {
 
-  $scope.saveRequestInfo = function (info)
-  {
+$scope.submitted = true;
 
-  {
-    var amount = info.amount;
-      var shelter = info.shelter;
-      var funeral = info.funeral;
-      var utilities = info.utilities;
-      var fire = info.fire;
-      var naturalDisaster = info.naturalDisaster;
-      var other = info.other;
-
-console.log(info);
-
-if (fire || funeral == true){
-console.log("true");
-}
-else {
-  console.log("not true");
+if (( $scope.application.request_content.updatedData.user.fire || $scope.application.request_content.updatedData.user.other || $scope.application.request_content.updatedData.user.utilities ||
+   $scope.user.options || $scope.application.request_content.updatedData.user.disaster || $scope.application.request_content.updatedData.user.funeral) == true){
+$state.go('other');
 }
 
   };
-    };
+
+
 
 });
