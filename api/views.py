@@ -47,7 +47,7 @@ def GetCurUserId():
 #prepare the response for the user
 def GetResponseJson(response_status, results):
     app.logger.error(results)
-    return json.dumps({"status" : response_status, "result" : results}, default=json_util.default)
+    return json_util.dumps({"status" : response_status, "result" : results}, json_options=json_util.STRICT_JSON_OPTIONS)
 
 def IsUserAdmin(user_id):
     helper = AuthHelper()
@@ -65,20 +65,26 @@ def hello():
 
 #Search method - query string can contain any of the attributes of a request
 #If _id is previded as a search param, redirects to /request_type/id
-@app.route('/api/request/<request_type>', methods=['GET'])
+@app.route('/api/request/<request_type>/search', methods=['POST'])
 def search_requests(request_type):
     if IsValidRequest(request_type):
-        find_input = { }
-        for arg in request.args:
-            #if sys id passed, redirect to request view
-            if arg == '_id':
-                return redirect(url_for('get_upd_request', request_type=request_type, request_id=request.args.get(arg)))
-            find_input[arg] = request.args.get(arg)
-
+        app.logger.error(json_util.loads(json.dumps(request.json), json_options=json_util.JSONOptions(tz_aware=False)))
+        if request.json:
+            app.logger.error('json found')
+            find_input = request.json
+        else:
+            app.logger.error('json not found')
+            find_input = { }
+#        for arg in request.args:
+#            #if sys id passed, redirect to request view
+#            if arg == '_id':
+#                return redirect(url_for('get_upd_request', request_type=request_type, request_id=request.args.get(arg)))
+#            find_input[arg] = request.args.get(arg)
+#
         #if user is not admin, add user id to search params
         if not IsUserAdmin(request.headers['OpenAMHeaderID']):
-            find_input['user_id'] = GetCurUserId()
-
+            find_input['created_by'] = GetCurUserId()
+        app.logger.error('input = %s' % (find_input))
         return GetResponseJson(ResponseType.SUCCESS, AAFSearch.Search(request_type, find_input))
     else:
         return GetResponseJson(ResponseType.ERROR, "invalid request - type")

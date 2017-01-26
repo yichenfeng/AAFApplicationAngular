@@ -11,7 +11,7 @@ class AAFSearch(object):
         conn = MongoConnection()
         mongo_collection = conn.GetCollection(request_type)
         mongo_interface = MongoInterface()
-        return mongo_interface.findDocuments(mongo_collection, query, sort)
+        return mongo_interface.findDocuments(mongo_collection, json_util.loads(json.dumps(query), json_options=json_util.JSONOptions(tz_aware=False)), sort)
 
 class AAFRequest(object):
     def __init__(self, request_type, request_id=None):
@@ -34,7 +34,7 @@ class AAFRequest(object):
         meta['created_date'] = now
         meta['updated_by'] = user_id
         meta['update_date'] = now
-        meta['status'] = RequestStatus.CREATED
+        meta['status'] = RequestStatus.DRAFT
         meta['documentation'] = [ ]
 
         return meta
