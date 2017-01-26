@@ -37,11 +37,13 @@
       </div>
 
     <div class="row">
+      <form name="submissionForm" novalidate>
           <div class="col-md-9">
                 <div class=" col-md-5">
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{ 'has-error' : submissionForm.name.$invalid && submitted}">
                       <label>Print Name :</label>
-                      <input type="name" placeholder="Print Name" class="form-control" ng-model="application.request_content.updatedData.review.printedName">
+                      <input type="name" placeholder="Print Name" name="name" class="form-control" ng-model="application.request_content.updatedData.review.printedName" required>
+                      <p ng-show="submissionForm.name.$invalid && submitted" class="help-block">Your name is required.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -49,7 +51,7 @@
                   <p class="input-group">
                   <input id="date" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="application.request_content.updatedData.review.signatureDate"
                       is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"
-                      alt-input-formats="altInputFormats" placeholder="Date" />
+                      alt-input-formats="altInputFormats" placeholder="Date" >
                     <span class="input-group-btn">
                       <button type="button" class="btn btn-default" ng-click="open1()">
                         <i class="glyphicon glyphicon-calendar"></i>
@@ -58,6 +60,7 @@
                   </p>
                 </div>
           </div>
+        <form>
      </div>
      <div class="row">
        <div class="col-md-10">
@@ -68,7 +71,7 @@
 
   <div class="form-nav">
     <button type="submit" ui-sref="home" class="button inverse w-button" id="save">Save for Later</button>
-    <button class="button w-button" ng-click="submit()">Submit</button>
+    <button class="button w-button" ng-click="submit(submissionForm.$invalid)">Submit</button>
   </div>
 </div>
 </div>
