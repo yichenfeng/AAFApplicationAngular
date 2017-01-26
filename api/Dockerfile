@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
   build-essential
 COPY . /app
 WORKDIR /app
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 ENTRYPOINT ["python"]
 CMD ["views.py"]
