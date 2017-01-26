@@ -1,6 +1,9 @@
+import json
+from bson import json_util
 from database import MongoConnection, MongoInterface
 from const import RequestType, RequestStatus
 from datetime import datetime
+from validate import ValidateAsstReq 
 
 class AAFSearch(object):
     @staticmethod
@@ -25,7 +28,7 @@ class AAFRequest(object):
             self.request_details = None
             
     def _getNewMetaData(self, user_id):
-        now = datetime.utcnow().strftime("%m/%d/%Y %I:%M%p")
+        now = datetime.utcnow() #.strftime("%m/%d/%Y %I:%M%p")
         meta = { }
         meta['created_by'] = user_id
         meta['created_date'] = now
@@ -39,14 +42,14 @@ class AAFRequest(object):
     def _getUpdateMetaData(self, user_id):
         meta = { }
         meta['updated_by'] = user_id
-        meta['update_date'] = datetime.utcnow().strftime("%m/%d/%Y %I:%M%p")
+        meta['update_date'] = datetime.utcnow() #.strftime("%m/%d/%Y %I:%M%p")
 
         return meta
 
     def _getNewDocumentMetaData(self, user_id, file_name, doc_id, description=None):
         meta = { }
         meta['created_by'] = user_id
-        meta['created_date'] = datetime.utcnow().strftime("%m/%d/%Y %I:%M%p") 
+        meta['created_date'] = datetime.utcnow() #.strftime("%m/%d/%Y %I:%M%p") 
         meta['file_name'] = file_name
         meta['doc_id'] = doc_id
         meta['description'] = description
@@ -75,15 +78,23 @@ class AAFRequest(object):
         ##Add validation
         return True
 
+    def GetRequestDetails(self):
+        return self.request_details.to_son()
+
     def Update(self, user_id, data):
+        #validate the input against request schema, throws meanigful exception that 
+        #is returned by the service
+        data = ValidateAsstReq(data)
+        #convert input to bson object that can be sent to mongodb
+        data_bson = json_util.loads(json.dumps(data))
         if self.IsExistingRequest():
             update_details = self._getUpdateMetaData(user_id)         
             for key in data:
-                update_details['request_content.'+ key] = data[key] 
+                update_details['request_content.'+ key] = data_bson[key] 
             self.mongo_interface.updateDocument(self.mongo_collection, update_details, self.request_id)
         else:
             insert_details = self._getNewMetaData(user_id)
-            insert_details['request_content'] = data
+            insert_details['request_content'] = data_bson
             self.request_id = self.mongo_interface.insertDocument(self.mongo_collection, insert_details)
         
         self.request_details = self.mongo_interface.getDocument(self.mongo_collection, self.request_id)
