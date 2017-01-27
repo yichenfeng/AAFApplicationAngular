@@ -4,7 +4,7 @@
 ###See URL for guite to validation class
 ###Wrap validation call in try/except and return error messages as results to web service
 #########################################################################################
-from voluptuous import Schema, All, Any, Length, Required, Datetime, Boolean
+from voluptuous import Schema, All, Any, Length, Required, Datetime, Boolean, Email
 import datetime
 
 def IsValid(schema, data):
@@ -19,12 +19,46 @@ test_schema = Schema( { Required(1) : 'one',
                         4 : [ Any(str, unicode), 5, 'five' ]} )
 
 date_schema = Schema({'$date' : int })
+personnel_schema = Schema('first_name' : Any(str, unicode),
+                              'middle_i' : Any(str, unicode),
+                              'last_name' : Any(str, unicode),
+                              'age' : int,
+                              'relationship' : str)
 
 assistance_schema = Schema( { 'first_name' : Any(str, unicode),
                               'middle_name' : Any(str, unicode),
                               'last_name' : Any(str, unicode),
+                              'employee_id' : int,
+                              'status' : ['full_time', 'part_time'],
                               'position' : Any(str, unicode),
                               'store_dept_no' : int,
+                              'permanenet_address' : ['own', 'rent'],
+                              'address1' : str,
+                              'address2' : str,
+                              'city' : str,
+                              'state' : str, #needs review
+                              'zip' : str, #needs review
+                              'day_phone' : str, #needs review
+                              'night_phone' : str, #needs review
+                              'email' : Email(),
+                              'eligible_personnel' : [personnel_schema],
+                              'event_date' : date_schema,
+                              'event_description' : str,
+                              'amount_requested' : float,
+                              'shelter' : ['', '', ''],
+                              'funeral' : Boolean(),
+                              'utilities' : Boolean(),
+                              'fire' : Boolean(),
+                              'natural_disaster' : Boolean(),
+                              'other' : Boolean(),
+                              'assist_salv_army' : float,
+                              'assist_red_cross' : float,
+                              'assist_govt' : float,
+                              'assist_employer' : float,
+                              'assist_other' : float,
+                              'sumbit_name' : str,
+                              'submit_date' : date_schema,
+                              'signature' : str,
                               'event_date' : date_schema,
                               'funeral' : Boolean() } )
 
