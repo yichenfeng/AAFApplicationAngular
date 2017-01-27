@@ -1,23 +1,14 @@
 ##Sucessuful submit
-curl -X POST http://localhost/api/request/assistance -H "OpenAMHeaderID: 10705332" -H "Content-Type: application/json" -d '{"user_id" : "10705332", "name" : "Trevor Robinson", "data" : "test_request"}'
-{'result': ObjectId('584c887cba35bee1ce2b57e0')}
+curl -X POST http://localhost/api/request/assistance -H "OpenAMHeaderID: 10705332" -H "Content-Type: application/json" -d '{ "applicantInfo" : { "employee_id" : 10705332, "first_name" : "Trevor Robinson" } }'
 
 #Submitter - Able to retrieve
-curl -X GET http://localhost/api/request/assistance/584c887cba35bee1ce2b57e0 -H "OpenAMHeaderID: 10705332"
-{'status': 'success', 'result': {'data': 'test_request', '_id': ObjectId('584c887cba35bee1ce2b57e0'), 'user_id': '10705332', 'name': 'Trevor Robinson'}}
-
+curl -X GET http://localhost/api/request/assistance/<req_id>-H "OpenAMHeaderID: 10705332"
 
 #Admin User - Able to retrieve
-curl -X GET http://localhost/api/request/assistance/584c887cba35bee1ce2b57e0 -H "OpenAMHeaderID: 10705432"
-{'status': 'success', 'result': {'data': 'test_request', '_id': ObjectId('584c887cba35bee1ce2b57e0'), 'user_id': '10705332', 'name': 'Trevor Robinson'}}
-
+curl -X GET http://localhost/api/request/assistance/<req_id> -H "OpenAMHeaderID: 10705432"
 
 #non-admin - not able to retrieve
-curl -X GET http://localhost/api/request/assistance/584c887cba35bee1ce2b57e0 -H "OpenAMHeaderID: 10705431"
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
-<title>401 Unauthorized</title>
-<h1>Unauthorized</h1>
-<p>The server could not verify that you are authorized to access the URL requested.  You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.</p>
+curl -X GET http://localhost/api/request/assistance/<req_id> -H "OpenAMHeaderID: 10705431"
 
 #basic search - returns all requests visible to user - add matching criteria to the post data
 #format should be mongo extended json and match aaf request schema.
