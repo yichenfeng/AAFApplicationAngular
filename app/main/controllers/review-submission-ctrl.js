@@ -45,6 +45,7 @@
             console.log("Valid Check failed");
         }
             else {
+
           $ctrl.open();
         }
 
