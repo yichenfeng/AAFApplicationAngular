@@ -12,8 +12,8 @@ var config = {
             };
 var data = {
                 user_id: passedIn.employeeID,
-                name: passedIn.firstName,
-                data: passedIn.address1
+                first_name: passedIn.firstName,
+                address1: passedIn.address1
             };
             console.log(data);
 

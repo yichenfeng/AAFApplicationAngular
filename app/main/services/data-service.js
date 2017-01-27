@@ -32,7 +32,7 @@ angular.module('myApp')
       headers: {
         'OpenAMHeaderID': '10705332' //TODO: remove this, it wont be needed in prod
       },
-      data: {"created_by" : employeeId}
+      data: {created_by : employeeId}
     }).then(function callback(response) {
       if (response.data && response.data.status == "success") {
         return response.data.result;

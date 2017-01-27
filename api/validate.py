@@ -19,11 +19,11 @@ test_schema = Schema( { Required(1) : 'one',
                         4 : [ Any(str, unicode), 5, 'five' ]} )
 
 date_schema = Schema({'$date' : int })
-personnel_schema = Schema('first_name' : Any(str, unicode),
-                              'middle_i' : Any(str, unicode),
-                              'last_name' : Any(str, unicode),
+personnel_schema = Schema( { 'fname' : Any(str, unicode),
+                              'initial' : Any(str, unicode),
+                              'lname' : Any(str, unicode),
                               'age' : int,
-                              'relationship' : str)
+                              'relationship' : str } )
 
 assistance_schema = Schema( { 'first_name' : Any(str, unicode),
                               'middle_name' : Any(str, unicode),
@@ -45,11 +45,11 @@ assistance_schema = Schema( { 'first_name' : Any(str, unicode),
                               'event_date' : date_schema,
                               'event_description' : str,
                               'amount_requested' : float,
-                              'shelter' : ['', '', ''],
+                              'shelter' : ['temporary', 'eviction', 'homeless'],
                               'funeral' : Boolean(),
                               'utilities' : Boolean(),
                               'fire' : Boolean(),
-                              'natural_disaster' : Boolean(),
+                              'naturalDisaster' : Boolean(),
                               'other' : Boolean(),
                               'assist_salv_army' : float,
                               'assist_red_cross' : float,
