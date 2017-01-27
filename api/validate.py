@@ -5,6 +5,7 @@
 ###Wrap validation call in try/except and return error messages as results to web service
 #########################################################################################
 from voluptuous import Schema, All, Any, Length, Required, Datetime, Boolean, Email
+from decimal import Decimal
 import datetime
 
 def IsValid(schema, data):
@@ -15,7 +16,7 @@ def ValidateAsstReq(data):
 
 test_schema = Schema( { Required(1) : 'one', 
                         Required(2) : All(Any(str, unicode), Length(min=1)),
-                        Required('3') : int,
+                        Required('3') : float,
                         4 : [ Any(str, unicode), 5, 'five' ]} )
 
 date_schema = Schema({'$date' : int })
@@ -54,11 +55,11 @@ requested_schema = Schema( { 'amount_requested' : float,
                               'naturalDisaster' : Boolean(),
                               'other' : Boolean() } )
 
-recieved_schema = Schema( { 'assist_salv_army' : float,
-                              'assist_red_cross' : float,
-                              'assist_govt' : float,
-                              'assist_employer' : float,
-                              'assist_other' : float } )
+recieved_schema = Schema( { 'assist_salv_army' : str,    #need to discuss data type
+                              'assist_red_cross' : str,
+                              'assist_govt' : str,
+                              'assist_employer' : str,
+                              'assist_other' : str } )
 
 submit_schema = Schema( { 'sumbit_name' : str,
                               'submit_date' : date_schema,
@@ -73,6 +74,6 @@ assistance_schema = Schema( { 'applicantInfo' : applicant_schema,
 
 if __name__ == '__main__':
     print type(1485382223700)
-    print(IsValid(test_schema, { 1: 'one', 2 : 'three' , '3' : 2, 4 : ['4', 5, '6'] }))
+    print(IsValid(test_schema, { 1: 'one', 2 : 'three' , '3' : 2.5, 4 : ['4', 5, '6'] }))
     print(IsValid(date_schema, {"$date": 1485382223700}))
     print(ValidateAsstReq({ 'applicantInfo' : { 'first_name' : 'Trevor', 'store_dept_no' : 23 }, 'incidentInfo' : { 'event_date' : {"$date": 1485382223700} }, 'assistanceRequested': { 'funeral' : False} } ))
