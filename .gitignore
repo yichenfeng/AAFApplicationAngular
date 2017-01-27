@@ -6,3 +6,7 @@ tmp
 .idea
 __pycache__/
 *.pyc
+*.iml
+*.ipr
+*.iws
+atlassian-ide-plugin.xml
