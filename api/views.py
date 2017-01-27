@@ -144,9 +144,13 @@ def document(request_type, request_id, document_id=None):
 
 #returns current user info from ldap
 @app.route('/api/userinfo', methods=['GET'])
-def curr_user_details():
+@app.route('/api/userinfo/<user_id>', methods=['GET'])
+def curr_user_details(user_id=None):
     try:
-        user_details = GetUserById(GetCurUserId())
+        if user_id:
+            user_details = GetUserById(user_id)
+        else:
+            user_details = GetUserById(GetCurUserId())
 
         return GetResponseJson(ResponseType.SUCCESS, user_details)
     except LdapError as ex:
