@@ -1,12 +1,53 @@
 'use strict';
  angular.module('myApp')
-.controller('ReviewSubmissionCtrl', function ($scope, $http, $state, DataService, $document, $rootScope, $filter, SignaturePad) {
+.controller('ReviewSubmissionCtrl', function ($scope, $http, $state, DataService, $document,$uibModal, $log, $rootScope, $filter, SignaturePad) {
+
+  var $ctrl = this;
+
+  $ctrl.animationsEnabled = true;
+
+  $ctrl.open = function (size, parentSelector) {
+    var parentElem = parentSelector ?
+      angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+    var modalInstance = $uibModal.open({
+      animation: $ctrl.animationsEnabled,
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      templateUrl: 'myModalContent.html',
+      controller: 'ModalInstanceCtrl',
+      controllerAs: '$ctrl',
+      size: size,
+      appendTo: parentElem,
+      resolve: {
+        items: function () {
+          return $ctrl.items;
+        }
+      }
+    });
+
+  };
+  $ctrl.items = ['item1', 'item2', 'item3'];
 
 
-      $scope.submit = function() {
-    // var SendData =  $rootScope.application.request_content.updatedData;
-    // console.log(MathService.data.image);
-    //  SendData = MathService.data.image;
+  $ctrl.toggleAnimation = function () {
+    $ctrl.animationsEnabled = !$ctrl.animationsEnabled;
+  };
+
+
+    $scope.submit = function(isValid) {
+
+        $scope.submitted = true;
+
+        if(($rootScope.application.request_content.review.signature !== undefined) && (isValid == true)) {
+          $state.go('home');
+        }
+          else if (isValid == false) {
+            console.log("Valid Check failed");
+        }
+            else {
+
+          $ctrl.open();
+        }
 
       };
 
@@ -92,4 +133,42 @@
     $scope.saveInfo = function() {
 
     };
+});
+
+
+angular.module('myApp').controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
+  var $ctrl = this;
+  $ctrl.items = items;
+  $ctrl.selected = {
+    item: $ctrl.items[0]
+  };
+
+  $ctrl.ok = function () {
+    $uibModalInstance.close($ctrl.selected.item);
+  };
+
+  $ctrl.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
+});
+
+
+angular.module('myApp').component('modalComponent', {
+  templateUrl: 'myModalContent.html',
+  bindings: {
+    resolve: '<',
+    close: '&',
+    dismiss: '&'
+  },
+  controller: function () {
+    var $ctrl = this;
+
+    $ctrl.ok = function () {
+      $ctrl.close({$value: $ctrl.selected.item});
+    };
+
+    $ctrl.cancel = function () {
+      $ctrl.dismiss({$value: 'cancel'});
+    };
+  }
 });

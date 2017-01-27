@@ -6,17 +6,16 @@ var app = angular.module('myApp')
       link: function(scope, element, attr) {
         console.log(element.find('canvas')[0]);
         var signaturePad = new SignaturePad(element.find('canvas')[0]);
+        var clearButton = document.getElementById('clear');
+        var acceptButton = document.getElementById('accept');
 
-        var cancelButton = document.getElementById('clear');
-        var saveButton = document.getElementById('save');
-
-        cancelButton.addEventListener('click', function (event) {
+        clearButton.addEventListener('click', function (event) {
          signaturePad.clear();
+         $rootScope.application.request_content.review.signature = undefined;
         });
 
-        saveButton.addEventListener('click', function (event) {
-         $rootScope.application.request_content.updatedData = signaturePad.toDataURL();
-
+        acceptButton.addEventListener('click', function (event) {
+          $rootScope.application.request_content.review.signature = signaturePad.toDataURL();
         });
 
         // Returns true if canvas is empty, otherwise returns false
