@@ -34,11 +34,7 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
     $stateProvider
       .state('home', {
         url: '/home',
-        templateUrl: 'main/templates/home.html'
-      })
-      .state('applicationStatus', {
-        url: '/applicationStatus',
-        templateUrl: 'main/templates/applicationStatus.html',
+        templateUrl: 'main/templates/home.html',
         controller: 'ApplicationStatusCtrl as ctrl'
       })
       .state('applicationInformation', {

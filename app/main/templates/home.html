@@ -1,61 +1,98 @@
-
-  <div>
-    <div class="hero-section">
-      <div class="hero-content w-container">
-        <div class="hero-heading" data-ix="hero-text">Life happens...</div>
-        <div class="hero-subheading" data-ix="hero-text-2">AutoZoners helping each other when it is needed most...</div>
-        <a class="button w-button" data-ix="hero-button" ui-sref="applicationStatus">Apply for Assistance</a>
-      </div>
-    </div>
-    <div class="bottom-padding main-section" id="posts">
-      <div class="w-container" id="Latest-post">
-        <div class="section-heading">
-          <h2 class="section-title" id="how-does-it-work">How does it work?</h2>
-          <div class="med-divider"></div>
-        </div>
-        <div>
-          <div class="w-row">
-            <div class="w-clearfix w-col w-col-6"><img class="featured-image" sizes="(max-width: 767px) 88vw, (max-width: 991px) 354px, 423px" src="/main/assets/images/photo-1443304895043-ef30921332c5.jpg" srcset="/main/assets/images/photo-1443304895043-ef30921332c5-p-500x331.jpeg 500w, /main/assets/images/photo-1443304895043-ef30921332c5-p-800x530.jpeg 800w, /main/assets/images/photo-1443304895043-ef30921332c5-p-1080x715.jpeg 1080w, /main/assets/images/photo-1443304895043-ef30921332c5.jpg 1300w">
-            </div>
-            <div class="content-copy w-col w-col-6">
-              <div class="general-copy">Ground round pancetta brisket jowl landjaeger. Pork chop corned beef shankle tri-tip, brisket short ribs meatball shank t-bone shoulder sausage. Cupim pork jerky, porchetta flank ground round tenderloin kevin. Short loin brisket cow beef, porchetta burgdoggen pancetta alcatra pork belly. Bresaola porchetta burgdoggen fatback, meatloaf filet mignon pork belly short loin short ribs jerky pork corned beef. Chuck jowl beef tri-tip biltong beef ribs cow picanha alcatra. Rump andouille boudin jowl shoulder short loin prosciutto tail turducken porchetta turkey biltong t-bone sausage.</div>
-              <div class="button-div"><a class="button w-button" ui-sref="applicationStatus">Apply for Assistance</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="how-has-it-helped w-container" id="how-has-it">
-        <div class="section-heading">
-          <h2 class="section-title">How can I help?</h2>
-          <div class="med-divider"></div>
-        </div>
-        <div>
-          <div class="w-row">
-            <div class="w-col w-col-6">
-              <div class="general-copy">Ground round pancetta brisket jowl landjaeger. Pork chop corned beef shankle tri-tip, brisket short ribs meatball shank t-bone shoulder sausage. Cupim pork jerky, porchetta flank ground round tenderloin kevin. Short loin brisket cow beef, porchetta burgdoggen pancetta alcatra pork belly. Bresaola porchetta burgdoggen fatback, meatloaf filet mignon pork belly short loin short ribs jerky pork corned beef. Chuck jowl beef tri-tip biltong beef ribs cow picanha alcatra. Rump andouille boudin jowl shoulder short loin prosciutto tail turducken porchetta turkey biltong t-bone sausage.</div>
-              <div class="button-div"><a class="button w-button" href="#">Donate to the AutoZone Assistance Fund Now!</a>
-              </div>
-            </div>
-            <div class="content-copy w-col w-col-6"><img class="featured-image goodnews" sizes="(max-width: 767px) 88vw, (max-width: 991px) 354px, 423px" src="/main/assets/images/photo-1436262513933-a0b06755c784.jpg" srcset="/main/assets/images/photo-1436262513933-a0b06755c784-p-500x331.jpeg 500w, /main/assets/images/photo-1436262513933-a0b06755c784-p-800x530.jpeg 800w, /main/assets/images/photo-1436262513933-a0b06755c784-p-1080x715.jpeg 1080w, /main/assets/images/photo-1436262513933-a0b06755c784.jpg 1300w">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="how-has-it-helped w-container" id="Most-Recent">
-        <div class="section-heading">
-          <h2 class="section-title">How has it helped?</h2>
-          <div class="med-divider"></div>
-        </div>
-        <div>
-          <div class="w-row">
-            <div class="w-clearfix w-col w-col-6"><img class="featured-image" sizes="(max-width: 479px) 88vw, (max-width: 767px) 420px, (max-width: 991px) 354px, 420px" src="/main/assets/images/cup-of-tea.jpg" srcset="/main/assets/images/cup-of-tea-p-500x334.jpeg 500w, /main/assets/images/cup-of-tea-p-800x534.jpeg 800w, /main/assets/images/cup-of-tea-p-1080x720.jpeg 1080w, /main/assets/images/cup-of-tea-p-1600x1067.jpeg 1600w, /main/assets/images/cup-of-tea-p-2000x1334.jpeg 2000w, /main/assets/images/cup-of-tea.jpg 2400w">
-            </div>
-            <div class="content-copy w-col w-col-6">
-              <div class="general-copy">Ground round pancetta brisket jowl landjaeger. Pork chop corned beef shankle tri-tip, brisket short ribs meatball shank t-bone shoulder sausage. Cupim pork jerky, porchetta flank ground round tenderloin kevin. Short loin brisket cow beef, porchetta burgdoggen pancetta alcatra pork belly. Bresaola porchetta burgdoggen fatback, meatloaf filet mignon pork belly short loin short ribs jerky pork corned beef. Chuck jowl beef tri-tip biltong beef ribs cow picanha alcatra. Rump andouille boudin jowl shoulder short loin prosciutto tail turducken porchetta turkey biltong t-bone sausage.</div>
-            </div>
-          </div>
-        </div>
-      </div>
+<div>
+  <div ng-if="application == undefined" class="hero-section">
+    <div class="hero-content w-container">
+      <div class="hero-heading" data-ix="hero-text">Life happens...</div>
+      <div class="hero-subheading" data-ix="hero-text-2">AutoZoners helping each other when it is needed most...</div>
+      <a class="button w-button" data-ix="hero-button" ui-sref="applicationInformation">Apply for Assistance</a>
     </div>
   </div>
+  <div ng-if="application !== undefined" class="status-section w-container">
+    <h2 class="section-title">Current Application Status</h2>
+    <ul class="progressbar">
+        <li ng-class="(step >= statusEnum.Created) ? 'active' : ''">In Progress</li>
+        <li ng-class="(step >= statusEnum.Submitted) ? 'active' : ''">Submitted</li>
+        <li ng-class="(step >= statusEnum.Pending) ? 'active' : ''">Approver Pending</li>
+        <li ng-class="(step > statusEnum.Pending) ? 'active' : ''">{{status}}</li>
+    </ul>
+    <br>
+    <div class="status"><a class="button w-button" ui-sref="applicationInformation">View Application</a></div>
+  </div>
+
+  <div class="bottom-padding main-section" id="posts">
+    <div class="w-container" id="Latest-post">
+      <div class="section-heading">
+        <h2 class="section-title" id="how-does-it-work">What is the AutoZoner Assistance Fund (AAF)?</h2>
+        <div class="med-divider"></div>
+      </div>
+      <div>
+        <div class="w-row">
+          <div class="w-clearfix w-col w-col-6"><img class="featured-image" sizes="(max-width: 767px) 88vw, (max-width: 991px) 354px, 423px" src="/main/assets/images/iStock-177529251.jpg">
+          </div>
+          <div class="content-copy w-col w-col-6">
+            <div class="general-copy">The AAF provides immediate, short-term financial assistance to AutoZoners, their spouses and/or their legal dependents who are victims of natural disasters and personal tragedies.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="how-has-it-helped w-container" id="how-has-it">
+      <div class="section-heading">
+        <h2 class="section-title">What does the AAF cover?</h2>
+        <div class="med-divider"></div>
+      </div>
+      <div>
+        <div class="w-row">
+          <div class="w-col w-col-6">
+            <div class="general-copy">AAF provides short-term, emergency funds for food, clothing, shelter, funeral, and utilities(extreme weather/medical devices).</div>
+          </div>
+          <div class="content-copy w-col w-col-6"><img class="featured-image goodnews" sizes="(max-width: 767px) 88vw, (max-width: 991px) 354px, 423px" src="/main/assets/images/iStock-504459918.jpg">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="how-has-it-helped w-container" id="Most-Recent">
+      <div class="section-heading">
+        <h2 class="section-title">How is the AAF funded?</h2>
+        <div class="med-divider"></div>
+      </div>
+      <div>
+        <div class="w-row">
+          <div class="w-clearfix w-col w-col-6"><img class="featured-image" sizes="(max-width: 479px) 88vw, (max-width: 767px) 420px, (max-width: 991px) 354px, 420px" src="/main/assets/images/cover.jpg">
+          </div>
+          <div class="content-copy w-col w-col-6">
+            <div class="general-copy">AAF is supported solely by AutoZoners for AutoZoners.</div>
+            <div class="button-div"><a class="button w-button" href="#">Donate Now!</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="how-has-it-helped w-container">
+      <div class="section-heading">
+        <h2 class="section-title">How do I submit an application?</h2>
+        <div class="med-divider"></div>
+      </div>
+      <div>
+        <div class="w-row">
+          <div class="content-copy w-col w-col-6">
+            <div class="general-copy">
+              <p> 1. Complete the application in its entirety.</p>
+							<p> 2. Submit the application to your human resources manager
+							to verify it meets the basic guidelines of the AAF.</p>
+							<p> 3. Submit the application by:
+                <ul>
+                  <li>Fax: 901.495.8300</li>
+                  <li>Mail: AutoZoner Assistance Fund Administrator P.O. Box 2198 - Dept. 8112 Memphis, TN 38101</li>
+                  <li>Email: assistance.fund@autozone.com</li>
+                </ul>
+                <center>OR</center>
+                <div class="button-div"><a class="button w-button" ui-sref="applicationInformation">Apply for Assistance</a></div>
+              </p>
+            </div>
+          </div>
+          <div class="w-clearfix w-col w-col-6"><img class="featured-image" sizes="(max-width: 479px) 88vw, (max-width: 767px) 420px, (max-width: 991px) 354px, 420px" src="/main/assets/images/AZers_in_atores.jpg">
+          </div>
+        </div>
+      </div>
+      <label >****NOTE: Incomplete Applications will NOT be considered and will be returned****</label>
+    </div>
+  </div>
+</div>
