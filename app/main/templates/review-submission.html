@@ -1,3 +1,4 @@
+<div ng-controller="ReviewSubmissionCtrl as $ctrl">
 <!-- Page Content -->
 <div class="container-fluid" style="padding-top:160px;">
 
@@ -37,44 +38,57 @@
       </div>
 
     <div class="row">
-      <form name="submissionForm" novalidate>
+      <form name="submissionForm" >
           <div class="col-md-9">
-                <div class=" col-md-5">
-                    <div class="form-group" ng-class="{ 'has-error' : submissionForm.name.$invalid && submitted}">
+                    <div class="col-md-5 form-group" ng-class="{ 'has-error' : submissionForm.print.$invalid && submitted}">
                       <label>Print Name :</label>
-                      <input type="name" placeholder="Print Name" name="name" class="form-control" ng-model="application.request_content.updatedData.review.printedName" required>
-                      <p ng-show="submissionForm.name.$invalid && submitted" class="help-block">Your name is required.</p>
+                      <input type="name" placeholder="Print Name" name="print" class="form-control" ng-model="application.request_content.review.printedName" required>
+                      <p ng-show="submissionForm.print.$invalid && submitted" class="help-block">Please print your name</p>
                     </div>
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-4 form-group" ng-class="{ 'has-error' : submissionForm.date.$invalid && submitted}">
                   <label>Date : </label>
                   <p class="input-group">
-                  <input id="date" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="application.request_content.updatedData.review.signatureDate"
-                      is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"
-                      alt-input-formats="altInputFormats" placeholder="Date" >
+                  <input id="date" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="application.request_content.review.signatureDate"
+                      is-open="popup1.opened" name="date" datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                      alt-input-formats="altInputFormats" placeholder="Date" required>
                     <span class="input-group-btn">
                       <button type="button" class="btn btn-default" ng-click="open1()">
                         <i class="glyphicon glyphicon-calendar"></i>
                       </button>
                     </span>
+                    <p ng-show="submissionForm.date.$invalid && submitted" class="help-block">Please select a date</p>
                   </p>
                 </div>
           </div>
-        <form>
+        </form>
      </div>
      <div class="row">
        <div class="col-md-10">
-              <signaturepad/>
+              <signaturepad imageVar="application.request_content.review.signature" />
       </div>
     </div>
   </div>
 
   <div class="form-nav">
-    <button type="submit" ui-sref="home" class="button inverse w-button" id="save">Save for Later</button>
-    <button class="button w-button" ng-click="submit(submissionForm.$invalid)">Submit</button>
+    <button ui-sref="home" class="button inverse w-button" id="save">Save for Later</button>
+    <button type="submit" class="button w-button" ng-click="submit(submissionForm.$valid)">Submit</button>
   </div>
 </div>
 </div>
+
+</div>
+
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Please sign your name</h3>
+            <p>Please make sure all of your application is correct before signing your name. </p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn " type="button" ng-click="$ctrl.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+        </div>
+    </script>
+
 
 </div>
 <!-- Pager -->
