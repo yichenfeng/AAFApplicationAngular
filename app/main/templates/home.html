@@ -3,16 +3,16 @@
     <div class="hero-content w-container">
       <div class="hero-heading" data-ix="hero-text">Life happens...</div>
       <div class="hero-subheading" data-ix="hero-text-2">AutoZoners helping each other when it is needed most...</div>
-      <a class="button w-button" data-ix="hero-button" ui-sref="applicationStatus">Apply for Assistance</a>
+      <a class="button w-button" data-ix="hero-button" ui-sref="applicationInformation">Apply for Assistance</a>
     </div>
   </div>
   <div ng-if="application !== undefined" class="status-section w-container">
     <h2 class="section-title">Current Application Status</h2>
     <ul class="progressbar">
-        <li ng-class="((application.status=='Created') || (isStep1Complete)) ? 'active' : ''">In Progress</li>
-        <li ng-class="((application.status=='Submitted') || (isStep2Complete)) ? 'active' : ''">Submitted</li>
-        <li ng-class="((application.status=='Approver Pending') || (isStep3Complete)) ? 'active' : ''">Approver Pending</li>
-        <li ng-class="((application.status=='Returned') || (application.status=='Approved') || (application.status=='Denied') || (application.status=='Completed')) ? 'active' : ''">{{status}}</li>
+        <li ng-class="(step >= statusEnum.Created) ? 'active' : ''">In Progress</li>
+        <li ng-class="(step >= statusEnum.Submitted) ? 'active' : ''">Submitted</li>
+        <li ng-class="(step >= statusEnum.Pending) ? 'active' : ''">Approver Pending</li>
+        <li ng-class="(step > statusEnum.Pending) ? 'active' : ''">{{status}}</li>
     </ul>
     <br>
     <div class="status"><a class="button w-button" ui-sref="applicationInformation">View Application</a></div>
@@ -26,12 +26,10 @@
       </div>
       <div>
         <div class="w-row">
-          <div class="w-clearfix w-col w-col-6"><img class="featured-image" sizes="(max-width: 767px) 88vw, (max-width: 991px) 354px, 423px" src="/main/assets/images/photo-1443304895043-ef30921332c5.jpg" srcset="/main/assets/images/photo-1443304895043-ef30921332c5-p-500x331.jpeg 500w, /main/assets/images/photo-1443304895043-ef30921332c5-p-800x530.jpeg 800w, /main/assets/images/photo-1443304895043-ef30921332c5-p-1080x715.jpeg 1080w, /main/assets/images/photo-1443304895043-ef30921332c5.jpg 1300w">
+          <div class="w-clearfix w-col w-col-6"><img class="featured-image" sizes="(max-width: 767px) 88vw, (max-width: 991px) 354px, 423px" src="/main/assets/images/iStock-177529251.jpg">
           </div>
           <div class="content-copy w-col w-col-6">
             <div class="general-copy">The AAF provides immediate, short-term financial assistance to AutoZoners, their spouses and/or their legal dependents who are victims of natural disasters and personal tragedies.</div>
-            <!-- <div class="button-div"><a class="button w-button" ui-sref="applicationStatus">Apply for Assistance</a> -->
-            <!-- </div> -->
           </div>
         </div>
       </div>
@@ -45,10 +43,8 @@
         <div class="w-row">
           <div class="w-col w-col-6">
             <div class="general-copy">AAF provides short-term, emergency funds for food, clothing, shelter, funeral, and utilities(extreme weather/medical devices).</div>
-            <!-- <div class="button-div"><a class="button w-button" href="#">Donate to the AutoZone Assistance Fund Now!</a>
-            </div> -->
           </div>
-          <div class="content-copy w-col w-col-6"><img class="featured-image goodnews" sizes="(max-width: 767px) 88vw, (max-width: 991px) 354px, 423px" src="/main/assets/images/photo-1436262513933-a0b06755c784.jpg" srcset="/main/assets/images/photo-1436262513933-a0b06755c784-p-500x331.jpeg 500w, /main/assets/images/photo-1436262513933-a0b06755c784-p-800x530.jpeg 800w, /main/assets/images/photo-1436262513933-a0b06755c784-p-1080x715.jpeg 1080w, /main/assets/images/photo-1436262513933-a0b06755c784.jpg 1300w">
+          <div class="content-copy w-col w-col-6"><img class="featured-image goodnews" sizes="(max-width: 767px) 88vw, (max-width: 991px) 354px, 423px" src="/main/assets/images/iStock-504459918.jpg">
           </div>
         </div>
       </div>
@@ -60,7 +56,7 @@
       </div>
       <div>
         <div class="w-row">
-          <div class="w-clearfix w-col w-col-6"><img class="featured-image" sizes="(max-width: 479px) 88vw, (max-width: 767px) 420px, (max-width: 991px) 354px, 420px" src="/main/assets/images/cup-of-tea.jpg" srcset="/main/assets/images/cup-of-tea-p-500x334.jpeg 500w, /main/assets/images/cup-of-tea-p-800x534.jpeg 800w, /main/assets/images/cup-of-tea-p-1080x720.jpeg 1080w, /main/assets/images/cup-of-tea-p-1600x1067.jpeg 1600w, /main/assets/images/cup-of-tea-p-2000x1334.jpeg 2000w, /main/assets/images/cup-of-tea.jpg 2400w">
+          <div class="w-clearfix w-col w-col-6"><img class="featured-image" sizes="(max-width: 479px) 88vw, (max-width: 767px) 420px, (max-width: 991px) 354px, 420px" src="/main/assets/images/cover.jpg">
           </div>
           <div class="content-copy w-col w-col-6">
             <div class="general-copy">AAF is supported solely by AutoZoners for AutoZoners.</div>
@@ -76,8 +72,6 @@
       </div>
       <div>
         <div class="w-row">
-          <div class="w-clearfix w-col w-col-6"><img class="featured-image" sizes="(max-width: 479px) 88vw, (max-width: 767px) 420px, (max-width: 991px) 354px, 420px" src="/main/assets/images/cup-of-tea.jpg" srcset="/main/assets/images/cup-of-tea-p-500x334.jpeg 500w, /main/assets/images/cup-of-tea-p-800x534.jpeg 800w, /main/assets/images/cup-of-tea-p-1080x720.jpeg 1080w, /main/assets/images/cup-of-tea-p-1600x1067.jpeg 1600w, /main/assets/images/cup-of-tea-p-2000x1334.jpeg 2000w, /main/assets/images/cup-of-tea.jpg 2400w">
-          </div>
           <div class="content-copy w-col w-col-6">
             <div class="general-copy">
               <p> 1. Complete the application in its entirety.</p>
@@ -90,9 +84,11 @@
                   <li>Email: assistance.fund@autozone.com</li>
                 </ul>
                 <center>OR</center>
-                <div class="button-div"><a class="button w-button" ui-sref="applicationStatus">Apply for Assistance</a></div>
+                <div class="button-div"><a class="button w-button" ui-sref="applicationInformation">Apply for Assistance</a></div>
               </p>
             </div>
+          </div>
+          <div class="w-clearfix w-col w-col-6"><img class="featured-image" sizes="(max-width: 479px) 88vw, (max-width: 767px) 420px, (max-width: 991px) 354px, 420px" src="/main/assets/images/AZers_in_atores.jpg">
           </div>
         </div>
       </div>

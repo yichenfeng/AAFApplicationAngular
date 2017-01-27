@@ -2,26 +2,27 @@
 angular.module('myApp')
 .controller('ApplicationStatusCtrl', function ($scope, $state, $rootScope) {
 
+  $scope.statusEnum = {
+    'Created' : 0,
+    'Submitted' : 1,
+    'Pending' : 2,
+    'Returned' : 3,
+    'Approved' : 4,
+    'Denied' : 5,
+    'Completed' : 6
+  };
+
   $scope.status = 'Approval Status';
-  $scope.isStep1Complete = false;
-  $scope.isStep2Complete = false;
-  $scope.isStep3Complete = false;
 
   $scope.$watch('application', function (newValue) {
-    // newValue = undefined;
-    // $rootScope.application = undefined;
     if (newValue) {
-      // $rootScope.application.status = 'Submitted';
-      if ($rootScope.application.status === 'Submitted') {
-        $scope.isStep1Complete = true;
-      } else if ($rootScope.application.status === 'Approver Pending') {
-        $scope.isStep1Complete = true;
-        $scope.isStep2Complete = true;
-      } else if (($rootScope.application.status === 'Returned') || ($rootScope.application.status === 'Approved') ||
-          ($rootScope.application.status === 'Denied') || ($rootScope.application.status === 'Completed')) {
-        $scope.isStep1Complete = true;
-        $scope.isStep2Complete = true;
-        $scope.isStep3Complete = true;
+      angular.forEach($scope.statusEnum, function (value, key) {
+        if (newValue.status === key) {
+          $scope.step = value;
+          return;
+        }
+      });
+      if ($scope.step > $scope.statusEnum.Pending) {
         $scope.status = $rootScope.application.status;
       }
     }
