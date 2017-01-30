@@ -1,4 +1,4 @@
-<div ng-controller="ReviewSubmissionCtrl as $ctrl">
+
   <!-- Page Content -->
   <div class="container-fluid reviewSubmission" >
 
@@ -35,24 +35,70 @@
                     </div>
 
                     <div class="row">
-                        <appplicationinformationreview/>
+                      <div class="col-md-9">
+                        <uib-accordion >
+                            <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" >
+                              <uib-accordion-heading>
+                                Application Information <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+                              </uib-accordion-heading>
+                                <appplicationinformationreview/>
+                            </div>
+                        </uib-accordion>
+                      </div>
                     </div>
 
                     <div class="row">
-                        <eligiblepersonnelreview/>
+                      <div class="col-md-9">
+                        <uib-accordion >
+                            <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" >
+                              <uib-accordion-heading>
+                                Eligible Personnel <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+                              </uib-accordion-heading>
+                                <eligiblepersonnelreview/>
+                            </div>
+                        </uib-accordion>
+                      </div>
                     </div>
 
                     <div class="row">
-                        <incidentinforeview/>
+                      <div class="col-md-9">
+                        <uib-accordion >
+                            <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" >
+                              <uib-accordion-heading>
+                                Incident Info <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+                              </uib-accordion-heading>
+                                <incidentinforeview/>
+                            </div>
+                        </uib-accordion>
+                      </div>
                     </div>
 
                     <div class="row">
-                        <assistancerequestreview/>
+                      <div class="col-md-9">
+                        <uib-accordion >
+                            <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" >
+                              <uib-accordion-heading>
+                                Assistance Request <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+                              </uib-accordion-heading>
+                                <assistancerequestreview/>
+                            </div>
+                        </uib-accordion>
+                      </div>
                     </div>
 
                     <div class="row">
-                        <otherreview/>
+                      <div class="col-md-9">
+                        <uib-accordion >
+                            <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" >
+                              <uib-accordion-heading>
+                                Assistance Requested and/or Received <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+                              </uib-accordion-heading>
+                                <otherreview/>
+                            </div>
+                        </uib-accordion>
+                      </div>
                     </div>
+                    
                    <hr>
                   <div class="row">
                     <form name="submissionForm" >
@@ -94,8 +140,6 @@
           </div>
       </div>
   </div>
-
-</div>
 
     <script type="text/ng-template" id="ReviewErrorModal.html">
         <div class="modal-header">

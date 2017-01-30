@@ -1,6 +1,6 @@
 'use strict';
 var app = angular.module('myApp')
-  .directive('signaturepad', ['$document', 'SignaturePad','$rootScope', function($document, SignaturePad,$rootScope) {
+  .directive('signaturepad', ['$document','SignaturePad','$rootScope', function($document, SignaturePad,$rootScope) {
     return {
 
       scope: {
@@ -15,6 +15,9 @@ var app = angular.module('myApp')
 
         acceptButton.addEventListener('click', function (event) {
           scope.signature = signaturePad.toDataURL();
+          scope.$apply(function(){
+            $rootScope.application.request_content.review.signature = signaturePad.toDataURL();
+          });
 
         });
 
