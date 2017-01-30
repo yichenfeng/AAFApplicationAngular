@@ -10,7 +10,7 @@ var app = angular.module('myApp')
       link: function(scope, element, attributes) {
         console.log(element.find('canvas')[0]);
         var signaturePad = new SignaturePad(element.find('canvas')[0]);
-        var clearButton = document.getElementById('clear');
+        var clearButton = document.getElementById('signaturePad_clear');
         var acceptButton = document.getElementById('accept');
 
         acceptButton.addEventListener('click', function (event) {
