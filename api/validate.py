@@ -27,27 +27,27 @@ personnel_schema = Schema( { 'fname' : Any(str, unicode),
                               'age' : int,
                               'relationship' : str } )
 
-applicant_schema = Schema( { 'first_name' : Any(str, unicode),
-                              'middle_name' : Any(str, unicode),
-                              'last_name' : Any(str, unicode),
-                              'employee_id' : int,
+applicant_schema = Schema( { 'firstName' : Any(str, unicode),
+                              'middleName' : Any(str, unicode),
+                              'lastName' : Any(str, unicode),
+                              'employeeId' : int,
                               'status' : ['full_time', 'part_time'],
                               'position' : Any(str, unicode),
-                              'store_dept_no' : int,
-                              'permanenet_address' : ['own', 'rent'],
+                              'storeDeptNo' : int,
+                              'permanenetAddress' : ['own', 'rent'],
                               'address1' : str,
                               'address2' : str,
                               'city' : str,
                               'state' : str, #needs review
                               'zip' : str, #needs review
-                              'day_phone' : str, #needs review
-                              'night_phone' : str, #needs review
+                              'dayPhone' : str, #needs review
+                              'nightPhone' : str, #needs review
                               'email' : Email() } )
 
-incident_schema = Schema( { 'event_date' : date_schema,
-                              'event_description' : str } )
+incident_schema = Schema( { 'eventDate' : date_schema,
+                              'eventDescription' : str } )
 
-requested_schema = Schema( { 'amount_requested' : float,
+requested_schema = Schema( { 'amountRequested' : float,
                               'shelter' : ['temporary', 'eviction', 'homeless'],
                               'funeral' : Boolean(),
                               'utilities' : Boolean(),
@@ -55,14 +55,14 @@ requested_schema = Schema( { 'amount_requested' : float,
                               'naturalDisaster' : Boolean(),
                               'other' : Boolean() } )
 
-recieved_schema = Schema( { 'assist_salv_army' : str,    #need to discuss data type
-                              'assist_red_cross' : str,
-                              'assist_govt' : str,
-                              'assist_employer' : str,
-                              'assist_other' : str } )
+recieved_schema = Schema( { 'assistSalvArmy' : str,    #need to discuss data type
+                              'assistRedCross' : str,
+                              'assistGovt' : str,
+                              'assistEmployer' : str,
+                              'assistOther' : str } )
 
 submit_schema = Schema( { 'sumbit_name' : str,
-                              'submit_date' : date_schema,
+                              'submitDate' : date_schema,
                               'signature' : str } )
 
 assistance_schema = Schema( { 'applicantInfo' : applicant_schema,
@@ -76,4 +76,4 @@ if __name__ == '__main__':
     print type(1485382223700)
     print(IsValid(test_schema, { 1: 'one', 2 : 'three' , '3' : 2.5, 4 : ['4', 5, '6'] }))
     print(IsValid(date_schema, {"$date": 1485382223700}))
-    print(ValidateAsstReq({ 'applicantInfo' : { 'first_name' : 'Trevor', 'store_dept_no' : 23 }, 'incidentInfo' : { 'event_date' : {"$date": 1485382223700} }, 'assistanceRequested': { 'funeral' : False} } ))
+    print(ValidateAsstReq({ 'applicantInfo' : { 'firstName' : 'Trevor', 'storeDeptNo' : 23 }, 'incidentInfo' : { 'eventDate' : {"$date": 1485382223700} }, 'assistanceRequested': { 'funeral' : False} } ))
