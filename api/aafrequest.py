@@ -30,10 +30,10 @@ class AAFRequest(object):
     def _getNewMetaData(self, user_id):
         now = datetime.utcnow() #.strftime("%m/%d/%Y %I:%M%p")
         meta = { }
-        meta['created_by'] = user_id
-        meta['created_date'] = now
-        meta['updated_by'] = user_id
-        meta['update_date'] = now
+        meta['createdBy'] = user_id
+        meta['createdDate'] = now
+        meta['updatedBy'] = user_id
+        meta['updateDate'] = now
         meta['status'] = RequestStatus.DRAFT
         meta['documentation'] = [ ]
 
@@ -41,23 +41,23 @@ class AAFRequest(object):
 
     def _getUpdateMetaData(self, user_id):
         meta = { }
-        meta['updated_by'] = user_id
-        meta['update_date'] = datetime.utcnow() #.strftime("%m/%d/%Y %I:%M%p")
+        meta['updatedBy'] = user_id
+        meta['updateDate'] = datetime.utcnow() #.strftime("%m/%d/%Y %I:%M%p")
 
         return meta
 
     def _getNewDocumentMetaData(self, user_id, file_name, doc_id, description=None):
         meta = { }
-        meta['created_by'] = user_id
-        meta['created_date'] = datetime.utcnow() #.strftime("%m/%d/%Y %I:%M%p") 
-        meta['file_name'] = file_name
-        meta['doc_id'] = doc_id
+        meta['createdBy'] = user_id
+        meta['createdDate'] = datetime.utcnow() #.strftime("%m/%d/%Y %I:%M%p") 
+        meta['fileName'] = file_name
+        meta['docId'] = doc_id
         meta['description'] = description
 
         return meta
 
     def IsUserCreator(self, user_id):
-        if self.request_details['created_by'] == user_id:
+        if self.request_details['createdBy'] == user_id:
             return True
         else:
             return False
@@ -69,7 +69,7 @@ class AAFRequest(object):
             return False
 
     def IsUserSubmitter(self, user_id):
-        if user_id == self.request_details['created_by']:
+        if user_id == self.request_details['createdBy']:
             return True
         else:
             return False 
@@ -90,19 +90,19 @@ class AAFRequest(object):
         if self.IsExistingRequest():
             update_details = self._getUpdateMetaData(user_id)         
             for key in data:
-                update_details['request_content.'+ key] = data_bson[key] 
+                update_details['requestContent.'+ key] = data_bson[key] 
             self.mongo_interface.updateDocument(self.mongo_collection, update_details, self.request_id)
         else:
             insert_details = self._getNewMetaData(user_id)
-            insert_details['request_content'] = data_bson
+            insert_details['requestContent'] = data_bson
             self.request_id = self.mongo_interface.insertDocument(self.mongo_collection, insert_details)
         
         self.request_details = self.mongo_interface.getDocument(self.mongo_collection, self.request_id)
 
     def GetDocument(self, document_id):
         for doc in self.request_details['documentation']:
-            if doc['doc_id'] == document_id:
-                doc['base64string'] = self.mongo_interface.getFile(self.file_collection, document_id).decode('utf-8')
+            if doc['docId'] == document_id:
+                doc['base64String'] = self.mongo_interface.getFile(self.file_collection, document_id).decode('utf-8')
                 return doc
         raise Exception("No such document for this request %s." % (document_id))        
 
@@ -126,7 +126,7 @@ class AAFRequest(object):
         if self.IsExistingRequest():
             update_details = self._getUpdateMetaData(user_id)
             for doc in self.request_details['documentation']:
-                if doc['doc_id'] == document_id:
+                if doc['docId'] == document_id:
                     self.mongo_interface.updateDocument(self.mongo_collection, update_details, self.request_id, pull_data={ 'documentation' : doc })
         else:
             raise Exception("Cannot delete from an unsaved request.")
@@ -159,12 +159,12 @@ if __name__ == '__main__':
     print(new_req.request_details)
 
     output_file = open('./test_out.txt', 'wb')
-    output_file.write(new_req.GetDocument(doc_data['doc_id']))
+    output_file.write(new_req.GetDocument(doc_data['docId']))
     output_file.close()
 
     
     print(new_req.request_details)
 
-    new_req.DeleteDocument(10705332, doc_data['doc_id'])
+    new_req.DeleteDocument(10705332, doc_data['docId'])
 
     print(new_req.request_details)

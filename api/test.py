@@ -4,13 +4,13 @@ test_url = 'http://localhost/api/'
 
 get_headers = {"OpenAMHeaderID" : "10705332"}
 post_headers = {"OpenAMHeaderID" : "10705332", "Content-Type" : "application/json"}
-request_data = { "applicantInfo" : { "first_name" : "Trevor", 
-                        "middle_name" : "Thomas",
-                        "last_name" : "Robinson",
+request_data = { "applicantInfo" : { "firstName" : "Trevor", 
+                        "middleName" : "Thomas",
+                        "lastName" : "Robinson",
                         "position" : "Systems Engineer",
-                        "store_dept_no" : 4023 }, 
+                        "storeDeptNo" : 4023 }, 
                  "assistanceRequested" : { "funeral" : False },
-                 "incidentInfo" : { "event_date" : {"$date" : 1485388800} } }
+                 "incidentInfo" : { "eventDate" : {"$date" : 1485388800} } }
 
 
 nr_response = requests.post(test_url + 'request/assistance', headers=post_headers, data=json.dumps(request_data))
@@ -26,8 +26,8 @@ test_file = open(sys.argv[0], 'rb')
 file_data = base64.b64encode(test_file.read())
 
 fr_data = {}
-fr_data['file_name'] = sys.argv[0]
-fr_data['base64string'] = file_data
+fr_data['fileName'] = sys.argv[0]
+fr_data['base64String'] = file_data
 fr_data['description'] = 'The test script.'
 
 upload_reponse = requests.post(test_url + 'request/assistance/' + nr_json['result'] + '/document', headers=post_headers, data=json.dumps(fr_data)) 
@@ -40,7 +40,7 @@ get_json = get_response.json()
 
 print(get_json)
 
-document_response = requests.get(test_url + 'request/assistance/' + nr_json['result'] + '/document/' + upload_json['result']['doc_id'], headers=get_headers)
+document_response = requests.get(test_url + 'request/assistance/' + nr_json['result'] + '/document/' + upload_json['result']['docId'], headers=get_headers)
 doc_json = document_response.json()
 
 print(doc_json)

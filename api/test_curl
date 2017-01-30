@@ -1,5 +1,5 @@
 ##Sucessuful submit
-curl -X POST http://localhost/api/request/assistance -H "OpenAMHeaderID: 10705332" -H "Content-Type: application/json" -d '{ "applicantInfo" : { "employee_id" : 10705332, "first_name" : "Trevor Robinson" } }'
+curl -X POST http://localhost/api/request/assistance -H "OpenAMHeaderID: 10705332" -H "Content-Type: application/json" -d '{ "applicantInfo" : { "employeeId" : 10705332, "firstName" : "Trevor Robinson" } }'
 
 #Submitter - Able to retrieve
 curl -X GET http://localhost/api/request/assistance/<req_id>-H "OpenAMHeaderID: 10705332"
@@ -15,10 +15,10 @@ curl -X GET http://localhost/api/request/assistance/<req_id> -H "OpenAMHeaderID:
 curl -X POST http://localhost/api/request/assistance/search -H "OpenAMHeaderID: 10705332"
 
 #search - get results matching created date and created by
-curl -X POST http://localhost/api/request/assistance/search -H "OpenAMHeaderID: 10705332"  -H "Content-Type: application/json" -d '{ "created_by": 10705332, "created_date" : { "$date": "2017-01-26T22:37:29.034Z" }}'
+curl -X POST http://localhost/api/request/assistance/search -H "OpenAMHeaderID: 10705332"  -H "Content-Type: application/json" -d '{ "createdBy": 10705332, "createdDate" : { "$date": "2017-01-26T22:37:29.034Z" }}'
 
 #upload doc
-curl -X POST http://localhost/api/request/assistance/<req_id>/document -H "OpenAMHeaderID: 10705332" -H "Content-Type: application/json" -d '{"file_name" : "test.txt", "description" : "Sample file upload", "base64string" : "VGhpcyBpcyBhIHRlc3QgdGV4dCBmaWxlLg==" }' 
+curl -X POST http://localhost/api/request/assistance/<req_id>/document -H "OpenAMHeaderID: 10705332" -H "Content-Type: application/json" -d '{"fileName" : "test.txt", "description" : "Sample file upload", "base64String" : "VGhpcyBpcyBhIHRlc3QgdGV4dCBmaWxlLg==" }' 
 
 #get doc
 curl -X GET http://localhost/api/request/assistance/<req_id>/document/<doc_id> -H "OpenAMHeaderID: 10705332"

@@ -72,7 +72,7 @@ def search_requests(request_type):
         else:
             find_input = { }
         if not IsUserAdmin(request.headers['OpenAMHeaderID']):
-            find_input['created_by'] = GetCurUserId()
+            find_input['createdBy'] = GetCurUserId()
         return GetResponseJson(ResponseType.SUCCESS, AAFSearch.Search(request_type, find_input))
     else:
         return GetResponseJson(ResponseType.ERROR, "invalid request - type")
@@ -131,7 +131,7 @@ def document(request_type, request_id, document_id=None):
         if request.method == 'POST':
             if request.json:
                 input = request.json
-                document = aaf_request.UploadDocument(user_id, input['file_name'], input['base64string'], input['description'])
+                document = aaf_request.UploadDocument(user_id, input['fileName'], input['base64String'], input['description'])
                 return GetResponseJson(ResponseType.SUCCESS, document)
             else:
                 return GetResponseJson(ResponseType.ERROR, 'No file data recieved')
