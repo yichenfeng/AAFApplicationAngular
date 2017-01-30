@@ -66,6 +66,8 @@ def hello():
 #If _id is previded as a search param, redirects to /request_type/id
 @app.route('/api/request/<request_type>/search', methods=['POST'])
 def search_requests(request_type):
+    #per_page = request.headers.get('perPage')
+    #page_num = requset.headers.get('pageNumber')
     if IsValidRequest(request_type):
         if request.json:
             find_input = request.json
@@ -73,7 +75,10 @@ def search_requests(request_type):
             find_input = { }
         if not IsUserAdmin(request.headers['OpenAMHeaderID']):
             find_input['createdBy'] = GetCurUserId()
-        return GetResponseJson(ResponseType.SUCCESS, AAFSearch.Search(request_type, find_input))
+        #temporary update to wrap results for future pagination - will be updated later
+        search_results = AAFSearch.Search(request_type, find_input)
+        response = { "count" : len(search_results), "perPage" : len(search_results), "pageNumber" : 1, "searchResults" : search_results }
+        return GetResponseJson(ResponseType.SUCCESS, response)
     else:
         return GetResponseJson(ResponseType.ERROR, "invalid request - type")
 
