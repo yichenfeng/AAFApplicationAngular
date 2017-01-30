@@ -16,6 +16,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.reviewSubmission
+{
+padding-top:160px;
+}
+
 .w-icon-slider-right:before {
   content: "\e600";
 }
