@@ -13,12 +13,15 @@ import json
 import base64
 import logging
 import time
+from bson import json_util
 from logging.handlers import RotatingFileHandler
 from logging import Formatter
 #constants file in this directory
 from const import RequestType, ResponseType, RequestActions
 from auth import AuthHelper
 from aafrequest import AAFRequest, AAFSearch
+from ldap import GetUserById, LdapError
+from voluptuous.error import MultipleInvalid
 
 #move this to init script - stest up the base app object
 app = Flask(__name__)
@@ -38,9 +41,12 @@ def IsValidRequest(request_type):
     else:
         return False
 
+def GetCurUserId():
+    return request.headers.get('OpenAMHeaderID')
+
 #prepare the response for the user
 def GetResponseJson(response_status, results):
-    return json.dumps({"status" : response_status, "result" : results})
+    return json_util.dumps({"status" : response_status, "result" : results}, json_options=json_util.STRICT_JSON_OPTIONS)
 
 def IsUserAdmin(user_id):
     helper = AuthHelper()
@@ -58,20 +64,15 @@ def hello():
 
 #Search method - query string can contain any of the attributes of a request
 #If _id is previded as a search param, redirects to /request_type/id
-@app.route('/api/request/<request_type>', methods=['GET'])
+@app.route('/api/request/<request_type>/search', methods=['POST'])
 def search_requests(request_type):
     if IsValidRequest(request_type):
-        find_input = { }
-        for arg in request.args:
-            #if sys id passed, redirect to request view
-            if arg == '_id':
-                return redirect(url_for('get_upd_request', request_type=request_type, request_id=request.args.get(arg)))
-            find_input[arg] = request.args.get(arg)
-
-        #if user is not admin, add user id to search params
+        if request.json:
+            find_input = request.json
+        else:
+            find_input = { }
         if not IsUserAdmin(request.headers['OpenAMHeaderID']):
-            find_input['user_id'] = request.headers['OpenAMHeaderID']
-
+            find_input['createdBy'] = GetCurUserId()
         return GetResponseJson(ResponseType.SUCCESS, AAFSearch.Search(request_type, find_input))
     else:
         return GetResponseJson(ResponseType.ERROR, "invalid request - type")
@@ -80,9 +81,9 @@ def search_requests(request_type):
 @app.route('/api/request/<request_type>', methods=['POST'])
 @app.route('/api/request/<request_type>/<request_id>', methods=['GET','POST'])
 def get_upd_request(request_type, request_id=None):
-    user_id = int(request.headers['OpenAMHeaderID'])
+    user_id = int(GetCurUserId())
     if not IsValidRequest(request_type):
-        return GetResponseJson(ResponseType.ERROR, "invalid request")
+        return GetResponseJson(ResponseType.ERROR, "invalid request type")
     else:
         aaf_request = AAFRequest(request_type, request_id)
         if request_id and not aaf_request.IsExistingRequest():
@@ -91,16 +92,19 @@ def get_upd_request(request_type, request_id=None):
             return abort(403)
         if request.method == 'POST':
            if request.json:
-               aaf_request.Update(user_id, request.json)
-               return GetResponseJson(ResponseType.SUCCESS, aaf_request.request_id)
+               try:
+                   aaf_request.Update(user_id, request.json)
+                   return GetResponseJson(ResponseType.SUCCESS, aaf_request.request_id)
+               except MultipleInvalid as ex:
+                   return GetResponseJson(ResponseType.ERROR, str(ex))
            else:
-               passGetResponseJson(ResponseType.ERROR, "invalid request - no json recieved")
+               GetResponseJson(ResponseType.ERROR, "invalid request - no json recieved")
         else:
             return GetResponseJson(ResponseType.SUCCESS, aaf_request.request_details)
 
 @app.route('/api/request/<request_type>/<request_id>/<action>', methods=['POST'])
 def request_action(request_type, request_id, action):
-    user_id = int(request.headers['OpenAMHeaderID'])
+    user_id = int(GetCurUserId())
 
     #non-admin users may only submit new requests
     if action != RequestActions.SUBMIT and not IsUserAdmin(user_id):
@@ -119,7 +123,7 @@ def get_request_docs():
 @app.route('/api/request/<request_type>/<request_id>/document', methods=['POST'])
 @app.route('/api/request/<request_type>/<request_id>/document/<document_id>', methods=['GET'])
 def document(request_type, request_id, document_id=None):
-    user_id = int(request.headers['OpenAMHeaderID'])  
+    user_id = int(GetCurUserId())  
     if not IsValidRequest(request_type):
         return GetResponseJson(ResponseType.ERROR, "invalid request")
     else:
@@ -127,7 +131,7 @@ def document(request_type, request_id, document_id=None):
         if request.method == 'POST':
             if request.json:
                 input = request.json
-                document = aaf_request.UploadDocument(user_id, input['file_name'], input['base64string'], input['description'])
+                document = aaf_request.UploadDocument(user_id, input['fileName'], input['base64String'], input['description'])
                 return GetResponseJson(ResponseType.SUCCESS, document)
             else:
                 return GetResponseJson(ResponseType.ERROR, 'No file data recieved')
@@ -137,6 +141,20 @@ def document(request_type, request_id, document_id=None):
             if document == None:
                 abort(404)
             return GetResponseJson(ResponseType.SUCCESS, document)
+
+#returns current user info from ldap
+@app.route('/api/userinfo', methods=['GET'])
+@app.route('/api/userinfo/<user_id>', methods=['GET'])
+def curr_user_details(user_id=None):
+    try:
+        if user_id:
+            user_details = GetUserById(user_id)
+        else:
+            user_details = GetUserById(GetCurUserId())
+
+        return GetResponseJson(ResponseType.SUCCESS, user_details)
+    except LdapError as ex:
+        return GetResponseJson(ResponseType.ERROR, str(ex))
 
 @app.errorhandler(500)
 def server_error(e):
