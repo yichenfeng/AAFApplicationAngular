@@ -1,30 +1,31 @@
 'use strict';
-angular.module('myApp')
-  .directive('signaturepad', ['$document', 'SignaturePad', function($document, SignaturePad) {
+var app = angular.module('myApp')
+  .directive('signaturepad', ['$document', 'SignaturePad','$rootScope', function($document, SignaturePad,$rootScope) {
     return {
-      templateUrl: 'main/templates/signaturePad.html',
-      link: function(scope, element, attr) {
+
+      scope: {
+            signature: '='
+        },
+        templateUrl: 'main/templates/signaturePad.html',
+      link: function(scope, element, attributes) {
         console.log(element.find('canvas')[0]);
         var signaturePad = new SignaturePad(element.find('canvas')[0]);
-// Returns signature image as data URL (see https://mdn.io/todataurl for the list of possible paramters)
-        signaturePad.toDataURL(); // save image as PNG
-        signaturePad.toDataURL("image/jpeg"); // save image as JPEG
+        var clearButton = document.getElementById('signaturePad_clear');
+        var acceptButton = document.getElementById('signaturePad_accept');
 
-// Draws signature image from data URL
-//         signaturePad.fromDataURL("data:image/png;base64,iVBORw0K...");
+        acceptButton.addEventListener('click', function (event) {
+          scope.signature = signaturePad.toDataURL();
 
-// Clears the canvas
-        signaturePad.clear();
 
-// Returns true if canvas is empty, otherwise returns false
-        signaturePad.isEmpty();
+        });
 
-// Unbinds all event handlers
-        signaturePad.off();
+        clearButton.addEventListener('click', function (event) {
+         signaturePad.clear();
+         scope.signature = undefined;
+        });
 
-// Rebinds all event handlers
-        signaturePad.on();
+
+
       }
     };
-  }])
-;
+  }]);
