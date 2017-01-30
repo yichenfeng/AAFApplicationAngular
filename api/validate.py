@@ -21,9 +21,9 @@ test_schema = Schema( { Required(1) : 'one',
 
 date_schema = Schema({'$date' : int })
 
-personnel_schema = Schema( { 'fname' : Any(str, unicode),
+personnel_schema = Schema( { 'fName' : Any(str, unicode),
                               'initial' : Any(str, unicode),
-                              'lname' : Any(str, unicode),
+                              'lName' : Any(str, unicode),
                               'age' : int,
                               'relationship' : str } )
 
@@ -31,7 +31,7 @@ applicant_schema = Schema( { 'firstName' : Any(str, unicode),
                               'middleName' : Any(str, unicode),
                               'lastName' : Any(str, unicode),
                               'employeeId' : int,
-                              'status' : ['full_time', 'part_time'],
+                              'status' : ['fullTime', 'partTime'],
                               'position' : Any(str, unicode),
                               'storeDeptNo' : int,
                               'permanenetAddress' : ['own', 'rent'],
@@ -47,7 +47,7 @@ applicant_schema = Schema( { 'firstName' : Any(str, unicode),
 incident_schema = Schema( { 'eventDate' : date_schema,
                               'eventDescription' : str } )
 
-requested_schema = Schema( { 'amountRequested' : float,
+requested_schema = Schema( { 'amountRequested' : str,
                               'shelter' : ['temporary', 'eviction', 'homeless'],
                               'funeral' : Boolean(),
                               'utilities' : Boolean(),
@@ -61,7 +61,7 @@ recieved_schema = Schema( { 'assistSalvArmy' : str,    #need to discuss data typ
                               'assistEmployer' : str,
                               'assistOther' : str } )
 
-submit_schema = Schema( { 'sumbit_name' : str,
+submit_schema = Schema( { 'submitName' : str,
                               'submitDate' : date_schema,
                               'signature' : str } )
 

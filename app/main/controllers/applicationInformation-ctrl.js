@@ -1,31 +1,81 @@
 'use strict';
 angular.module('myApp')
-.controller('ApplicationInformationCtrl', function ($scope, $state, $http) {
+.controller('ApplicationInformationCtrl', function ($scope, $state, $rootScope) {
 
-$scope.saveAppInfo = function (passedIn)
-{
-var url = "http://skyline.autozone.com:5555/api/request/assistance";
-var config = {
-                headers : {
-                    'Content-Type': 'application/json;'
-                }
-            };
-var data = {
-                employeeId: passedIn.employeeID,
-                firstName: passedIn.firstName,
-                address1: passedIn.address1
-            };
-            console.log(data);
+  $scope.saveForLater = function() {
+    $state.go('home');
+  };
 
-$http.post(url, data)
-           .success(function (data, status, headers, config) {
-             console.log("success");
-             $state.go('eligiblePersonnel',[]);
-           })
-           .error(function (data, status, header, config) {
-             console.log("error");
-           });
-};
+  $scope.next = function (event) {
+    $scope.submitted = true;
+    if ($scope.applicationInfoForm.$valid) {
+      $state.go('eligiblePersonnel');
+    } else {
+      event.preventDefault();
+      if ($scope.showBehalfError !== false) {
+        $scope.showBehalfError = true;
+      }
+      if ($scope.showJobTypeError !== false) {
+        $scope.showJobTypeError = true;
+      }
+      if ($scope.showPermAddressError !== false) {
+        $scope.showPermAddressError = true;
+      }
+    }
+  };
 
+  $scope.states = [
+    'Alabama',
+    'Alaska',
+    'Arizona',
+    'Arkansas',
+    'California',
+    'Colorado',
+    'Connecticut',
+    'Delaware',
+    'Florida',
+    'Georgia',
+    'Hawaii',
+    'Idaho',
+    'Illinois',
+    'Indiana',
+    'Iowa',
+    'Kansas',
+    'Kentucky',
+    'Louisiana',
+    'Maine',
+    'Maryland',
+    'Massachusetts',
+    'Michigan',
+    'Minnesota',
+    'Mississippi',
+    'Missouri',
+    'Montana',
+    'Nebraska',
+    'Nevada',
+    'New Hampshire',
+    'New Jersey',
+    'New Mexico',
+    'New York',
+    'North Carolina',
+    'North Dakota',
+    'Ohio',
+    'Oklahoma',
+    'Oregon',
+    'Pennsylvania',
+    'Puerto Rico',
+    'Rhode Island',
+    'South Carolina',
+    'South Dakota',
+    'Tennessee',
+    'Texas',
+    'Utah',
+    'Vermont',
+    'Virginia',
+    'Washington',
+    'West Virginia',
+    'Wisconsin',
+    'Wyoming'
+  ];
 
 });
