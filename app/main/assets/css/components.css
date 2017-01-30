@@ -16,7 +16,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-[class*="reviewSubmission"] {
+
+.reviewSubmission
+{
 padding-top:160px;
 }
 
