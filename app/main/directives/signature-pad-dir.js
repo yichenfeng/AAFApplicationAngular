@@ -11,7 +11,7 @@ var app = angular.module('myApp')
         console.log(element.find('canvas')[0]);
         var signaturePad = new SignaturePad(element.find('canvas')[0]);
         var clearButton = document.getElementById('signaturePad_clear');
-        var acceptButton = document.getElementById('accept');
+        var acceptButton = document.getElementById('signaturePad_accept');
 
         acceptButton.addEventListener('click', function (event) {
           scope.signature = signaturePad.toDataURL();
