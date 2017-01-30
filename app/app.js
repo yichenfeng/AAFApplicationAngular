@@ -9,7 +9,7 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
     "$rootScope", "$state", "$stateParams", "DataService", function ($rootScope, $state, $stateParams, DataService) {
       $rootScope.$state = $state;
       // return $rootScope.$stateParams = $stateParams;
-      DataService.createApplication({foo: 'bar'}).then(function (result) {
+      DataService.createApplication({applicantInfo: {}}).then(function (result) {
         if (result) {
           $rootScope.application = result;
           $rootScope.$watch(function() { return $rootScope.application; }, function (newValue) {
