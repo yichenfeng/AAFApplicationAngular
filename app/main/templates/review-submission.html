@@ -62,16 +62,16 @@
           </div>
         </form>
      </div>
-     <div class="row">
+    <div class="row">
        <div class="col-md-10">
-              <signaturepad />
+            <signaturepad signature="application.request_content.review.signature" />
       </div>
     </div>
   </div>
 
   <div class="form-nav">
     <button ui-sref="home" class="button inverse w-button" id="save">Save for Later</button>
-    <button type="submit" class="button w-button" ng-click="submit(submissionForm.$valid)">Submit</button>
+    <button  class="button w-button" ng-click="submit(submissionForm.$valid)">Submit</button>
   </div>
 </div>
 </div>

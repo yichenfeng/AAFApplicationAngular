@@ -2,7 +2,27 @@
  angular.module('myApp')
 .controller('ReviewSubmissionCtrl', function ($scope, $http, $state, DataService, $document,$uibModal, $log, $rootScope, $filter, SignaturePad) {
 
-  var $ctrl = this;
+var $ctrl = this;
+
+  $scope.submit = function(isValid) {
+
+      $scope.submitted = true;
+
+      if( $rootScope.application.request_content.review.signature !== undefined) {
+
+            console.log("cash money");
+        //  $state.go('home');
+      }
+        else if (isValid == false) {
+          console.log("Valid Check failed");
+
+      }
+          else {
+        $ctrl.open();
+      }
+
+    };
+
 
   $ctrl.animationsEnabled = true;
 
@@ -34,22 +54,8 @@
   };
 
 
-    $scope.submit = function(isValid) {
 
-        $scope.submitted = true;
 
-        if(($rootScope.application.request_content.review.signature !== undefined) && (isValid == true)) {
-          $state.go('home');
-        }
-          else if (isValid == false) {
-            console.log("Valid Check failed");
-        }
-            else {
-
-          $ctrl.open();
-        }
-
-      };
 
 
     $scope.max = 1000;
@@ -130,9 +136,6 @@
     }
 
 
-    $scope.saveInfo = function() {
-
-    };
 });
 
 
