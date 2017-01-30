@@ -13,14 +13,12 @@ var $ctrl = this;
       }
         else if (isValid == false) {
           console.log("Valid Check failed");
-
       }
           else {
         $ctrl.open();
       }
 
     };
-
 
   $ctrl.animationsEnabled = true;
 
