@@ -76,6 +76,11 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
         templateUrl: 'main/templates/login.html',
         controller: 'LoginCtrl as ctrl'
       })
+      .state('attachments', {
+        url: '/attachments',
+        templateUrl: 'main/templates/attachments.html',
+        controller: 'AttachmentsCtrl as ctrl'
+      })
 
       .state('about', {
         url: '/about',

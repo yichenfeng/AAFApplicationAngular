@@ -2,7 +2,7 @@
 angular.module('myApp')
 .controller('OtherCtrl', function ($scope, $state, $rootScope) {
 
-    $scope.nextButton = function() {        
+    $scope.nextButton = function() {
         $state.go('review-submission')
     };
 
