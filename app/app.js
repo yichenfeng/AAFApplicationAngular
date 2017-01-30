@@ -9,7 +9,7 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
     "$rootScope", "$state", "$stateParams", "DataService", function ($rootScope, $state, $stateParams, DataService) {
       $rootScope.$state = $state;
       // return $rootScope.$stateParams = $stateParams;
-      DataService.createApplication({review: {}}).then(function (result) {
+      DataService.createApplication({review: {}},{applicantInfo: {}}).then(function (result) {
         if (result) {
           $rootScope.application = result;
           $rootScope.$watch(function() { return $rootScope.application; }, function (newValue) {
@@ -34,11 +34,7 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
     $stateProvider
       .state('home', {
         url: '/home',
-        templateUrl: 'main/templates/home.html'
-      })
-      .state('applicationStatus', {
-        url: '/applicationStatus',
-        templateUrl: 'main/templates/applicationStatus.html',
+        templateUrl: 'main/templates/home.html',
         controller: 'ApplicationStatusCtrl as ctrl'
       })
       .state('applicationInformation', {

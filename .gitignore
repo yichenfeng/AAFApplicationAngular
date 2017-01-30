@@ -4,3 +4,7 @@ node_modules/
 tmp
 .DS_Store
 .idea
+*.iml
+*.ipr
+*.iws
+atlassian-ide-plugin.xml
