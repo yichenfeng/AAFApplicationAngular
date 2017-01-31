@@ -85,11 +85,9 @@ def search_requests(request_type):
         if not IsUserAdmin(request.headers['OpenAMHeaderID']):
             find_input['createdBy'] = GetCurUserId()
         conn = MongoConnection(mongo.db)
-        #temporary update to wrap results for future pagination - will be updated later
+
         search_results = AAFSearch.Search(conn, request_type, find_input, per_page, page_num)
-        if not per_page:
-            per_page = len(search_results)
-        #response = { "count" : len(search_results), "perPage" : int(per_page), "pageNumber" : int(page_num), "searchResults" : search_results }
+
         return GetResponseJson(ResponseType.SUCCESS, search_results)
     else:
         return GetResponseJson(ResponseType.ERROR, "invalid request - type")
