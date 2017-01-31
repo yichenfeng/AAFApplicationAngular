@@ -6,6 +6,11 @@ from os import environ
 from const import RequestType
 
 class MongoConnection(object):
+    def __init__(self, db=None):
+        if db:
+            self.db = db
+        else:
+            self.db = self.GetDb()
     #instance of Mongo DB Connection config connection and db values
     def GetDb(self):
         client = MongoClient('data', 27017)
@@ -13,16 +18,15 @@ class MongoConnection(object):
 
     #get the collection for the request type
     def GetCollection(self, request_type):
-        db = self.GetDb()
         if request_type == RequestType.ASSISTANCE:
-            return db.assistance_requests
+            return self.db.assistance_requests
         elif request_type == RequestType.DONATION:
-            return db.donation_requests
+            return self.db.donation_requests
         else:
             raise Exception('Invalid Request Collection')
 
     def GetGridFS(self):
-        return GridFS(self.GetDb(), collection='request_documents')
+        return GridFS(self.db, collection='request_documents')
 
 class MongoInterface(object):
     def _getObjectId(self, obj):
@@ -65,13 +69,15 @@ class MongoInterface(object):
         file = collection.put(data.encode("UTF-8"))
         return self._getObjectId(file)
 
+
+"""
 if __name__ == '__main__':
     conn = MongoConnection()
     interface = MongoInterface()
     collection = conn.GetCollection(RequestType.ASSISTANCE)
 
     print(interface.findDocuments(collection, {"user_id" : "10705332"}))
-"""
+
     test_data = {"user_id" : "10705332", "user_name" : "Trevor Robinson", "value_1" : "test value", "value_2" : "val 2"}
 
     id = interface.insertDocument(collection, test_data)

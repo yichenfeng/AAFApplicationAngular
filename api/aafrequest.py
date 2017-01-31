@@ -7,15 +7,21 @@ from validate import ValidateAsstReq
 
 class AAFSearch(object):
     @staticmethod
-    def Search(request_type, query, sort=None):
-        conn = MongoConnection()
+    def Search(mongo_conn, request_type, query, sort=None):
+        if mongo_conn:
+            conn = mongo_conn
+        else:
+            conn = MongoConnection()
         mongo_collection = conn.GetCollection(request_type)
         mongo_interface = MongoInterface()
         return mongo_interface.findDocuments(mongo_collection, json_util.loads(json.dumps(query), json_options=json_util.JSONOptions(tz_aware=False)), sort)
 
 class AAFRequest(object):
-    def __init__(self, request_type, request_id=None):
-        conn = MongoConnection()
+    def __init__(self, mongo_conn, request_type, request_id=None):
+        if mongo_conn:
+            conn = mongo_conn
+        else:
+            conn = MongoConnection()
         self.mongo_collection = conn.GetCollection(request_type)
         self.file_collection = conn.GetGridFS()
         self.mongo_interface = MongoInterface()
@@ -26,7 +32,7 @@ class AAFRequest(object):
             self.request_details = self.mongo_interface.getDocument(self.mongo_collection, request_id)
         else:
             self.request_details = None
-            
+    
     def _getNewMetaData(self, user_id):
         now = datetime.utcnow() #.strftime("%m/%d/%Y %I:%M%p")
         meta = { }
