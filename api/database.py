@@ -4,8 +4,6 @@ from bson.objectid import ObjectId
 from datetime import datetime
 from os import environ
 from const import RequestType
-from flask import current_app
-
 
 class MongoConnection(object):
     def __init__(self, db=None):
