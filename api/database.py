@@ -4,6 +4,8 @@ from bson.objectid import ObjectId
 from datetime import datetime
 from os import environ
 from const import RequestType
+from flask import current_app
+
 
 class MongoConnection(object):
     def __init__(self, db=None):
@@ -33,12 +35,13 @@ class MongoInterface(object):
         return str(obj)
 
     def findDocuments(self, collection, query, sort=None):
+        return_value = { }
         results = [ ]
-        for result in collection.find(query):
-            result['_id'] = self._getObjectId(result['_id'])
-            results.append(result)
 
-        return results
+        #simple pagination. Can be costly with later pages in larger result sets
+        search_results = collection.find(query)
+
+        return search_results
 
     def getDocument(self, collection, id):
         doc = collection.find_one({'_id':ObjectId(id)})

@@ -73,8 +73,10 @@ def hello():
 #If _id is previded as a search param, redirects to /request_type/id
 @app.route('/api/request/<request_type>/search', methods=['POST'])
 def search_requests(request_type):
-    #per_page = request.headers.get('perPage')
-    #page_num = requset.headers.get('pageNumber')
+    per_page = request.args.get('perPage')
+    page_num = request.args.get('pageNumber')
+    if not page_num:
+        page_num = 1
     if IsValidRequest(request_type):
         if request.json:
             find_input = request.json
@@ -84,9 +86,11 @@ def search_requests(request_type):
             find_input['createdBy'] = GetCurUserId()
         conn = MongoConnection(mongo.db)
         #temporary update to wrap results for future pagination - will be updated later
-        search_results = AAFSearch.Search(conn, request_type, find_input)
-        response = { "count" : len(search_results), "perPage" : len(search_results), "pageNumber" : 1, "searchResults" : search_results }
-        return GetResponseJson(ResponseType.SUCCESS, response)
+        search_results = AAFSearch.Search(conn, request_type, find_input, per_page, page_num)
+        if not per_page:
+            per_page = len(search_results)
+        #response = { "count" : len(search_results), "perPage" : int(per_page), "pageNumber" : int(page_num), "searchResults" : search_results }
+        return GetResponseJson(ResponseType.SUCCESS, search_results)
     else:
         return GetResponseJson(ResponseType.ERROR, "invalid request - type")
 
