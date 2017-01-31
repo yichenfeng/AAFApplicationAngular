@@ -1,13 +1,16 @@
-<div class="w-col w-col-9">
+<div class="col-md-12">
   <!-- <h3>Eligible Personnel</h3> -->
     <form name="eligiblePersonnelForm">
       <div class="form-group">
-        <div class="col-xs-12">
-          <label for="EligiblePersonnelFirstName"><b>ELIGIBLE AUTOZONER:</b> Full and part-time
-              AutoZoners, spouse of AutoZoner and/or legal dependants. If commom-law marriage, please
-              attach legal court documents.<b>Please list all those who are eligible and attach a
-                  sheet for additonal names.</b></label>
-                  <br>
+        <div class="row">
+          <div class="col-md-12">
+            <label for="EligiblePersonnelFirstName"><b>ELIGIBLE AUTOZONER:</b> Full and part-time
+                AutoZoners, spouse of AutoZoner and/or legal dependants. If commom-law marriage, please
+                attach legal court documents.<b>Please list all those who are eligible and attach a
+                    sheet for additonal names.</b>
+            </label>
+                    <br>
+          </div>
         </div>
         <div class="col-xs-3">
             <label for="EligiblePersonnelFirstName">First Name</label>
@@ -26,23 +29,23 @@
         </div>
         <div ng-repeat="person in persons track by person.row">
           <div class="col-xs-3">
-            <input type="text" class="form-control" ng-model="person.fName">
+            <label>{{person.fName}} </label>
             <br>
           </div>
           <div class="col-xs-1">
-            <input type="text" class="form-control" ng-model="person.initial">
+            <label>{{person.initial}} </label>
             <br>
           </div>
           <div class="col-xs-3">
-            <input type="text" class="form-control" ng-model="person.lName">
+            <label>{{person.lName}} </label>
             <br>
           </div>
           <div class="col-xs-1">
-            <input type="Integer" class="form-control" ng-model="person.age">
+            <label>{{person.age}} </label>
             <br>
           </div>
           <div class="col-xs-4">
-            <input type="Integer" class="form-control" ng-model="person.relationship">
+            <label>{{person.relationship}} </label>
             <br>
           </div>
         </div>
