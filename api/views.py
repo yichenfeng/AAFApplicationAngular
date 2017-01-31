@@ -136,8 +136,15 @@ def document(request_type, request_id, document_id=None):
         if request.method == 'POST':
             if request.json:
                 input = request.json
-                document = aaf_request.UploadDocument(user_id, input['fileName'], input['base64String'], input['description'])
-                return GetResponseJson(ResponseType.SUCCESS, document)
+                results = [ ]
+
+                #if request is a singe doc, wrap in the a list and process.
+                if type(input) == dict:
+                    input = [input]
+                for document in input:
+                    results.append(aaf_request.UploadDocument(user_id, document['fileName'], document['base64String'], document['description']))
+
+                return GetResponseJson(ResponseType.SUCCESS, results)
             else:
                 return GetResponseJson(ResponseType.ERROR, 'No file data recieved')
         else:
