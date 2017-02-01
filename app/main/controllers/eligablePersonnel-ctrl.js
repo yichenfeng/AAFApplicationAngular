@@ -12,7 +12,7 @@ angular.module('myApp')
         'fName' : '',
         'initial' : '',
         'lName' : '',
-        'age' : '',
+        'age' : 0,
         'relationship' : ''
       };
       persons.push(person);
@@ -20,13 +20,15 @@ angular.module('myApp')
     return persons;
   };
 
-  if($rootScope.application) {
-    if ($rootScope.application.request_content.updatedData.eligible_personnel) {
-       $scope.persons = $rootScope.application.request_content.updatedData.eligible_personnel;
+  $scope.$watch('application', function (newValue) {
+    if (newValue) {
+      if ($rootScope.application.requestContent.eligiblePersonnel.length > 0) {
+         $scope.persons = $rootScope.application.requestContent.eligiblePersonnel;
+      } else {
+        $scope.persons = createPersonnel();
+      }
     }
-  } else {
-    $scope.persons = createPersonnel();
-  }
+  });
 
   $scope.saveForLater = function () {
     $state.go('home');
@@ -34,13 +36,7 @@ angular.module('myApp')
 
   $scope.$watch('persons', function (newValue) {
     if ($rootScope.application) {
-      if ($rootScope.application.request_content.updatedData) {
-        $rootScope.application.request_content.updatedData.eligible_personnel = newValue;
-      } else {
-        $rootScope.application.request_content.updatedData = {
-            'eligible_personnel' : newValue
-        };
-      }
+      $rootScope.application.requestContent.eligiblePersonnel = newValue;
     }
   }, true);
 
