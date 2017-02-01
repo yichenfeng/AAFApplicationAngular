@@ -19,7 +19,7 @@ test_schema = Schema( { Required(1) : 'one',
                         Required('3') : float,
                         4 : [ Any(str, unicode), 5, 'five' ]} )
 
-date_schema = Schema({'$date' : int })
+date_schema = Schema({'$date' : Any(int, Datetime()) })
 
 personnel_schema = Schema( { 'fName' : Any(str, unicode),
                               'initial' : Any(str, unicode),
