@@ -25,16 +25,17 @@ personnel_schema = Schema( { 'fName' : Any(str, unicode),
                               'initial' : Any(str, unicode),
                               'lName' : Any(str, unicode),
                               'age' : int,
-                              'relationship' : Any(str, unicode) } )
+                              'relationship' : Any(str, unicode),
+                              'row' : int } )
 
 applicant_schema = Schema( { 'firstName' : Any(str, unicode),
                               'middleName' : Any(str, unicode),
                               'lastName' : Any(str, unicode),
                               'employeeId' : int,
-                              'status' : ['fullTime', 'partTime'],
+                              'status' : Any('fullTime', 'partTime'),
                               'position' : Any(str, unicode),
                               'storeDeptNo' : int,
-                              'permanenetAddress' : ['own', 'rent'],
+                              'permanentAddress' : Any('yes', 'no'),
                               'address1' : Any(str, unicode),
                               'address2' : Any(str, unicode),
                               'city' : Any(str, unicode),
@@ -76,4 +77,4 @@ if __name__ == '__main__':
     print type(1485382223700)
     print(IsValid(test_schema, { 1: 'one', 2 : 'three' , '3' : 2.5, 4 : ['4', 5, '6'] }))
     print(IsValid(date_schema, {"$date": 1485382223700}))
-    print(ValidateAsstReq({ 'applicantInfo' : { 'firstName' : 'Trevor', 'storeDeptNo' : 23 }, 'incidentInfo' : { 'eventDate' : {"$date": 1485382223700} }, 'assistanceRequested': { 'funeral' : False} } ))
+    print(ValidateAsstReq({ 'applicantInfo' : { 'firstName' : 'Trevor', 'storeDeptNo' : 23, 'status' : 'partTime', 'permanentAddress' : 'no' }, 'incidentInfo' : { 'eventDate' : {"$date": 1485382223700} }, 'assistanceRequested': { 'funeral' : False} , 'eligiblePersonnel' : [{'row' : 1 }] } ))
