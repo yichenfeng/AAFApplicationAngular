@@ -22,6 +22,8 @@ from auth import AuthHelper
 from aafrequest import AAFRequest, AAFSearch
 from ldap import GetUserById, LdapError
 from voluptuous.error import MultipleInvalid
+from database import MongoConnection
+from flask.ext.pymongo import PyMongo
 
 #move this to init script - stest up the base app object
 app = Flask(__name__)
@@ -33,6 +35,11 @@ handler.setFormatter(Formatter(
     '[in %(pathname)s:%(lineno)d]'
 ))
 app.logger.addHandler(handler)
+
+app.config['MONGO_HOST'] = 'data' 
+app.config['MONGO_PORT'] = 27017 
+app.config['MONGO_DBNAME'] = 'aaf_db'
+mongo = PyMongo(app)
 
 #check request type from the path
 def IsValidRequest(request_type):
@@ -66,8 +73,10 @@ def hello():
 #If _id is previded as a search param, redirects to /request_type/id
 @app.route('/api/request/<request_type>/search', methods=['POST'])
 def search_requests(request_type):
-    #per_page = request.headers.get('perPage')
-    #page_num = requset.headers.get('pageNumber')
+    per_page = request.args.get('perPage')
+    page_num = request.args.get('pageNumber')
+    if not page_num:
+        page_num = 1
     if IsValidRequest(request_type):
         if request.json:
             find_input = request.json
@@ -75,10 +84,11 @@ def search_requests(request_type):
             find_input = { }
         if not IsUserAdmin(request.headers['OpenAMHeaderID']):
             find_input['createdBy'] = GetCurUserId()
-        #temporary update to wrap results for future pagination - will be updated later
-        search_results = AAFSearch.Search(request_type, find_input)
-        response = { "count" : len(search_results), "perPage" : len(search_results), "pageNumber" : 1, "searchResults" : search_results }
-        return GetResponseJson(ResponseType.SUCCESS, response)
+        conn = MongoConnection(mongo.db)
+
+        search_results = AAFSearch.Search(conn, request_type, find_input, per_page, page_num)
+
+        return GetResponseJson(ResponseType.SUCCESS, search_results)
     else:
         return GetResponseJson(ResponseType.ERROR, "invalid request - type")
 
@@ -90,7 +100,8 @@ def get_upd_request(request_type, request_id=None):
     if not IsValidRequest(request_type):
         return GetResponseJson(ResponseType.ERROR, "invalid request type")
     else:
-        aaf_request = AAFRequest(request_type, request_id)
+        conn = MongoConnection(mongo.db)
+        aaf_request = AAFRequest(conn, request_type, request_id)
         if request_id and not aaf_request.IsExistingRequest():
             return abort(404)
         elif not IsUserAdmin(user_id) and not aaf_request.IsUserCreator(user_id):
@@ -117,7 +128,8 @@ def request_action(request_type, request_id, action):
     if not IsValidRequest(request_type):
         return GetResponseJson(ResponseType.ERROR, "invalid request")
     else:
-        #aaf_request = AAFRequest(request_type, request_id)
+        conn = MongoConnection(mongo.db)
+        aaf_request = AAFRequest(conn, request_type, request_id)
         return('type: %s - id: %s - action: %s' % (request_type, request_id, action))
 
 
@@ -132,7 +144,8 @@ def document(request_type, request_id, document_id=None):
     if not IsValidRequest(request_type):
         return GetResponseJson(ResponseType.ERROR, "invalid request")
     else:
-        aaf_request = AAFRequest(request_type, request_id)
+        conn = MongoConnection(mongo.db)
+        aaf_request = AAFRequest(conn, request_type, request_id)
         if request.method == 'POST':
             if request.json:
                 input = request.json
