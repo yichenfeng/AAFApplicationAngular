@@ -78,7 +78,7 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
         templateUrl: 'main/templates/partial-about.html'
       })
       .state('approverHome', {
-        url: '/approverHome',
+        url: '/approver/home',
         templateUrl: 'main/templates/approver-home.html',
         controller: 'ApproverHomeCtrl as ctrl'
       });
