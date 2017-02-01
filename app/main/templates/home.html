@@ -9,7 +9,7 @@
   <div ng-if="application !== undefined" class="status-section w-container">
     <h2 class="section-title">Current Application Status</h2>
     <ul class="progressbar">
-        <li ng-class="(step >= statusEnum.Created) ? 'active' : ''">In Progress</li>
+        <li ng-class="(step >= statusEnum.Draft) ? 'active' : ''">In Progress</li>
         <li ng-class="(step >= statusEnum.Submitted) ? 'active' : ''">Submitted</li>
         <li ng-class="(step >= statusEnum.Pending) ? 'active' : ''">Approver Pending</li>
         <li ng-class="(step > statusEnum.Pending) ? 'active' : ''">{{status}}</li>

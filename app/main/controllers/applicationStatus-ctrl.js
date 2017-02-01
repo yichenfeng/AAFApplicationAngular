@@ -3,7 +3,7 @@ angular.module('myApp')
 .controller('ApplicationStatusCtrl', function ($scope, $state, $rootScope) {
 
   $scope.statusEnum = {
-    'Created' : 0,
+    'Draft' : 0,
     'Submitted' : 1,
     'Pending' : 2,
     'Returned' : 3,

@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap','ngAnimate', 'ngSanitize', 'ui.bootstrap.tpls'])
+angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap','ngAnimate', 'ngSanitize', 'ui.bootstrap.tpls', 'ngTable'])
   .factory('SignaturePad', function(){
     return SignaturePad;
   })
@@ -9,7 +9,8 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
     "$rootScope", "$state", "$stateParams", "DataService", function ($rootScope, $state, $stateParams, DataService) {
       $rootScope.$state = $state;
       // return $rootScope.$stateParams = $stateParams;
-      DataService.createApplication({review: {}, applicantInfo: {}}).then(function (result) {
+      DataService.createApplication({applicantInfo: {}, eligiblePersonnel: [], incidentInfo: {},
+          assistanceRequested: {}, assistanceRecieved: {}, submitDetails: {}}).then(function (result) {
         if (result) {
           $rootScope.application = result;
           $rootScope.$watch(function() { return $rootScope.application; }, function (newValue) {
@@ -80,5 +81,10 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
         url: '/admin/application/:appId',
         templateUrl: 'main/templates/adminApplication.html',
         controller: 'AdminApplicationCtrl as ctrl'
+      })
+      .state('approverHome', {
+        url: '/approverHome',
+        templateUrl: 'main/templates/approver-home.html',
+        controller: 'ApproverHomeCtrl as ctrl'
       });
   });

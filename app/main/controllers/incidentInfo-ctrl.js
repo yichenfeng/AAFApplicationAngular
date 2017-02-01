@@ -18,8 +18,8 @@ angular.module('myApp').controller('IncidentInfoCtrl', function ($scope, $http, 
     $scope.showErrorMessage = false;
     if ($rootScope.application) {
       var date = new Date(document.getElementById('date').value);
-      $rootScope.application.request_content.updatedData = {
-        'incident_date' : $filter('date')(date, 'MM/dd/yyyy')
+      $rootScope.application.requestContent.incidentInfo = {
+        'eventDate' : { $date : date }
       };
     }
   };
