@@ -72,9 +72,13 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
         templateUrl: 'main/templates/login.html',
         controller: 'LoginCtrl as ctrl'
       })
-
       .state('about', {
         url: '/about',
         templateUrl: 'main/templates/partial-about.html'
+      })
+      .state('admin-application', {
+        url: '/admin/application/:appId',
+        templateUrl: 'main/templates/adminApplication.html',
+        controller: 'AdminApplicationCtrl as ctrl'
       });
   });
