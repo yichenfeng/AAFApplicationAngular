@@ -35,7 +35,7 @@ applicant_schema = Schema( { 'firstName' : Any(str, unicode),
                               'status' : Any('fullTime', 'partTime'),
                               'position' : Any(str, unicode),
                               'storeDeptNo' : int,
-                              'permanentAddress' : Any('yes', 'no'),
+                              'permanentAddress' : Any('own', 'rent'),
                               'address1' : Any(str, unicode),
                               'address2' : Any(str, unicode),
                               'city' : Any(str, unicode),
@@ -43,7 +43,8 @@ applicant_schema = Schema( { 'firstName' : Any(str, unicode),
                               'zip' : Any(str, unicode), #needs review
                               'dayPhone' : Any(str, unicode), #needs review
                               'nightPhone' : Any(str, unicode), #needs review
-                              'email' : Email() } )
+                              'email' : Email(),
+                              'behalf' : Any('yes', 'no')} )
 
 incident_schema = Schema( { 'eventDate' : date_schema,
                               'eventDescription' : Any(str, unicode) } )
@@ -77,4 +78,4 @@ if __name__ == '__main__':
     print type(1485382223700)
     print(IsValid(test_schema, { 1: 'one', 2 : 'three' , '3' : 2.5, 4 : ['4', 5, '6'] }))
     print(IsValid(date_schema, {"$date": 1485382223700}))
-    print(ValidateAsstReq({ 'applicantInfo' : { 'firstName' : 'Trevor', 'storeDeptNo' : 23, 'status' : 'partTime', 'permanentAddress' : 'no' }, 'incidentInfo' : { 'eventDate' : {"$date": 1485382223700} }, 'assistanceRequested': { 'funeral' : False} , 'eligiblePersonnel' : [{'row' : 1 }] } ))
+    print(ValidateAsstReq({ 'applicantInfo' : { 'firstName' : 'Trevor', 'storeDeptNo' : 23, 'behalf' : 'yes' , 'status' : 'partTime', 'permanentAddress' : 'rent' }, 'incidentInfo' : { 'eventDate' : {"$date": 1485382223700} }, 'assistanceRequested': { 'funeral' : False} , 'eligiblePersonnel' : [{'row' : 1 }] } ))
