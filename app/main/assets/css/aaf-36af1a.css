@@ -2,6 +2,11 @@
     margin-top:20px;
 }
 
+.attScroll {
+    height: 375px;
+    overflow: auto;
+}
+
 .container-fluid {
   padding-top:180px;
 }

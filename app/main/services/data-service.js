@@ -66,5 +66,22 @@ angular.module('myApp')
     });
   };
 
+  dataService.updateAttachments = function(requestContent, id) {
+    return $http({
+      url: '/api/request/assistance/' + id + '/document',
+      method: 'POST',
+      headers: {
+        'OpenAMHeaderID': '10705332' //TODO: remove this, it wont be needed in prod
+      },
+      data: requestContent // [0]
+    }).then(function callback(response) {
+      if (response.data ) {
+        //   && response.data.status == "success") {
+        return response.data.result;
+      }
+      return false;
+    });
+  };
+
   return dataService;
 });

@@ -1,14 +1,6 @@
 'use strict';
 angular.module('myApp')
-.controller('AttachmentsCtrl', function ($scope, $state, $rootScope) {
-    // $scope.uploadFile = function() {
-    //     var file = $scope.myFile;
-    //     console.log('file is ');
-    //     console.dir(file);
-    //     console.log('Upload button pressed');
-    //     var uploadUrl = "/fileUpload";
-    //     fileUpload.uploadFileToUrl(file, uploadUrl);
-    // };
+.controller('AttachmentsCtrl', function ($scope, $state, $rootScope, DataService) {
 
     $scope.nextButton = function() {
         $state.go('review-submission');
@@ -24,20 +16,27 @@ angular.module('myApp')
     $scope.$watch('files', function(newValue) {
         console.log(newValue);
         if(newValue) {
-            if($rootScope.application)
-            $rootScope.application.documentation = $scope.files;
+            if($rootScope.application) {
+                DataService.updateAttachments($scope.files, $rootScope.application._id).then(function(result) {
+                    if(result) {
+                      var updatedAttachments = result;
+                      console.log('Updated attachments:');
+                      //For now, let's do it this way; this means we'll need a save button on each page, but converting it to be event-driven or watching the form adds a lot more complexity that we're not yet ready for.
+                    } else {
+                        console.log('Error Updating Attachments');
+                      //Todo: handle the error state
+                    }
+                });
+            }
         }
     }, true);
 
     $scope.deleteAttachment = function(index) {
         $scope.files.splice(index, 1);
-        console.log('Delete Button Pressed');
     };
 
     $scope.addURL = function() {
         $scope.files.push({name:$scope.urlLink});
-        console.log('ADD Link Button Pressed');
-        console.log($scope.files);
     };
 
     $scope.atMax = function() {

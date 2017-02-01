@@ -20,13 +20,15 @@
                 <h3>Attachments </h3>
                 <h5 align="right"> *Enter a URL and select 'Add Link' or Select 'Choose Files' </h5>
             </header>
-                <form>
+                <!-- <form> -->
                     <div>
                         <input type="text" placeholder="Enter a url" ng-model="urlLink" />
                         <button ng-click="addURL()">Add Link</button>
-                            <input class="spacing" type="file" ng-file-model="files" multiple />
+                            <input class="spacing" type="file" file-model="files" ng-model="uploadFile" base-sixty-four-input/>
+                            <!-- <input type="file" ng-file-model="testFile" /> -->
                             <div style="border-top: 2px solid black"</div>
-                        <div style="height: 150px; overflow: auto">
+                        <div class="attScroll">
+                         <!-- style="height: 375px; overflow: auto"> -->
                             <ul class="spacing">
                                 <li ng-repeat="file in files" class="list-group-item">
                                     {{file.name}}
@@ -46,7 +48,7 @@
                             <button ng-click="nextButton()" class="button w-button">Next</button>
                         </div>
                     </div>
-                </form>
+                <!-- </form> -->
         </div>
     </div>
 </div>
