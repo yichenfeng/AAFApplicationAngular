@@ -25,20 +25,70 @@ angular.module('myApp')
     });
   };
 
-  dataService.getApplicationsForEmployee = function(employeeId) {
-   return $http({
-      url: '/api/request/assistancei/search',
+  dataService.getApplications = function() {
+    return $http({
+      url: '/api/request/assistance/search',
       method: 'POST',
       headers: {
-        'OpenAMHeaderID': '10705332' //TODO: remove this, it wont be needed in prod
-      },
-      data: {created_by : employeeId}
-    }).then(function callback(response) {
+        'OpenAMHeaderID': '10705332'
+      }
+    }).then(function successCallback(response) {
       if (response.data && response.data.status == "success") {
         return response.data.result;
       }
       return false;
-    }); 
+    });
+  };
+
+  dataService.getApplicationsForEmployee = function(employeeId) {
+   return $http({
+      url: '/api/request/assistance/search',
+      method: 'POST',
+      headers: {
+        'OpenAMHeaderID': '10705332' //TODO: remove this, it wont be needed in prod
+      },
+      data: {createdBy : employeeId}
+    }).then(function callback(response) {
+      console.log(response);
+      if (response.data && response.data.status == "success") {
+        return response.data.result;
+      }
+      return false;
+    });
+  };
+
+  dataService.getApplicationsByStatus = function(status) {
+   return $http({
+      url: '/api/request/assistance/search',
+      method: 'POST',
+      headers: {
+        'OpenAMHeaderID': '10705332' //TODO: remove this, it wont be needed in prod
+      },
+      data: {status : status}
+    }).then(function callback(response) {
+      console.log(response);
+      if (response.data && response.data.status == "success") {
+        return response.data.result;
+      }
+      return false;
+    });
+  };
+
+  dataService.getApplicationsByEmployeeAndStatus = function(employeeId, status) {
+   return $http({
+      url: '/api/request/assistance/search',
+      method: 'POST',
+      headers: {
+        'OpenAMHeaderID': '10705332' //TODO: remove this, it wont be needed in prod
+      },
+      data: { createdBy : employeeId, status : status}
+    }).then(function callback(response) {
+      console.log(response);
+      if (response.data && response.data.status == "success") {
+        return response.data.result;
+      }
+      return false;
+    });
   };
 
   dataService.createApplication = function(requestContent) {
@@ -68,7 +118,7 @@ angular.module('myApp')
       headers: {
         'OpenAMHeaderID': '10705332'
       },
-      data: application
+      data: application.requestContent
     }).then(function callback(response) {
       if (response.data && response.data.status == "success") {
         dataService.application = application;
