@@ -8,7 +8,6 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
   .run([
     "$rootScope", "$state", "$stateParams", "DataService", function ($rootScope, $state, $stateParams, DataService) {
       $rootScope.$state = $state;
-      // return $rootScope.$stateParams = $stateParams;
       DataService.createApplication({review: {}, applicantInfo: {}, eligiblePersonnel: {},
          incidentInfo: {}, eligiblePersonnel: {}, assistanceRecieved: {}, submitDetails: {}}).then(function (result) {
         if (result) {

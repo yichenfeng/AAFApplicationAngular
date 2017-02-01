@@ -16,7 +16,7 @@ var app = angular.module('myApp')
         acceptButton.addEventListener('click', function (event) {
           scope.signature = signaturePad.toDataURL();
           scope.$apply(function(){
-            $rootScope.application.request_content.review.signature = signaturePad.toDataURL();
+            $rootScope.application.requestContent.submitDetails.signature = signaturePad.toDataURL();
           });
 
         });

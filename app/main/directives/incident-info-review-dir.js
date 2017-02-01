@@ -1,7 +1,7 @@
 'use strict';
 angular.module('myApp')
-.directive('incidentinforeview', function() {
+.directive('incidentInfoReview', function() {
     return {
-      templateUrl: 'main/templates/incidentInfo-review.html'
+      templateUrl: 'main/templates/incident-info-review.html'
     };
 });

@@ -7,10 +7,11 @@ $scope.submitForm = function(isValid) {
 
 $scope.submitted = true;
 
-if (( $scope.application.requestContent.updatedData.user.fire || $scope.application.requestContent.updatedData.user.other || $scope.application.requestContent.updatedData.user.utilities ||
-   $scope.user.options || $scope.application.requestContent.updatedData.user.disaster || $scope.application.requestContent.updatedData.user.funeral) == true){
+if (( $scope.application.requestContent.assistanceRequested.fire || $scope.application.requestContent.assistanceRequested.other || $scope.application.requestContent.assistanceRequested.utilities||
+  $scope.application.requestContent.assistanceRequested.disaster || $scope.application.requestContent.assistanceRequested.funeral || $scope.user.options) == true){
 $state.go('other');
 }
+
 
   };
 

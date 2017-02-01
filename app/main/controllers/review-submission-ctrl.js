@@ -8,7 +8,7 @@ var $ctrl = this;
 
       $scope.submitted = true;
 
-      if(($rootScope.application.request_content.review.signature !== undefined) && (isValid == true)) {
+      if(($rootScope.application.requestContent.submitDetails.signature !== undefined) && (isValid == true)) {
           $state.go('home');
       }
         else if (isValid == false) {

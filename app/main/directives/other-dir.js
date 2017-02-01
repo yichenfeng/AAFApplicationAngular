@@ -1,6 +1,6 @@
 'use strict';
 angular.module('myApp')
-.directive('otherreview', function() {
+.directive('otherReview', function() {
     return {
       templateUrl: 'main/templates/other-review.html'
     };

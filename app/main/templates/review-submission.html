@@ -41,7 +41,7 @@
                               <uib-accordion-heading>
                                 Application Information <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
                               </uib-accordion-heading>
-                                <appplicationinformationreview/>
+                              <appplication-information-review />
                             </div>
                         </uib-accordion>
                       </div>
@@ -54,7 +54,7 @@
                               <uib-accordion-heading>
                                 Eligible Personnel <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
                               </uib-accordion-heading>
-                                <eligiblepersonnelreview/>
+                                <eligible-personnel-review/>
                             </div>
                         </uib-accordion>
                       </div>
@@ -67,7 +67,7 @@
                               <uib-accordion-heading>
                                 Incident Info <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
                               </uib-accordion-heading>
-                                <incidentinforeview/>
+                                <incident-info-review/>
                             </div>
                         </uib-accordion>
                       </div>
@@ -80,7 +80,7 @@
                               <uib-accordion-heading>
                                 Assistance Request <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
                               </uib-accordion-heading>
-                                <assistancerequestreview/>
+                                <assistance-request-review/>
                             </div>
                         </uib-accordion>
                       </div>
@@ -93,7 +93,20 @@
                               <uib-accordion-heading>
                                 Assistance Requested and/or Received <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
                               </uib-accordion-heading>
-                                <otherreview/>
+                                <other-review />
+                            </div>
+                        </uib-accordion>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-9">
+                        <uib-accordion >
+                            <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" >
+                              <uib-accordion-heading>
+                                Attatchments <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+                              </uib-accordion-heading>
+                                <attatchments-review />
                             </div>
                         </uib-accordion>
                       </div>
@@ -105,13 +118,13 @@
                         <div class="col-md-9">
                                   <div class="col-md-5 form-group" ng-class="{ 'has-error' : submissionForm.print.$invalid && submitted}">
                                     <label>Print Name :</label>
-                                    <input type="name" placeholder="Print Name" name="print" class="form-control" ng-model="application.request_content.review.printedName" required>
+                                    <input type="name" placeholder="Print Name" name="print" class="form-control" ng-model="application.requestContent.submitDetails.printName" required>
                                     <p ng-show="submissionForm.print.$invalid && submitted" class="help-block">Please print your name</p>
                                   </div>
                               <div class="col-md-4 form-group" ng-class="{ 'has-error' : submissionForm.date.$invalid && submitted}">
                                 <label>Date : </label>
                                 <p class="input-group">
-                                <input id="date" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="application.request_content.review.signatureDate"
+                                <input id="date" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="application.requestContent.submitDetails.submitDate"
                                     is-open="popup1.opened" name="date" datepicker-options="dateOptions" ng-required="true" close-text="Close"
                                     alt-input-formats="altInputFormats" placeholder="Date" required>
                                   <span class="input-group-btn">
@@ -128,7 +141,7 @@
 
                   <div class="row">
                      <div class="col-md-10">
-                          <signaturepad signature="application.request_content.review.signature" />
+                          <signaturepad signature="application.requestContent.submitDetails.signature" />
                     </div>
                   </div>
               </div>

@@ -1,7 +1,7 @@
 'use strict';
 angular.module('myApp')
-.directive('assistancerequestreview', function() {
+.directive('assistanceRequestReview', function() {
     return {
-      templateUrl: 'main/templates/assistanceRequest-review.html'
+      templateUrl: 'main/templates/assistance-request-review.html'
     };
 });
