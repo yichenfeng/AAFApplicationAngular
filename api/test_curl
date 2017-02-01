@@ -1,46 +1,28 @@
 ##Sucessuful submit
-curl -X POST http://skyline.autozone.com:5555/api/assistance_request -H "OpenAMHeaderID: 10705332" -H "Content-Type: application/json" -d '{"user_id" : "10705332", "name" : "Trevor Robinson", "data" : "test_request"}'
-{'result': ObjectId('584c887cba35bee1ce2b57e0')}
+curl -X POST http://localhost/api/request/assistance -H "OpenAMHeaderID: 10705332" -H "Content-Type: application/json" -d '{ "applicantInfo" : { "employeeId" : 10705332, "firstName" : "Trevor Robinson" } }'
 
 #Submitter - Able to retrieve
-curl -X GET http://skyline.autozone.com:5555/api/assistance_request/584c887cba35bee1ce2b57e0 -H "OpenAMHeaderID: 10705332"
-{'status': 'success', 'result': {'data': 'test_request', '_id': ObjectId('584c887cba35bee1ce2b57e0'), 'user_id': '10705332', 'name': 'Trevor Robinson'}}
-
+curl -X GET http://localhost/api/request/assistance/<req_id>-H "OpenAMHeaderID: 10705332"
 
 #Admin User - Able to retrieve
-curl -X GET http://skyline.autozone.com:5555/api/assistance_request/584c887cba35bee1ce2b57e0 -H "OpenAMHeaderID: 10705432"
-{'status': 'success', 'result': {'data': 'test_request', '_id': ObjectId('584c887cba35bee1ce2b57e0'), 'user_id': '10705332', 'name': 'Trevor Robinson'}}
-
+curl -X GET http://localhost/api/request/assistance/<req_id> -H "OpenAMHeaderID: 10705432"
 
 #non-admin - not able to retrieve
-curl -X GET http://skyline.autozone.com:5555/api/assistance_request/584c887cba35bee1ce2b57e0 -H "OpenAMHeaderID: 10705431"
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
-<title>401 Unauthorized</title>
-<h1>Unauthorized</h1>
-<p>The server could not verify that you are authorized to access the URL requested.  You either supplied the wrong credentials (e.g. a bad password), or your browser doesn't understand how to supply the credentials required.</p>
+curl -X GET http://localhost/api/request/assistance/<req_id> -H "OpenAMHeaderID: 10705431"
 
-curl -X GET http://10.0.0.10:5555/assistance_request/search -H "OpenAMHeaderID: 10705431"
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
-<title>500 Internal Server Error</title>
-<h1>Internal Server Error</h1>
-<p>The server encountered an internal error and was unable to complete your request.  Either the server is overloaded or there is an error in the application.</p>
+#basic search - returns all requests visible to user - add matching criteria to the post data
+#format should be mongo extended json and match aaf request schema.
+curl -X POST http://localhost/api/request/assistance/search -H "OpenAMHeaderID: 10705332"
 
-
-##non admin / non submitter - no search results
-curl -X GET http://skyline.autozone.com:5555/api/assistance_request -H "OpenAMHeaderID: 10705431"
-{'result': [], 'status': 'success'}
-
-##nonadmin - can see own search results
-curl -X GET http://skyline.autozone.com:5555/api/assistance_request -H "OpenAMHeaderID: 10705332"
-{'result': [{'id': '10705332', 'data': 'test_request', 'name': 'Trevor Robinson', '_id': ObjectId('584c1f41ba35bea2e1708d92')}, {'id': '10705332', 'data': 'test_request', 'name': 'Trevor Robinson', '_id': ObjectId('584c1f94ba35bea2f497a0a0')}, {'id': '10705332', 'data': 'test_request', 'name': 'Trevor Robinson', '_id': ObjectId('584c3a56ba35beaee47e132f')}, {'data': 'test_request', 'name': 'Trevor Robinson', 'user_id': '10705332', '_id': ObjectId('584c887cba35bee1ce2b57e0')}], 'status': 'success'}
-
-##admin search
-curl -X GET http://skyline.autozone.com:5555/api/assistance_request -H "OpenAMHeaderID: 10705334"
-{'result': [{'id': '10705332', 'data': 'test_request', 'name': 'Trevor Robinson', '_id': ObjectId('584c1f41ba35bea2e1708d92')}, {'id': '10705332', 'data': 'test_request', 'name': 'Trevor Robinson', '_id': ObjectId('584c1f94ba35bea2f497a0a0')}, {'id': '10705332', 'data': 'test_request', 'name': 'Trevor Robinson', '_id': ObjectId('584c3a56ba35beaee47e132f')}, {'data': 'test_request', 'name': 'Trevor Robinson', 'user_id': '10705332', '_id': ObjectId('584c887cba35bee1ce2b57e0')}], 'status': 'success'}
+#search - get results matching created date and created by
+curl -X POST http://localhost/api/request/assistance/search -H "OpenAMHeaderID: 10705332"  -H "Content-Type: application/json" -d '{ "createdBy": 10705332, "createdDate" : { "$date": "2017-01-26T22:37:29.034Z" }}'
 
 #upload doc
-curl -X POST http://skyline.autozone.com:5555/api/assistance_request/<req_id>/document 
+curl -X POST http://localhost/api/request/assistance/<req_id>/document -H "OpenAMHeaderID: 10705332" -H "Content-Type: application/json" -d '{"fileName" : "test.txt", "description" : "Sample file upload", "base64String" : "VGhpcyBpcyBhIHRlc3QgdGV4dCBmaWxlLg==" }' 
 
 #get doc
+curl -X GET http://localhost/api/request/assistance/<req_id>/document/<doc_id> -H "OpenAMHeaderID: 10705332"
 
-#get socs for request
+#perfom action - submit/approve/deny/close
+#Not currently implemented. Simply returns teh action submitted.
+curl -X POST http://localhost/api/request/assistance/<req_id>/<action> -H "OpenAMHeaderID: 10705332"

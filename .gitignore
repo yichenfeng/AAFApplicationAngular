@@ -4,6 +4,8 @@ node_modules/
 tmp
 .DS_Store
 .idea
+__pycache__/
+*.pyc
 *.iml
 *.ipr
 *.iws
