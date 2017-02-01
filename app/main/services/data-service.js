@@ -135,10 +135,9 @@ angular.module('myApp')
       headers: {
         'OpenAMHeaderID': '10705332' //TODO: remove this, it wont be needed in prod
       },
-      data: requestContent // [0]
+      data: requestContent
     }).then(function callback(response) {
-      if (response.data ) {
-        //   && response.data.status == "success") {
+      if (response.data && response.data.status == "success") {
         return response.data.result;
       }
       return false;

@@ -73,15 +73,11 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
         templateUrl: 'main/templates/login.html',
         controller: 'LoginCtrl as ctrl'
       })
-<<<<<<< HEAD
       .state('attachments', {
         url: '/attachments',
         templateUrl: 'main/templates/attachments.html',
         controller: 'AttachmentsCtrl as ctrl'
       })
-
-=======
->>>>>>> 9c79aa65d287b25799c192608e233d4c33f45697
       .state('about', {
         url: '/about',
         templateUrl: 'main/templates/partial-about.html'

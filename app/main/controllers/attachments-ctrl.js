@@ -36,7 +36,7 @@ angular.module('myApp')
     };
 
     $scope.addURL = function() {
-        $scope.files.push({name:$scope.urlLink});
+        $scope.files.push({fileName:$scope.urlLink, description: "", base64String: "" });
     };
 
     $scope.atMax = function() {
