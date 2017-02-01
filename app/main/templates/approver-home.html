@@ -1,0 +1,42 @@
+<div class="container-fluid" id="test">
+  <div class="main-section" id="posts">
+    <div class="w-container">
+      <div class="w-row">
+        <center>
+          <h2>Approval</h2>
+        </center>
+        <div class="w-col w-col-2">
+          <form name="searchForm">
+            <div class="form-group">
+              <label>Filter Results</label>
+              <select ng-model="status">
+                <option ng-repeat="s in statuses" value="{{s}}">{{s}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Search</label>
+              <input ng-model="employeeID" type="number" placeholder="Employee ID" class="form-control">
+            </div>
+            <button type="submit" ng-click="search()">Search</button>
+          </form>
+        </div>
+        <div class="w-col w-col-10">
+          <table ng-table="tableParams" class="table">
+            <tr ng-repeat="app in $data">
+              <td title="'Date'">{{ app.createdDate.$date | date:'MM/dd/yyyy' }}</td>
+              <td title="'Employee ID'"><a ng-click="viewApp(app.createdBy)">{{ app.createdBy }}</a></td>
+              <td title="'AutoZoner Name'">{{ app.requestContent.applicantInfo.firstName }} {{app.requestContent.applicantInfo.middleName}} {{app.requestContent.applicantInfo.lastName}}</td>
+              <td title="'Store/Dept'">{{ app.requestContent.applicantInfo.storeDeptNo }}</td>
+              <td title="'Amount Requested'">${{ app.requestContent.assistanceRequested.amountRequested }}</td>
+              <td title="'Review'">???</td>
+              <td title="'Amount Awarded'">???</td>
+              <td title="'Date Awarded'">???</td>
+              <td title="'Comments'">???</td>
+              <td title="'Date of Event'">{{ app.requestContent.incidentInfo.eventDate.$date | date:'MM/dd/yyyy' }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap', 'ui.bootstrap.tpls', 'naif.base64'])
+angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap', 'ui.bootstrap.tpls', 'naif.base64', 'ngAnimate', 'ngSanitize', 'ui.bootstrap.tpls', 'ngTable'])
   .factory('SignaturePad', function(){
     return SignaturePad;
   })
@@ -9,7 +9,8 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
     "$rootScope", "$state", "$stateParams", "DataService", function ($rootScope, $state, $stateParams, DataService) {
       $rootScope.$state = $state;
       // return $rootScope.$stateParams = $stateParams;
-      DataService.createApplication({foo: 'bar'}).then(function (result) {
+      DataService.createApplication({applicantInfo: {}, eligiblePersonnel: [], incidentInfo: {},
+          assistanceRequested: {}, assistanceRecieved: {}, submitDetails: {}}).then(function (result) {
         if (result) {
           $rootScope.application = result;
           $rootScope.$watch(function() { return $rootScope.application; }, function (newValue) {
@@ -34,11 +35,7 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
     $stateProvider
       .state('home', {
         url: '/home',
-        templateUrl: 'main/templates/home.html'
-      })
-      .state('applicationStatus', {
-        url: '/applicationStatus',
-        templateUrl: 'main/templates/applicationStatus.html',
+        templateUrl: 'main/templates/home.html',
         controller: 'ApplicationStatusCtrl as ctrl'
       })
       .state('applicationInformation', {
@@ -76,14 +73,22 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
         templateUrl: 'main/templates/login.html',
         controller: 'LoginCtrl as ctrl'
       })
+<<<<<<< HEAD
       .state('attachments', {
         url: '/attachments',
         templateUrl: 'main/templates/attachments.html',
         controller: 'AttachmentsCtrl as ctrl'
       })
 
+=======
+>>>>>>> 9c79aa65d287b25799c192608e233d4c33f45697
       .state('about', {
         url: '/about',
         templateUrl: 'main/templates/partial-about.html'
+      })
+      .state('approverHome', {
+        url: '/approverHome',
+        templateUrl: 'main/templates/approver-home.html',
+        controller: 'ApproverHomeCtrl as ctrl'
       });
   });

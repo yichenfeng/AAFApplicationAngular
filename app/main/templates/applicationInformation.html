@@ -1,115 +1,125 @@
-<!-- Page Content -->
-<div class="container-fluid" style="padding-top:180px;">
-
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="col-sm-2 ">
-
-                <!-- list group -->
-                <navigation/>
-
-            </div>
-
-            <div class="col-md-4">
-                <form>
-                    <div class="form-group">
-                        <label>First Name</label>
-                        <input ng-model="appInfo.firstName" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Last Name</label>
-                        <input ng-model="appInfo.lastName" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Position</label>
-                        <input ng-model="appInfo.position" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Store Number</label>
-                        <input ng-model="appInfo.storeNumber" class="form-control">
-                    </div>
-                </form>
-                <form class="form-inline">
-                    <label>Permanent Address </label>
-                    <div class="checkbox">
-                        <label><input type="checkbox" value=""> Own</label>
-                        <label><input type="checkbox" value=""> Rent</label>
-                    </div>
-                </form>
-                <br>
-                <div class="form-group">
-                    <label>Address 1</label>
-                    <input ng-model="appInfo.address1" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Address 2</label>
-                    <input ng-model="appInfo.address2" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>City</label>
-                    <input ng-model="appInfo.city" class="form-control">
-                </div>
-
-                <div class="" uib-dropdown is-open="status.isopen">
-                    <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle
-                            ng-disabled="disabled">
-                        State <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                        <li role="menuitem"><a href="#">Alabama</a></li>
-                        <li role="menuitem"><a href="#">Arkansas</a></li>
-                        <li role="menuitem"><a href="#">New York</a></li>
-                        <li role="menuitem"><a href="#">Tennessee</a></li>
-                    </ul>
-                </div>
-                <br>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Zip</label>
-                    <input ng-model="appInfo.zip" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Daytime Telephone #</label>
-                    <input ng-model="appInfo.daytimeTelephone" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>NightTime Telephone #</label>
-                    <input ng-model="appInfo.nightTelephone" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input ng-model="appInfo.EmailAddress" class="form-control">
-                </div>
-
-            </div>
-            <div class="col-md-4">
-                <form>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Middle Name </label>
-                        <input ng-model="appInfo.middleName" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Employee ID</label>
-                        <input ng-model="appInfo.employeeID" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Status</label>
-                        <div class="checkbox">
-                            <label><input type="checkbox" value="">Full Time</label>
-                            <label><input type="checkbox" value="">Part Time</label>
-                        </div>
-                    </div>
-                </form>
-            </div>
+<div class="container-fluid">
+  <div class="main-section" id="posts">
+    <div class="w-container">
+      <div class="w-row">
+        <div class="sidenav w-col w-col-3">
+          <h3></h3>
+          <a ng-class="{active: $state.includes('applicationInformation')}" ui-sref="applicationInformation" class="formsteps working">Applicant Information</a>
+          <a ng-class="{active: $state.includes('eligiblePersonnel')}" ui-sref="eligiblePersonnel" class="formsteps todo">Eligible Personnel</a>
+          <a ng-class="{active: $state.includes('incidentInfo')}" ui-sref="incidentInfo" class="formsteps todo">Incident Info</a>
+          <a ng-class="{active: $state.includes('assistanceRequest')}" ui-sref="assistanceRequest" class="formsteps todo">Assistance Request</a>
+          <a ng-class="{active: $state.includes('other')}" ui-sref="other" class="formsteps todo">Assistance Requested and/or Received</a>
+          <a ng-class="{active: $state.includes('review-submission')}" ui-sref="review-submission" class="formsteps todo">Review and Submission</a>
         </div>
+        <div class="w-col w-col-9">
+          <h3>Application Information</h3>
+            <form name="applicationInfoForm" ng-class="{'submitted':submitted}">
+              <div class="col-md-9">
+                <p></p>
+                <div class="form-group">
+                  <label>Are you filling this application out on someone's behalf?</label>
+                  <div class="radio">
+                    <p class="error" ng-show="showBehalfError">Please select one</p>
+                    <label><input type="radio" ng-model="application.requestContent.applicantInfo.behalf" value="yes" ng-required="!behalf" ng-change="showBehalfError=false"> Yes</label>
+                    <label><input type="radio" ng-model="application.requestContent.applicantInfo.behalf" value="no" ng-required="!behalf" ng-change="showBehalfError=false">No</label>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>First Name</label>
+                    <input ng-model="application.requestContent.applicantInfo.firstName" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Last Name</label>
+                    <input ng-model="application.requestContent.applicantInfo.lastName" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Position</label>
+                    <input ng-model="application.requestContent.applicantInfo.position" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Status</label>
+                    <div class="radio">
+                      <p class="error" ng-show="showJobTypeError">Please select one</p>
+                      <label><input type="radio" ng-model="application.requestContent.applicantInfo.status" value="fullTime" ng-required="!jobType" ng-change="showJobTypeError=false">Full Time</label>
+                      <label><input type="radio" ng-model="application.requestContent.applicantInfo.status" value="partTime" ng-required="!jobType" ng-change="showJobTypeError=false">Part Time</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Middle Name </label>
+                    <input ng-model="application.requestContent.applicantInfo.middleName" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Employee ID</label>
+                    <input ng-model="application.requestContent.applicantInfo.employeeId" type="number" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Store Number/Department ID</label>
+                    <input ng-model="application.requestContent.applicantInfo.storeDeptNo" type="number" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Permanent Address </label>
+                    <div class="radio">
+                      <p class="error" ng-show="showPermAddressError">Please select one</p>
+                      <label><input type="radio" ng-model="application.requestContent.applicantInfo.permanentAddress" value="own" ng-required="!permAddress" ng-change="showPermAddressError=false"> Own</label>
+                      <label><input type="radio" ng-model="application.requestContent.applicantInfo.permanentAddress" value="rent" ng-required="!permAddress" ng-change="showPermAddressError=false"> Rent</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div id="app-info-col-2">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Address 1</label>
+                    <input ng-model="application.requestContent.applicantInfo.address1" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label>City</label>
+                    <input ng-model="application.requestContent.applicantInfo.city" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Zip</label>
+                    <input ng-model="application.requestContent.applicantInfo.zip" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Daytime Telephone #</label>
+                    <input ng-model="application.requestContent.applicantInfo.dayPhone" class="form-control" required>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Address 2</label>
+                    <input ng-model="application.requestContent.applicantInfo.address2" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label>State</label>
+                    <select ng-model="application.requestContent.applicantInfo.state" id="stateDropDown" required>
+                      <option ng-repeat="x in states" value="{{x}}">{{x}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>NightTime Telephone #</label>
+                    <input ng-model="application.requestContent.applicantInfo.nightPhone" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Email Address</label>
+                    <input ng-model="application.requestContent.applicantInfo.email" class="form-control" required>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="form-nav">
+                <button type="submit" class="button inverse w-button" ng-click="saveForLater()">Save for Later</button>
+                <button class="button w-button" ng-click="next($event)">Next</button>
+              </div>
+          </form>
+        </div>
+      </div>
     </div>
-
+  </div>
 </div>
-
-<ul class="pager">
-  <div class="form-nav"><a class="button inverse w-button" href="index.html">Save for Later</a><a class="button w-button" href="index.html">Next</a>
-</ul>
-<!-- /.row -->
-
-
-<hr>

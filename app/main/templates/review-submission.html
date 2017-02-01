@@ -1,23 +1,25 @@
+<div ng-controller="ReviewSubmissionCtrl as $ctrl">
 <!-- Page Content -->
-<div class="container-fluid" style="padding-top:10px;">
-    <div class="row">
-        <h1 align="center">Review and Submission</h1>
-        <hr>
-        <br>
-    </div>
-    <!-- /.row -->
+<div class="container-fluid reviewSubmission" >
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="col-sm-2 ">
-                <!-- Search -->
-                <!-- list group -->
-                <navigation/>
-            </div>
+<div class="row">
+   <div class="col-md-12">
 
-
-            <div class="col-md-8">
-                <h3>Signatures </h3>
+     <div class="sidenav w-col w-col-3">
+     <!-- list group -->
+               <h3>Review and Submission</h3>
+                   <a ng-class="{active: $state.includes('applicationStatus')}" ui-sref="applicationStatus" class=" complete formsteps">Application Status</a>
+                   <a ng-class="{active: $state.includes('applicationInformation')}" ui-sref="applicationInformation" class="complete formsteps">Applicant Information</a>
+                   <a ng-class="{active: $state.includes('eligiblePersonnel')}" ui-sref="eligiblePersonnel" class="complete formsteps">Eligible Personnel</a>
+                   <a ng-class="{active: $state.includes('incidentInfo')}" ui-sref="incidentInfo" class="complete formsteps">Incident Info</a>
+                   <a ng-class="{active: $state.includes('assistanceRequest')}" ui-sref="assistanceRequest" class="complete formsteps">Assistance Request</a>
+                   <a ng-class="{active: $state.includes('other')}" ui-sref="other" class="complete formsteps">Assistance Requested and/or Received</a>
+                   <a ng-class="{active: $state.includes('review-submission')}" ui-sref="review-submission" class="formsteps working">Review and Submission</a>
+       </div>
+  <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-9">
+                <h3>Review and Submission</h3>
                 <p>I hereby certify that the information provided herein is true and accurate. I am verifying that I
                     have no personal funds, such as savings or checking account funds, available to me. I am also aware
                     that any statements made herein which are willfully false are subject to penalty under applicable
@@ -32,69 +34,61 @@
                     reliance on it. I also acknowledge that the information released was fully explained to me and this
                     consent is given of my own free will. A photocopy of this authorization is valid as the
                     original. </p>
-                <!-- <form>
-                    <signaturepad/>
-                </form> -->
-            </div>
-            <div class="col-md-4">
-                <form class="form-inline">
-                    <div class="form-group">
-                        <label class="form-control-static">Print Name : </label>
+          </div>
+      </div>
+
+    <div class="row">
+      <form name="submissionForm" >
+          <div class="col-md-9">
+                    <div class="col-md-5 form-group" ng-class="{ 'has-error' : submissionForm.print.$invalid && submitted}">
+                      <label>Print Name :</label>
+                      <input type="name" placeholder="Print Name" name="print" class="form-control" ng-model="application.request_content.review.printedName" required>
+                      <p ng-show="submissionForm.print.$invalid && submitted" class="help-block">Please print your name</p>
                     </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control">
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-4">
-                <div ng-controller="DatepickerDemoCtrl">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p class="input-group">
-                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt"
-                                       is-open="opened" min-date="minDate" max-date="'2015-06-22'"
-                                       datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
-                                       ng-required="true" placeholder="Date" close-text="Close"/>
-                                <span class="input-group-btn">
-				                <button type="button" class="btn btn-default" ng-click="open($event)"><i
-                                        class="glyphicon glyphicon-calendar"></i></button>
-				              </span>
-                            </p>
-                        </div>
-                    </div>
+                <div class="col-md-4 form-group" ng-class="{ 'has-error' : submissionForm.date.$invalid && submitted}">
+                  <label>Date : </label>
+                  <p class="input-group">
+                  <input id="date" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="application.request_content.review.signatureDate"
+                      is-open="popup1.opened" name="date" datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                      alt-input-formats="altInputFormats" placeholder="Date" required>
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default" ng-click="open1()">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                      </button>
+                    </span>
+                    <p ng-show="submissionForm.date.$invalid && submitted" class="help-block">Please select a date</p>
+                  </p>
                 </div>
-            </div>
-            <br>
-            <div class="col-md-8">
-                <label>Signature</label>
-                <signaturepad/>
-            </div>
-
-            <br>
-
-        </div>
+          </div>
+        </form>
+     </div>
+    <div class="row">
+       <div class="col-md-10">
+            <signaturepad signature="application.request_content.review.signature" />
+      </div>
     </div>
+  </div>
+
+  <div class="form-nav">
+    <button ui-sref="home" class="button inverse w-button" id="save">Save for Later</button>
+    <button  class="button w-button" ng-click="submit(submissionForm.$valid)">Submit</button>
+  </div>
+</div>
+</div>
+
+</div>
+
+    <script type="text/ng-template" id="ReviewErrorModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Please sign your name</h3>
+            <p>Please make sure all of your application is correct before signing your name. </p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn " type="button" ng-click="$ctrl.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+        </div>
+    </script>
+
+
 </div>
 <!-- Pager -->
-<div class="row">
-    <div class="pull-right">
-        <nav>
-            <ul class="pager">
-                <li class="previous"><a href="#"><span class="glyphicon glyphicon-menu-left"
-                                                       aria-hidden="true"></span> Previous</a></li>
-                <li class="next"><a href="#">Next <span class="glyphicon glyphicon-menu-right"
-                                                        aria-hidden="true"></span></a></li>
-            </ul>
-        </nav>
-    </div>
-</div> <!-- /.row -->
-
-
-<hr>
-<footer class="margin-tb-3">
-    <div class="row">
-        <div class="col-lg-12">
-            <p>Copyright &copy; AZ Hackathon 2016</p>
-        </div>
-    </div>
-</footer>
