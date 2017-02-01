@@ -13,7 +13,7 @@ angular.module('myApp')
   ];
 
   $scope.viewApp = function (id) {
-    $state.go('', { id : id });
+    $state.go('admin-application', { id : id });
   };
 
   DataService.getApplications().then(function (response) {
