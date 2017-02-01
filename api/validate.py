@@ -25,7 +25,7 @@ personnel_schema = Schema( { 'fName' : Any(str, unicode),
                               'initial' : Any(str, unicode),
                               'lName' : Any(str, unicode),
                               'age' : int,
-                              'relationship' : str } )
+                              'relationship' : Any(str, unicode) } )
 
 applicant_schema = Schema( { 'firstName' : Any(str, unicode),
                               'middleName' : Any(str, unicode),
@@ -35,19 +35,19 @@ applicant_schema = Schema( { 'firstName' : Any(str, unicode),
                               'position' : Any(str, unicode),
                               'storeDeptNo' : int,
                               'permanenetAddress' : ['own', 'rent'],
-                              'address1' : str,
-                              'address2' : str,
-                              'city' : str,
-                              'state' : str, #needs review
-                              'zip' : str, #needs review
-                              'dayPhone' : str, #needs review
-                              'nightPhone' : str, #needs review
+                              'address1' : Any(str, unicode),
+                              'address2' : Any(str, unicode),
+                              'city' : Any(str, unicode),
+                              'state' : Any(str, unicode), #needs review
+                              'zip' : Any(str, unicode), #needs review
+                              'dayPhone' : Any(str, unicode), #needs review
+                              'nightPhone' : Any(str, unicode), #needs review
                               'email' : Email() } )
 
 incident_schema = Schema( { 'eventDate' : date_schema,
-                              'eventDescription' : str } )
+                              'eventDescription' : Any(str, unicode) } )
 
-requested_schema = Schema( { 'amountRequested' : str,
+requested_schema = Schema( { 'amountRequested' : Any(str, unicode),
                               'shelter' : ['temporary', 'eviction', 'homeless'],
                               'funeral' : Boolean(),
                               'utilities' : Boolean(),
@@ -55,15 +55,15 @@ requested_schema = Schema( { 'amountRequested' : str,
                               'naturalDisaster' : Boolean(),
                               'other' : Boolean() } )
 
-recieved_schema = Schema( { 'assistSalvArmy' : str,    #need to discuss data type
-                              'assistRedCross' : str,
-                              'assistGovt' : str,
-                              'assistEmployer' : str,
-                              'assistOther' : str } )
+recieved_schema = Schema( { 'assistSalvArmy' : Any(str, unicode),    #need to discuss data type
+                              'assistRedCross' : Any(str, unicode),
+                              'assistGovt' : Any(str, unicode),
+                              'assistEmployer' : Any(str, unicode),
+                              'assistOther' : Any(str, unicode) } )
 
-submit_schema = Schema( { 'submitName' : str,
+submit_schema = Schema( { 'submitName' : Any(str, unicode),
                               'submitDate' : date_schema,
-                              'signature' : str } )
+                              'signature' : Any(str, unicode) } )
 
 assistance_schema = Schema( { 'applicantInfo' : applicant_schema,
                               'eligiblePersonnel' : [personnel_schema],
