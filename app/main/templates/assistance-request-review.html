@@ -11,9 +11,9 @@
 
             <!-- Check if Shelter assistance needed -->
             <div class="form-group">
-                  <label><input type="checkbox" name="shelter" ng-disabled="astReqForm" ng-model="application.request_content.updatedData.user.shelter" required> <b>SHELTER </b> </label>
+                  <label><input type="checkbox" name="shelter" ng-disabled="astReqForm" ng-model="application.requestContent.assistanceRequested.shelter" required> <b>SHELTER </b> </label>
 
-              <select ng-show="application.request_content.updatedData.user.shelter" ng-disabled="astReqForm" class="form-control" ng-model="application.requestContent.assistanceRequested.shelter">
+              <select ng-show="application.requestContent.assistanceRequested.shelter" ng-disabled="astReqForm" class="form-control" ng-model="application.requestContent.assistanceRequested.shelter">
                  <option>Temporary Living</option>
                  <option>Eviction</option>
                  <option>Homeless</option>

@@ -41,7 +41,8 @@
                               <uib-accordion-heading>
                                 Application Information <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
                               </uib-accordion-heading>
-                              <appplication-information-review />
+                                <a ui-sref="applicationInformation" style="float:right">EDIT</a>
+                                <appplication-information-review />
                             </div>
                         </uib-accordion>
                       </div>
@@ -54,6 +55,7 @@
                               <uib-accordion-heading>
                                 Eligible Personnel <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
                               </uib-accordion-heading>
+                                <a ui-sref="eligiblePersonnel" style="float:right">EDIT</a>
                                 <eligible-personnel-review/>
                             </div>
                         </uib-accordion>
@@ -67,6 +69,7 @@
                               <uib-accordion-heading>
                                 Incident Info <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
                               </uib-accordion-heading>
+                                <a ui-sref="incidentInfo" style="float:right">EDIT</a>
                                 <incident-info-review/>
                             </div>
                         </uib-accordion>
@@ -80,6 +83,7 @@
                               <uib-accordion-heading>
                                 Assistance Request <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
                               </uib-accordion-heading>
+                                <a ui-sref="assistanceRequest" style="float:right">EDIT</a>
                                 <assistance-request-review/>
                             </div>
                         </uib-accordion>
@@ -93,6 +97,7 @@
                               <uib-accordion-heading>
                                 Assistance Requested and/or Received <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
                               </uib-accordion-heading>
+                                <a ui-sref="other" style="float:right">EDIT</a>
                                 <other-review />
                             </div>
                         </uib-accordion>
@@ -106,6 +111,7 @@
                               <uib-accordion-heading>
                                 Attatchments <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
                               </uib-accordion-heading>
+                                <a ui-sref="applicationInformation" style="float:right">EDIT</a>
                                 <attatchments-review />
                             </div>
                         </uib-accordion>
@@ -118,7 +124,7 @@
                         <div class="col-md-9">
                                   <div class="col-md-5 form-group" ng-class="{ 'has-error' : submissionForm.print.$invalid && submitted}">
                                     <label>Print Name :</label>
-                                    <input type="name" placeholder="Print Name" name="print" class="form-control" ng-model="application.requestContent.submitDetails.printName" required>
+                                    <input type="name" placeholder="Print Name" name="print" class="form-control" ng-model="application.requestContent.submitDetails.submitName" required>
                                     <p ng-show="submissionForm.print.$invalid && submitted" class="help-block">Please print your name</p>
                                   </div>
                               <div class="col-md-4 form-group" ng-class="{ 'has-error' : submissionForm.date.$invalid && submitted}">

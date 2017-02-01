@@ -1,5 +1,4 @@
 <div class="col-md-12">
-  <!-- <h3>Eligible Personnel</h3> -->
     <form name="eligiblePersonnelForm">
       <div class="form-group">
         <div class="row">
@@ -27,26 +26,21 @@
         <div class="col-xs-4">
             <label for="EligiblePersonnelRelationshipToAutoZoner">Relationship to AutoZoner</label>
         </div>
-        <div ng-repeat="person in persons track by person.row">
+        <div ng-repeat="person in application.requestContent.eligiblePersonnel track by person.row">
           <div class="col-xs-3">
-            <label>{{person.fName}} </label>
-            <br>
+            <p>{{person.fName}} </p>
           </div>
           <div class="col-xs-1">
-            <label>{{person.initial}} </label>
-            <br>
+            <p>{{person.initial}} </p>
           </div>
           <div class="col-xs-3">
-            <label>{{person.lName}} </label>
-            <br>
+            <p>{{person.lName}} </p>
           </div>
           <div class="col-xs-1">
-            <label>{{person.age}} </label>
-            <br>
+            <p ng-style="person.age > 0 ? {color:'black'} : {color:'white'}">{{person.age}} </p>
           </div>
           <div class="col-xs-4">
-            <label>{{person.relationship}} </label>
-            <br>
+            <p>{{person.relationship}} </p>
           </div>
         </div>
       </div>
