@@ -12,13 +12,4 @@ angular.module('myApp')
       }
     });
   }
-
-    $scope.nextButton = function() {
-        $state.go('review-submission')
-    };
-
-    $scope.saveLaterBtn = function() {
-        $state.go('home');
-    };
-
 });

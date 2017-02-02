@@ -65,7 +65,7 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
         templateUrl: 'main/templates/other.html',
         controller: 'OtherCtrl as ctrl'
       })
-      .state('review-submission', {
+      .state('reviewSubmission', {
         url: '/review-submission/:appId',
         templateUrl: 'main/templates/review-submission.html',
         controller: 'ReviewSubmissionCtrl as ctrl'

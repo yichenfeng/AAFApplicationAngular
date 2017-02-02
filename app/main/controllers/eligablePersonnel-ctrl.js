@@ -49,9 +49,4 @@ angular.module('myApp')
       $rootScope.application.requestContent.eligiblePersonnel = newValue;
     }
   }, true);
-
-  $scope.next = function () {
-    $state.go('incidentInfo');
-  };
-
 });
