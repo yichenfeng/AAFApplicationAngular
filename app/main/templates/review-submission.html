@@ -1,20 +1,11 @@
 
-  <!-- Page Content -->
-  <div class="container-fluid reviewSubmission" >
-    
-      <div class="row">
-           <div class="col-md-12">
-                <div class="sidenav w-col w-col-3">
-                           <h3>Review and Submission</h3>
-                               <a ng-class="{active: $state.includes('applicationInformation')}" ui-sref="applicationInformation" class="complete formsteps">Applicant Information</a>
-                               <a ng-class="{active: $state.includes('eligiblePersonnel')}" ui-sref="eligiblePersonnel" class="complete formsteps">Eligible Personnel</a>
-                               <a ng-class="{active: $state.includes('incidentInfo')}" ui-sref="incidentInfo" class="complete formsteps">Incident Info</a>
-                               <a ng-class="{active: $state.includes('assistanceRequest')}" ui-sref="assistanceRequest" class="complete formsteps">Assistance Request</a>
-                               <a ng-class="{active: $state.includes('other')}" ui-sref="other" class="complete formsteps">Assistance Requested and/or Received</a>
-                               <a ng-class="{active: $state.includes('review-submission')}" ui-sref="review-submission" class="formsteps working">Review and Submission</a>
-                </div>
-                <div class="w-col w-col-9">
-                    <div class="row">
+<div class="container-fluid">
+  <div class="main-section" id="posts">
+    <div class="w-container">
+      <div class="w-row">
+				<side-navigation step="6" app-id="application._id"></side-navigation>
+            <div class="col-md-9">
+                  <div class="row">
                       <div class="col-md-9">
                               <h3>Review and Submission</h3>
                               <p>I hereby certify that the information provided herein is true and accurate. I am verifying that I

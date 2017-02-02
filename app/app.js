@@ -8,24 +8,27 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
   .run([
     "$rootScope", "$state", "$stateParams", "DataService", function ($rootScope, $state, $stateParams, DataService) {
       $rootScope.$state = $state;
-      DataService.createApplication({applicantInfo: {}, eligiblePersonnel: [], incidentInfo: {},
-          assistanceRequested: {}, assistanceRecieved: {}, submitDetails: {}}).then(function (result) {
-        if (result) {
-          $rootScope.application = result;
-          $rootScope.$watch(function() { return $rootScope.application; }, function (newValue) {
-            console.log(newValue);
-            DataService.updateApplication(newValue).then(function (result) {
-              if(result) {
-                console.log('Updated application!');
-              } else {
-                console.log('Error updating application');
-              }
-            });
-          }, true);
-        } else {
-          console.log('Error creating application');
+      $rootScope.createApplication = function () {
+        return DataService.createApplication({applicantInfo: {}, eligiblePersonnel: [], incidentInfo: {},
+            assistanceRequested: {}, assistanceRecieved: {}, submitDetails: {}}).then(function (result) {
+          if (result) {
+            $rootScope.application = result;
+          } else {
+            console.log('Error creating application');
+          }
+        });
+      }
+      $rootScope.$watch(function() { return $rootScope.application; }, function (newValue) {
+        if(newValue && newValue._id) {
+          DataService.updateApplication(newValue).then(function (result) {
+            if(result) {
+              console.log('Updated application!');
+            } else {
+              console.log('Error updating application');
+            }
+          });
         }
-      });
+      }, true);
     }
   ])
   .config(function ($stateProvider, $urlRouterProvider) {
@@ -38,32 +41,32 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
         controller: 'ApplicationStatusCtrl as ctrl'
       })
       .state('applicationInformation', {
-        url: '/applicationInformation',
+        url: '/applicationInformation/:appId',
         templateUrl: 'main/templates/applicationInformation.html',
         controller: 'ApplicationInformationCtrl as ctrl'
       })
       .state('assistanceRequest', {
-        url: '/assistanceRequest',
+        url: '/assistanceRequest/:appId',
         templateUrl: 'main/templates/assistanceRequest.html',
         controller: 'AssistanceRequestCtrl as ctrl'
       })
       .state('eligiblePersonnel', {
-        url: '/eligiblePersonnel',
+        url: '/eligiblePersonnel/:appId',
         templateUrl: 'main/templates/eligablePersonnel.html',
         controller: 'EligablePersonnelCtrl as ctrl'
       })
       .state('incidentInfo', {
-        url: '/incidentInfo',
+        url: '/incidentInfo/:appId',
         templateUrl: 'main/templates/incidentInfo.html',
         controller: 'IncidentInfoCtrl as ctrl'
       })
       .state('other', {
-        url: '/other',
+        url: '/other/:appId',
         templateUrl: 'main/templates/other.html',
         controller: 'OtherCtrl as ctrl'
       })
-      .state('review-submission', {
-        url: '/review-submission',
+      .state('reviewSubmission', {
+        url: '/review-submission/:appId',
         templateUrl: 'main/templates/review-submission.html',
         controller: 'ReviewSubmissionCtrl as ctrl'
       })
@@ -75,6 +78,11 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
       .state('about', {
         url: '/about',
         templateUrl: 'main/templates/partial-about.html'
+      })
+      .state('approver-application', {
+        url: '/approver/application/:appId',
+        templateUrl: 'main/templates/adminApplication.html',
+        controller: 'AdminApplicationCtrl as ctrl'
       })
       .state('approverHome', {
         url: '/approverHome',

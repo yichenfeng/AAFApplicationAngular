@@ -1,0 +1,7 @@
+api/
+configs/
+node_modules
+e2e-tests/
+docs/
+app/main/assets/
+app/bower_components/
