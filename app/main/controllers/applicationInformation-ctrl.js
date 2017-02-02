@@ -2,6 +2,9 @@
 angular.module('myApp')
 .controller('ApplicationInformationCtrl', function ($scope, $state, $rootScope) {
 
+  $scope.noWrapSlides = false;
+  $scope.active = 0;
+
   $scope.saveForLater = function() {
     $state.go('home');
   };
