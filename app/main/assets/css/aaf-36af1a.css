@@ -1,9 +1,10 @@
 .carousel-control.left, .carousel-control.right {
-    background-image: none
+  background-image: none;
 }
 #carousel {
   height: 300px;
   width: 700px;
+  margin: 50px auto 0;
 }
 #carousel img {
   height:300px;
