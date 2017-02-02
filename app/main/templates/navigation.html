@@ -1,10 +1,9 @@
-<div class="list-group">
-  <a ng-class="{active: $state.includes('applicationStatus')}" ui-sref="applicationStatus" class=" complete formsteps">Application Status</a>
-  <a ng-class="{active: $state.includes('applicationInformation')}" ui-sref="applicationInformation" class="complete formsteps">Applicant Information</a>
-  <a ng-class="{active: $state.includes('eligiblePersonnel')}" ui-sref="eligiblePersonnel" class="formsteps working">Eligible Personnel</a>
-  <a ng-class="{active: $state.includes('incidentInfo')}" ui-sref="incidentInfo" class="formsteps todo">Incident Info</a>
-  <a ng-class="{active: $state.includes('assistanceRequest')}" ui-sref="assistanceRequest" class="formsteps todo">Assistance Request</a>
-  <a ng-class="{active: $state.includes('other')}" ui-sref="other" class="formsteps todo">Assistance Requested and/or Received</a>
-  <a ng-class="{active: $state.includes('attachments')}" ui-sref="attachments" class="formsteps todo">Attachments</a>
-  <a ng-class="{active: $state.includes('review-submission')}" ui-sref="review-submission" class="formsteps todo">Review and Submission</a>
+<div class="sidenav w-col w-col-3">
+  <h3></h3>
+  <a ui-sref="applicationInformation({appId: appId})" ng-class="step == 1 ? 'working' : step > 1 ? 'complete' : 'todo'" class="formsteps" >Applicant Information</a>
+  <a ui-sref="eligiblePersonnel({appId: appId})" ng-class="step == 2 ? 'working' : step > 2 ? 'complete' : 'todo'" class="formsteps">Eligible Personnel</a>
+  <a ui-sref="incidentInfo({appId: appId})" ng-class="step == 3 ? 'working' : step > 3 ? 'complete' : 'todo'" class="formsteps">Incident Info</a>
+  <a ui-sref="assistanceRequest({appId: appId})" ng-class="step == 4 ? 'working' : step > 4 ? 'complete' : 'todo'" class="formsteps">Assistance Request</a>
+  <a ui-sref="other({appId: appId})" ng-class="step == 5 ? 'working' : step > 5 ? 'complete' : 'todo'" class="formsteps">Assistance Requested and/or Received</a>
+  <a ui-sref="reviewSubmission({appId: appId})" ng-class="step == 6 ? 'working' : step > 6 ? 'complete' : 'todo'" class="formsteps">Review and Submission</a>
 </div>
