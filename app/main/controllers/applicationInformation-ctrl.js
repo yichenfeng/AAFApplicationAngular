@@ -17,7 +17,7 @@ angular.module('myApp')
 
   $scope.noWrapSlides = false;
   $scope.active = 0;
-
+  
   $scope.saveForLater = function() {
     $state.go('home');
   };
