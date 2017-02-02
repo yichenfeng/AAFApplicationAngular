@@ -1,6 +1,17 @@
 'use strict';
-angular.module('myApp').controller('IncidentInfoCtrl', function ($scope, $http, $state, DataService, $rootScope, $filter) {
-
+angular.module('myApp').controller('IncidentInfoCtrl', function ($scope, $http, $state, DataService, $rootScope, $filter, $stateParams) {
+  $scope.appId = '';
+  if(!$stateParams.appId) {
+    $state.go('applicationInformation', {});
+  } else if(!$rootScope.application || $rootScope.application._id != $stateParams.appId) {
+    DataService.getApplicationById($stateParams.appId).then(function (result) {
+      if(result) {
+        $rootScope.application = result;
+      } else {
+        //TODO: handle error
+      }
+    });
+  }
   $scope.max = 1000;
   $scope.count = 0;
   $scope.isOpen = false;
