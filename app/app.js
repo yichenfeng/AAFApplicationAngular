@@ -10,7 +10,7 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
       $rootScope.$state = $state;
       $rootScope.createApplication = function () {
         return DataService.createApplication({applicantInfo: {}, eligiblePersonnel: [], incidentInfo: {},
-            assistanceRequested: {}, assistanceRecieved: {}, submitDetails: {}}).then(function (result) {
+            assistanceRequested: {}, assistanceRecieved: {}, submitDetails: {}, reviewDetails: {}}).then(function (result) {
           if (result) {
             $rootScope.application = result;
           } else {
