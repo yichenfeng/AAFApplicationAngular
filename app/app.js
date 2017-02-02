@@ -86,5 +86,10 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
         url: '/approverHome',
         templateUrl: 'main/templates/approver-home.html',
         controller: 'ApproverHomeCtrl as ctrl'
+      })
+      .state('approvePage', {
+        url: '/approvePage',
+        templateUrl: 'main/templates/approvePage.html',
+        controller: 'ApprovePageCtrl as ctrl'
       });
   });
