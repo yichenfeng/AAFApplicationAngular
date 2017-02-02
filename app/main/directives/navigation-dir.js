@@ -1,7 +1,11 @@
 'use strict';
-angular.module('myApp')
-.directive('navigation', function() {
-    return {
-      templateUrl: 'main/templates/navigation.html'
-    };
-});
+var app = angular.module('myApp')
+    .directive('sideNavigation', function() {
+      return {
+        scope: {
+          step: '@',
+          appId: '='
+        },
+        templateUrl: 'main/templates/navigation.html'
+      };
+  });

@@ -1,6 +1,19 @@
 'use strict';
 angular.module('myApp')
-.controller('ApplicationInformationCtrl', function ($scope, $state, $rootScope) {
+.controller('ApplicationInformationCtrl', function ($scope, $state, $rootScope, $stateParams, DataService, $location) {
+  if(!$stateParams.appId) {
+    $rootScope.createApplication().then(function (result) {
+      $location.path('applicationInformation/' + $rootScope.application._id);
+    });
+  } else if(!$rootScope.application || $rootScope.application._id != $stateParams.appId) {
+    DataService.getApplicationById($stateParams.appId).then(function (result) {
+      if(result) {
+        $rootScope.application = result;
+      } else {
+        //TODO: handle error
+      }
+    });
+  }
 
   $scope.noWrapSlides = false;
   $scope.active = 0;
@@ -12,7 +25,7 @@ angular.module('myApp')
   $scope.next = function (event) {
     $scope.submitted = true;
     if ($scope.applicationInfoForm.$valid) {
-      $state.go('eligiblePersonnel');
+      $state.go('eligiblePersonnel', {appId: $scope.application._id});
     } else {
       event.preventDefault();
       if ($scope.showBehalfError !== false) {

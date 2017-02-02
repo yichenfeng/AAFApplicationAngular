@@ -1,6 +1,17 @@
 'use strict';
  angular.module('myApp')
-.controller('ReviewSubmissionCtrl', function ($scope, $state, DataService, $document,$uibModal, $rootScope, $filter, SignaturePad) {
+.controller('ReviewSubmissionCtrl', function ($scope, $state, DataService, $document, $uibModal, $rootScope, $filter, SignaturePad, $stateParams) {
+  if(!$stateParams.appId) {
+    $state.go('applicationInformation', {});
+  } else if(!$rootScope.application || $rootScope.application._id != $stateParams.appId) {
+    DataService.getApplicationById($stateParams.appId).then(function (result) {
+      if(result) {
+        $rootScope.application = result;
+      } else {
+        //TODO: handle error
+      }
+    });
+  }
 
 var $ctrl = this;
 
