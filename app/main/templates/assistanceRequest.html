@@ -1,3 +1,4 @@
+
 <div class="container-fluid">
   <div class="main-section" id="posts">
     <div class="w-container">
@@ -13,7 +14,7 @@
 
                         <div class="form-group" ng-class="{ 'has-error' : astReqForm.amount.$invalid && submitted}">
                             <label >Amount Requested (in dollars) $ : </label>
-                            <input type="number" placeholder="$" name="amount" class="form-control" ng-model="application.request_content.updatedData.user.amount"  required>
+                            <input type="number" placeholder="$" name="amount" class="form-control" ng-model="application.requestContent.assistanceRequested.amountRequested"  required>
                             <p ng-show="astReqForm.amount.$invalid && submitted" class="help-block">Please enter a requested amount</p>
                         </div>
                         <div class="form-group" ng-class="{ 'has-error' :astReqForm.shelter.$invalid && astReqForm.funeral.$invalid && astReqForm.utilities.$invalid && astReqForm.fire.$invalid && astReqForm.disaster.$invalid && astReqForm.other.$invalid && submitted }" required>
@@ -25,7 +26,7 @@
                          <div class="form-group" ng-class="{ 'has-error' : astReqForm.shelter.$invalid && submitted }">
                                <label><input type="checkbox" name="shelter" ng-model="user.options" required> <b>SHELTER </b> </label>
 
-                           <select ng-show="user.options" class="form-control" ng-model="application.request_content.updatedData.user.shelter">
+                           <select ng-show="user.options" class="form-control" ng-model="application.requestContent.assistanceRequested.shelter">
                               <option>Temporary Living</option>
                               <option>Eviction</option>
                               <option>Homeless</option>
@@ -43,34 +44,34 @@
 
                         <!-- Check if Funeral is Needed -->
                         <div class="form-group" ng-class="{ 'has-error' : astReqForm.funeral.$invalid && submitted }">
-                            <label><input type="checkbox" name="funeral"  ng-model="application.request_content.updatedData.user.funeral" required> <b>FUNERAL </b> </label>
-                            <p ng-show="application.request_content.updatedData.user.funeral" class="form-text">Provide evidence of fiscal responsibility and/or burial
+                            <label><input type="checkbox" name="funeral"  ng-model="application.requestContent.assistanceRequested.funeral" required> <b>FUNERAL </b> </label>
+                            <p ng-show="application.requestContent.assistanceRequested.funeral" class="form-text">Provide evidence of fiscal responsibility and/or burial
                                 receipts</p>
                         </div>
 
                         <!-- Check if Utilities is Needed -->
                         <div class="form-group" ng-class="{ 'has-error' : astReqForm.utilities.$invalid && submitted }">
-                            <label><input type="checkbox" name="utilities"  ng-model="application.request_content.updatedData.user.utilities" required> <b>UTILITIES </b> </label>
-                             <p ng-show="application.request_content.updatedData.user.utilities"  class="form-text">Provide shut off notice <i>(Must meet requirement of the board to
+                            <label><input type="checkbox" name="utilities"  ng-model="application.requestContent.assistanceRequested.utilities" required> <b>UTILITIES </b> </label>
+                             <p ng-show="application.requestContent.assistanceRequested.utilities"  class="form-text">Provide shut off notice <i>(Must meet requirement of the board to
                                 receive funds)</i></p>
                         </div>
 
                         <!-- Check if FIRE assistance needed -->
                         <div class="form-group" ng-class="{ 'has-error' : astReqForm.fire.$invalid && submitted }">
-                            <label><input type="checkbox" name="fire"  ng-model="application.request_content.updatedData.user.fire" required> <b>FIRE </b> </label>
-                            <p ng-show="application.request_content.updatedData.user.fire" class="form-text">Provide fire report</p>
+                            <label><input type="checkbox" name="fire"  ng-model="application.requestContent.assistanceRequested.fire" required> <b>FIRE </b> </label>
+                            <p ng-show="application.requestContent.assistanceRequested.fire" class="form-text">Provide fire report</p>
                         </div>
 
                         <!-- Check if Natrual disaster assistance needed -->
                         <div class="form-group" ng-class="{ 'has-error' : astReqForm.disaster.$invalid && submitted }">
-                            <label><input type="checkbox" name="disaster"  ng-model="application.request_content.updatedData.user.disaster" required> <b>NATURAL DISASTER </b> </label>
-                            <p ng-show="application.request_content.updatedData.user.disaster" class="form-text">Provide documentation to support need</p>
+                            <label><input type="checkbox" name="disaster"  ng-model="application.requestContent.assistanceRequested.disaster" required> <b>NATURAL DISASTER </b> </label>
+                            <p ng-show="application.requestContent.assistanceRequested.disaster" class="form-text">Provide documentation to support need</p>
                         </div>
 
                         <!-- Check if Other assistance needed -->
                         <div class="form-group" ng-class="{ 'has-error' : astReqForm.other.$invalid && submitted }">
-                            <label><input type="checkbox" name="other"  ng-model="application.request_content.updatedData.user.other" required> <b>OTHER </b> </label>
-                            <p ng-show="application.request_content.updatedData.user.other" class="form-text">Provide documentation to support need</p>
+                            <label><input type="checkbox" name="other"  ng-model="application.requestContent.assistanceRequested.other" required> <b>OTHER </b> </label>
+                            <p ng-show="application.requestContent.assistanceRequested.other" class="form-text">Provide documentation to support need</p>
                         </div>
                     </form>
                 </div>
@@ -81,5 +82,5 @@
 
 <ul class="pager">
   <div class="form-nav"><a class="button inverse w-button" ui-sref="home" >Save for Later</a>
-  <button type="submit" class="button w-button" ui-sref="other({appId: application._id})">Next</button>
+  <button type="submit" class="button w-button" ng-click="submitForm($astReqForm)">Next</button>
 </ul>
