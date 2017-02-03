@@ -1,69 +1,155 @@
+
 <div class="container-fluid">
   <div class="main-section" id="posts">
     <div class="w-container">
       <div class="w-row">
 				<side-navigation step="6" app-id="application._id"></side-navigation>
-  <div class="col-md-9">
-      <div class="row">
-        <div class="col-md-9">
-                <h3>Review and Submission</h3>
-                <p>I hereby certify that the information provided herein is true and accurate. I am verifying that I
-                    have no personal funds, such as savings or checking account funds, available to me. I am also aware
-                    that any statements made herein which are willfully false are subject to penalty under applicable
-                    state and federal laws. Submission of this request does not entitle me to any claim against the
-                    AutoZoner Assistance Fund, but constitutes a request for assistance.
-                    By signing this form, I also authorize AutoZone, Inc., and its subsidiaries and affiliates to release
-                    any and all information that is necessary to determine the needs of the employee applying to the
-                    AutoZoner Assistance Fund Administrators and/or its representatives. I understand that my records
-                    are protected under Federal and State confidentiality regulations and cannot be disclosed without my
-                    written consent unless otherwise provided for in the regulations. I also understand that I may
-                    revoke this consent at any time in writing, except to the extent that action has been taken in
-                    reliance on it. I also acknowledge that the information released was fully explained to me and this
-                    consent is given of my own free will. A photocopy of this authorization is valid as the
-                    original. </p>
-          </div>
-      </div>
-
-    <div class="row">
-      <form name="submissionForm" >
-          <div class="col-md-9">
-                    <div class="col-md-5 form-group" ng-class="{ 'has-error' : submissionForm.print.$invalid && submitted}">
-                      <label>Print Name :</label>
-                      <input type="name" placeholder="Print Name" name="print" class="form-control" ng-model="application.request_content.review.printedName" required>
-                      <p ng-show="submissionForm.print.$invalid && submitted" class="help-block">Please print your name</p>
+            <div class="col-md-9">
+                  <div class="row">
+                      <div class="col-md-9">
+                              <h3>Review and Submission</h3>
+                              <p>I hereby certify that the information provided herein is true and accurate. I am verifying that I
+                                  have no personal funds, such as savings or checking account funds, available to me. I am also aware
+                                  that any statements made herein which are willfully false are subject to penalty under applicable
+                                  state and federal laws. Submission of this request does not entitle me to any claim against the
+                                  AutoZoner Assistance Fund, but constitutes a request for assistance.
+                                  By signing this form, I also authorize AutoZone, Inc., and its subsidiaries and affiliates to release
+                                  any and all information that is necessary to determine the needs of the employee applying to the
+                                  AutoZoner Assistance Fund Administrators and/or its representatives. I understand that my records
+                                  are protected under Federal and State confidentiality regulations and cannot be disclosed without my
+                                  written consent unless otherwise provided for in the regulations. I also understand that I may
+                                  revoke this consent at any time in writing, except to the extent that action has been taken in
+                                  reliance on it. I also acknowledge that the information released was fully explained to me and this
+                                  consent is given of my own free will. A photocopy of this authorization is valid as the
+                                  original. </p>
+                        </div>
                     </div>
-                <div class="col-md-4 form-group" ng-class="{ 'has-error' : submissionForm.date.$invalid && submitted}">
-                  <label>Date : </label>
-                  <p class="input-group">
-                  <input id="date" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="application.request_content.review.signatureDate"
-                      is-open="popup1.opened" name="date" datepicker-options="dateOptions" ng-required="true" close-text="Close"
-                      alt-input-formats="altInputFormats" placeholder="Date" required>
-                    <span class="input-group-btn">
-                      <button type="button" class="btn btn-default" ng-click="open1()">
-                        <i class="glyphicon glyphicon-calendar"></i>
-                      </button>
-                    </span>
-                    <p ng-show="submissionForm.date.$invalid && submitted" class="help-block">Please select a date</p>
-                  </p>
-                </div>
+
+                    <div class="row">
+                      <div class="col-md-9">
+                        <uib-accordion >
+                            <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" >
+                              <uib-accordion-heading>
+                                Application Information <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+                              </uib-accordion-heading>
+                                <a ui-sref="applicationInformation" style="float:right">EDIT</a>
+                                <appplication-information-review />
+                            </div>
+                        </uib-accordion>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-9">
+                        <uib-accordion >
+                            <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" >
+                              <uib-accordion-heading>
+                                Eligible Personnel <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+                              </uib-accordion-heading>
+                                <a ui-sref="eligiblePersonnel" style="float:right">EDIT</a>
+                                <eligible-personnel-review/>
+                            </div>
+                        </uib-accordion>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-9">
+                        <uib-accordion >
+                            <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" >
+                              <uib-accordion-heading>
+                                Incident Info <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+                              </uib-accordion-heading>
+                                <a ui-sref="incidentInfo" style="float:right">EDIT</a>
+                                <incident-info-review/>
+                            </div>
+                        </uib-accordion>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-9">
+                        <uib-accordion >
+                            <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" >
+                              <uib-accordion-heading>
+                                Assistance Request <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+                              </uib-accordion-heading>
+                                <a ui-sref="assistanceRequest" style="float:right">EDIT</a>
+                                <assistance-request-review/>
+                            </div>
+                        </uib-accordion>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-9">
+                        <uib-accordion >
+                            <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" >
+                              <uib-accordion-heading>
+                                Assistance Requested and/or Received <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+                              </uib-accordion-heading>
+                                <a ui-sref="other" style="float:right">EDIT</a>
+                                <other-review />
+                            </div>
+                        </uib-accordion>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-9">
+                        <uib-accordion >
+                            <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" >
+                              <uib-accordion-heading>
+                                Attatchments <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+                              </uib-accordion-heading>
+                                <a ui-sref="applicationInformation" style="float:right">EDIT</a>
+                                <attatchments-review />
+                            </div>
+                        </uib-accordion>
+                      </div>
+                    </div>
+
+                   <hr>
+                  <div class="row">
+                    <form name="submissionForm" >
+                        <div class="col-md-9">
+                                  <div class="col-md-5 form-group" ng-class="{ 'has-error' : submissionForm.print.$invalid && submitted}">
+                                    <label>Print Name :</label>
+                                    <input type="name" placeholder="Print Name" name="print" class="form-control" ng-model="application.requestContent.submitDetails.submitName" required>
+                                    <p ng-show="submissionForm.print.$invalid && submitted" class="help-block">Please print your name</p>
+                                  </div>
+                              <div class="col-md-4 form-group" ng-class="{ 'has-error' : submissionForm.date.$invalid && submitted}">
+                                <label>Date : </label>
+                                <p class="input-group">
+                                <input id="date" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="application.requestContent.submitDetails.submitDate"
+                                    is-open="popup1.opened" name="date" datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                                    alt-input-formats="altInputFormats" placeholder="Date" required>
+                                  <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open1()">
+                                      <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                  </span>
+                                  <p ng-show="submissionForm.date.$invalid && submitted" class="help-block">Please select a date</p>
+                                </p>
+                              </div>
+                        </div>
+                      </form>
+                   </div>
+
+                  <div class="row">
+                     <div class="col-md-10">
+                          <signaturepad signature="application.requestContent.submitDetails.signature" />
+                    </div>
+                  </div>
+              </div>
           </div>
-        </form>
-     </div>
-    <div class="row">
-       <div class="col-md-10">
-            <signaturepad signature="application.request_content.review.signature" />
+
+          <div class="form-nav">
+            <button ui-sref="home" class="button inverse w-button" id="save">Save for Later</button>
+            <button  class="button w-button" ng-click="submit(submissionForm.$valid)">Submit</button>
+          </div>
       </div>
-    </div>
   </div>
-
-  <div class="form-nav">
-    <button ui-sref="home" class="button inverse w-button" id="save">Save for Later</button>
-    <button  class="button w-button" ng-click="submit(submissionForm.$valid)">Submit</button>
-  </div>
-</div>
-</div>
-
-</div>
 
     <script type="text/ng-template" id="ReviewErrorModal.html">
         <div class="modal-header">
@@ -75,7 +161,3 @@
             <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
         </div>
     </script>
-
-
-</div>
-<!-- Pager -->

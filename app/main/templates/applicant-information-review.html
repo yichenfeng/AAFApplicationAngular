@@ -1,0 +1,89 @@
+<div class="col-md-12">
+  <!-- <h3>Application Information</h3> -->
+    <form name="applicationInfoForm" ng-class="{'submitted':submitted}">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>Are you filling this application out on someone's behalf?</label>
+            <p>{{application.requestContent.applicantInfo.behalf}}</p>
+        </div>
+      </div>
+      <div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>First Name : </label>
+            <p>{{application.requestContent.applicantInfo.firstName}}</p>
+          </div>
+          <div class="form-group">
+            <label>Last Name : </label>
+            <p>{{application.requestContent.applicantInfo.lastName}}</p>
+          </div>
+          <div class="form-group">
+            <label>Position : </label>
+            <p>{{application.requestContent.applicantInfo.position}}</p>
+          </div>
+          <div class="form-group">
+            <label>Job Status : </label>
+              <p> {{application.requestContent.applicantInfo.status}}</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Middle Name : </label>
+            <p>{{application.requestContent.applicantInfo.middleName}}</p>
+          </div>
+          <div class="form-group">
+            <label>Employee ID : </label>
+            <p>{{application.requestContent.applicantInfo.employeeId}}</p>
+          </div>
+          <div class="form-group">
+            <label>Store Number/Department ID : </label>
+            <p>{{application.requestContent.applicantInfo.storeDeptNo}}</p>
+          </div>
+          <div class="form-group">
+            <label>Permanent Address :</label>
+              <p>{{application.requestContent.applicantInfo.permanentAddress}}</p>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div id="app-info-col-2">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Address 1 : </label>
+            <p>{{application.requestContent.applicantInfo.address1}}</p>
+          </div>
+          <div class="form-group">
+            <label>City : </label>
+            <p>{{application.requestContent.applicantInfo.city}}</p>
+          </div>
+          <div class="form-group">
+            <label>Zip : </label>
+            <p>{{application.requestContent.applicantInfo.zip}}</p>
+          </div>
+          <div class="form-group">
+            <label>Daytime Telephone # : </label>
+            <p>{{application.requestContent.applicantInfo.dayPhone}}</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Address 2 : </label>
+            <p>{{application.requestContent.applicantInfo.address2}}</p>
+          </div>
+          <div class="form-group">
+            <label>State</label>
+            <p>{{application.requestContent.applicantInfo.state}}</p>
+          </div>
+          <div class="form-group">
+            <label>NightTime Telephone # : </label>
+            <p>{{application.requestContent.applicantInfo.nightPhone}}</p>
+          </div>
+          <div class="form-group">
+            <label>Email Address : </label>
+            <p>{{application.requestContent.applicantInfo.email}}</p>
+          </div>
+        </div>
+      </div>
+      <br>
+  </form>
+</div>

@@ -24,14 +24,14 @@
           <table ng-table="tableParams" class="table">
             <tr ng-repeat="app in $data">
               <td title="'Date'">{{ app.createdDate.$date | date:'MM/dd/yyyy' }}</td>
-              <td title="'Employee ID'"><a ng-click="viewApp(app.createdBy)">{{ app.createdBy }}</a></td>
+              <td title="'Employee ID'"><a ng-click="viewApp(app._id)">{{ app.createdBy }}</a></td>
               <td title="'AutoZoner Name'">{{ app.requestContent.applicantInfo.firstName }} {{app.requestContent.applicantInfo.middleName}} {{app.requestContent.applicantInfo.lastName}}</td>
               <td title="'Store/Dept'">{{ app.requestContent.applicantInfo.storeDeptNo }}</td>
               <td title="'Amount Requested'">${{ app.requestContent.assistanceRequested.amountRequested }}</td>
-              <td title="'Review'">???</td>
-              <td title="'Amount Awarded'">???</td>
-              <td title="'Date Awarded'">???</td>
-              <td title="'Comments'">???</td>
+              <td title="'Review'">{{ app.requestContent.reviewDetails.review }}</td>
+              <td title="'Amount Awarded'">{{ app.requestContent.reviewDetails.amountAwarded }}</td>
+              <td title="'Date Awarded'">{{ app.requestContent.reviewDetails.dateAwarded | date:'MM/dd/yyyy' }}</td>
+              <td title="'Comments'">{{ app.requestContent.reviewDetails.comments }}</td>
               <td title="'Date of Event'">{{ app.requestContent.incidentInfo.eventDate.$date | date:'MM/dd/yyyy' }}</td>
             </tr>
           </table>

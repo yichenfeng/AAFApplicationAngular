@@ -1,0 +1,21 @@
+<div class="col-md-12">
+  <!-- <h3>Incident Info</h3> -->
+    <form name="incidentInfoForm">
+      <div class="form-group">
+        <div>
+          <label>When did the event occur?</label>
+          <div class="row">
+            <div class="col-md-6">
+              <p>{{application.requestContent.incidentInfo.eventDate.$date | date }}</p>
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Reason">Describe in detail the reason for your request. Include a description of the event
+            that occurred that is causing your current hardship (e.g. flood, fire, tornado, death, etc.)</label>
+            <p>{{application.requestContent.incidentInfo.eventDescription}}</p>
+        </div>
+      </div>
+    </form>
+  </div>
