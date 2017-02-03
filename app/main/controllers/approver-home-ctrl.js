@@ -1,6 +1,6 @@
 'use strict';
 angular.module('myApp')
-.controller('ApproverHomeCtrl', function ($scope, $state, $rootScope, DataService, NgTableParams) {
+.controller('ApproverHomeCtrl', function ($scope, $state, $rootScope, DataService, NgTableParams, $timeout) {
 
   $scope.statuses = [
     'Draft',
@@ -13,14 +13,17 @@ angular.module('myApp')
   ];
 
   $scope.viewApp = function (id) {
-    console.log(id);
     $state.go('applicationInformation', { appId : id });
   };
 
-  DataService.getApplications().then(function (response) {
-    $scope.applications = response;
-    $scope.tableParams = new NgTableParams({}, { dataset: $scope.applications.results });
-  });
+  var loadTable = function () {
+    DataService.getApplications().then(function (response) {
+      $scope.applications = response;
+      $scope.tableParams = new NgTableParams({}, { dataset: $scope.applications.results });
+    });
+  };
+
+  $timeout(loadTable, 50);
 
   $scope.search = function () {
     if ($scope.employeeID && $scope.status) {
