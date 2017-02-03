@@ -88,5 +88,10 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
         url: '/approver/home',
         templateUrl: 'main/templates/approver-home.html',
         controller: 'ApproverHomeCtrl as ctrl'
+      })
+      .state('approverDeny', {
+        url: '/approver/deny/:appId',
+        templateUrl: 'main/templates/approver-deny.html',
+        controller: 'ApproverDenyCtrl as ctrl'
       });
   });
