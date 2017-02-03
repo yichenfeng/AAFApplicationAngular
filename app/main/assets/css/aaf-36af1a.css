@@ -1,3 +1,7 @@
+#deny {
+  margin-left: 50px;
+  height: 60vh;
+}
 .carousel-control.left, .carousel-control.right {
   background-image: none;
 }
