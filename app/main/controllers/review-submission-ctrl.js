@@ -19,19 +19,17 @@ var $ctrl = this;
 
       $scope.submitted = true;
 
-      if(($rootScope.application.request_content.review.signature !== undefined) && (isValid == true)) {
-         $state.go('home');
+      if(($rootScope.application.requestContent.submitDetails.signature !== undefined) && (isValid == true)) {
+          $state.go('home');
       }
         else if (isValid == false) {
           console.log("Valid Check failed");
-
       }
-          else {
+        else {
         $ctrl.open();
       }
 
     };
-
 
   $ctrl.animationsEnabled = true;
 
