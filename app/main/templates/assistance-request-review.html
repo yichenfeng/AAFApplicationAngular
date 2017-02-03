@@ -1,0 +1,50 @@
+<div class="col-md-12">
+    <div class="col-xs-6">
+          <!-- <h3>Assistance Request</h3> -->
+
+        <form name="astReqForm"  class="form-horizontal"  novalidate>
+
+            <div class="form-group" ng-class="{ 'has-error' : astReqForm.amount.$invalid && submitted}">
+                <label >Amount Requested (in dollars) $ : </label>
+                <p> $ {{application.requestContent.assistanceRequested.amountRequested}} </p>
+            </div>
+
+            <!-- Check if Shelter assistance needed -->
+            <div class="form-group">
+                  <label><input type="checkbox" name="shelter" ng-disabled="astReqForm" ng-model="application.requestContent.assistanceRequested.shelter" required> <b>SHELTER </b> </label>
+
+              <select ng-show="application.requestContent.assistanceRequested.shelter" ng-disabled="astReqForm" class="form-control" ng-model="application.requestContent.assistanceRequested.shelter">
+                 <option>Temporary Living</option>
+                 <option>Eviction</option>
+                 <option>Homeless</option>
+             </select>
+             </div>
+
+            <!-- Check if Funeral is Needed -->
+            <div class="form-group">
+                <label><input type="checkbox" name="funeral"  ng-disabled="astReqForm"  ng-model="application.requestContent.assistanceRequested.funeral" > <b>FUNERAL </b> </label>
+            </div>
+
+            <!-- Check if Utilities is Needed -->
+            <div class="form-group">
+                <label><input type="checkbox" name="utilities" ng-disabled="astReqForm" ng-model="application.requestContent.assistanceRequested.utilities" required> <b>UTILITIES </b> </label>
+            </div>
+
+            <!-- Check if FIRE assistance needed -->
+            <div class="form-group">
+                <label><input type="checkbox" name="fire" ng-disabled="astReqForm" ng-model="application.requestContent.assistanceRequested.fire" required> <b>FIRE </b> </label>
+            </div>
+
+            <!-- Check if Natrual disaster assistance needed -->
+            <div class="form-group" >
+                <label><input type="checkbox" name="disaster" ng-disabled="astReqForm"  ng-model="application.requestContent.assistanceRequested.disaster" required> <b>NATURAL DISASTER </b> </label>
+            </div>
+
+            <!-- Check if Other assistance needed -->
+            <div class="form-group" >
+                <label><input type="checkbox" name="other" ng-disabled="astReqForm"  ng-model="application.requestContent.assistanceRequested.other" required> <b>OTHER </b> </label>
+            </div>
+
+        </form>
+    </div>
+</div>
