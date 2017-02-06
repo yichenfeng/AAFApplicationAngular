@@ -67,15 +67,24 @@ submit_schema = Schema( { 'submitName' : Any(str, unicode),
                               'submitDate' : date_schema,
                               'signature' : Any(str, unicode) } )
 
+review_schema = Schema ( { 'approver1' : int,
+                              'approver2' : int,
+                              'denialReason' : Any(str, unicode),
+                              'amountAwarded' : Any(str, unicode),
+                              'dateAwarded' : date_schema,
+                              'review' : Any('approve', 'deny', ''),
+                              'comments' : Any(str, unicode) } )
+
 assistance_schema = Schema( { 'applicantInfo' : applicant_schema,
                               'eligiblePersonnel' : [personnel_schema],
                               'incidentInfo' : incident_schema,
                               'assistanceRequested' : requested_schema,
                               'assistanceRecieved' : recieved_schema,
-                              'submitDetails' : submit_schema } )
+                              'submitDetails' : submit_schema,
+                              'reviewDetails' : review_schema } )
 
 if __name__ == '__main__':
     print type(1485382223700)
     print(IsValid(test_schema, { 1: 'one', 2 : 'three' , '3' : 2.5, 4 : ['4', 5, '6'] }))
     print(IsValid(date_schema, {"$date": 1485382223700}))
-    print(ValidateAsstReq({ 'applicantInfo' : { 'firstName' : 'Trevor', 'storeDeptNo' : 23, 'behalf' : 'yes' , 'status' : 'partTime', 'permanentAddress' : 'rent' }, 'incidentInfo' : { 'eventDate' : {"$date": 1485382223700} }, 'assistanceRequested': { 'funeral' : False} , 'eligiblePersonnel' : [{'row' : 1 }] } ))
+    print(ValidateAsstReq({ 'applicantInfo' : { 'firstName' : 'Trevor', 'storeDeptNo' : 23, 'behalf' : 'yes' , 'status' : 'partTime', 'permanentAddress' : 'rent' }, 'incidentInfo' : { 'eventDate' : {"$date": 1485382223700} }, 'assistanceRequested': { 'funeral' : False} , 'eligiblePersonnel' : [{'row' : 1 }], 'reviewDetails' : { 'approver1' : 10705332, 'approver2' : 10705331, 'denialReason' : 'test denial reason', 'amountAwarded' : '$100.23', 'dateAwarded' : {"$date": 1485382223700}, 'review' : 'deny', 'comments' : 'test comments'} } ))
