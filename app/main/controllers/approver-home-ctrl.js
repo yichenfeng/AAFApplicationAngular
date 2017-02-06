@@ -13,6 +13,7 @@ angular.module('myApp')
   ];
 
   $scope.viewApp = function (id) {
+    // will need to change once admin review page is done
     $state.go('applicationInformation', { appId : id });
   };
 
