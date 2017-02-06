@@ -86,8 +86,8 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
       })
       .state('approver-application', {
         url: '/approver/application/:appId',
-        templateUrl: 'main/templates/adminApplication.html',
-        controller: 'AdminApplicationCtrl as ctrl'
+        templateUrl: 'main/templates/approver-application.html',
+        controller: 'ApproverApplicationCtrl as ctrl'
       })
       .state('approverHome', {
         url: '/approver/home',

@@ -1,6 +1,6 @@
 'use strict';
 angular.module('myApp')
-.controller('AdminApplicationCtrl', function ($scope, $state, $stateParams, DataService) {
+.controller('ApproverApplicationCtrl', function ($scope, $state, $stateParams, DataService) {
   if(!$stateParams.appId) {
     $state.go('approverHome', []);
   }
