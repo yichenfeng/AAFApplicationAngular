@@ -1,0 +1,49 @@
+<div class="container-fluid" id="test">
+  <div class="main-section" id="posts">
+    <div class="w-container">
+      <div class="w-row">
+        <div class="row">
+        <admin-navigation step="2" app-id="application._id"></admin-navigation>
+        <div class="col-md-9">
+          <div class="row">
+            <div>
+              <h2>Application</h2>
+              <appplication-information-review />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <eligible-personnel-review/>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <incident-info-review/>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <assistance-request-review/>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <other-review />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <attatchments-review />
+            </div>
+          </div>
+          <div class="row">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button ui-sref="approverDeny({appId: application._id})" class="btn btn-success">Approve</button>
+              <button ui-sref="approverDeny({appId: application._id})" class="btn btn-danger">Deny</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
