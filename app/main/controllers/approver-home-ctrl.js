@@ -1,6 +1,6 @@
 'use strict';
 angular.module('myApp')
-.controller('ApproverHomeCtrl', function ($scope, $state, $rootScope, DataService, NgTableParams, $timeout) {
+.controller('ApproverHomeCtrl', function ($scope, $state, $rootScope, DataService, NgTableParams, $stateParams, $filter) {
 
   $scope.statuses = [
     'Draft',
@@ -24,7 +24,9 @@ angular.module('myApp')
     });
   };
 
-  $timeout(loadTable, 50);
+  angular.element(document).ready(function () {
+    loadTable();
+  });
 
   $scope.search = function () {
     if ($scope.employeeID && $scope.status) {
@@ -43,7 +45,6 @@ angular.module('myApp')
         $scope.tableParams = new NgTableParams({}, { dataset: $scope.applications.results });
       });
     }
-
   };
 
 });
