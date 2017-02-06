@@ -8,27 +8,36 @@
             </header>
                 <form>
                     <div class="form-group">
-                        <label>The Salvation Army</label>
-                        <input type="text" ng-model = "application.requestContent.assistanceRecieved.assistSalvArmy" class="form-control" placeholder="$">
+                        <label>Approver One ID</label>
+                        <input type="text" ng-model = "application.requestContent.assistanceRecieved.assistSalvArmy" class="form-control" placeholder="Ignition ID">
                     </div>
                     <div class="form-group">
-                        <label>American Red Cross</label>
-                        <input type="text" ng-model = "application.requestContent.assistanceRecieved.assistRedCross" class="form-control" placeholder="$">
+                        <label>Approver Two ID</label>
+                        <input type="text" ng-model = "application.requestContent.assistanceRecieved.assistRedCross" class="form-control" placeholder="Ignition ID">
                     </div>
                     <div class="form-group">
-                        <label>City/County/State/Federal Social Services</label>
+                        <label>Amount</label>
                         <input type="text" ng-model = "application.requestContent.assistanceRecieved.assistGovt" class="form-control" placeholder="$">
                     </div>
-                    <div class="form-group">
-                        <label>Employer</label>
-                        <input type="text" ng-model = "application.requestContent.assistanceRecieved.assistEmployer" class="form-control" placeholder="$">
-                    </div>
-                    <div class="form-group">
-                        <label>Other Forms of income(please describe)</label>
-                        <input type="text" ng-model = "application.requestContent.assistanceRecieved.assistOther" class="form-control" placeholder="$">
+                    <div>
+                      <label>Today's Date</label>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <p class="input-group">
+                            <input id="date" type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="dt"
+                              is-open="isOpen" ng-required="true" close-text="Close" placeholder="Date" ng-focus="dateChanged()" />
+                            <span class="input-group-btn">
+                              <button type="button" class="btn btn-default" ng-click="isOpen = true">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                              </button>
+                            </span>
+                            <p class="error" ng-show="showErrorMessage">Please enter a date.</p>
+                          </p>
+                        </div>
+                      </div>
                     </div>
                     <div class="form-nav">
-                        <button ng-click="saveLaterBtn()" class="button inverse w-button">Save For Later</button>
+                        <button ng-click="saveFormBtn()" class="button inverse w-button">Save Form</button>
                         <button ng-click="nextButton()" class="button w-button">Next</button>
                     </div>
                 </form>

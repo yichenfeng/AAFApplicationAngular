@@ -76,7 +76,7 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
         controller: 'LoginCtrl as ctrl'
       })
       .state('attachments', {
-        url: '/attachments',
+        url: '/attachments/:appId',
         templateUrl: 'main/templates/attachments.html',
         controller: 'AttachmentsCtrl as ctrl'
       })

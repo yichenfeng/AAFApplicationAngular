@@ -3,7 +3,7 @@ angular.module('myApp')
 .controller('AttachmentsCtrl', function ($scope, $state, $rootScope, DataService) {
 
     $scope.nextButton = function() {
-        $state.go('review-submission');
+        $state.go('review-submission', {appId: $rootScope.application._id});
     };
 
     $scope.saveLaterBtn = function() {
@@ -20,11 +20,8 @@ angular.module('myApp')
                 DataService.updateAttachments($scope.files, $rootScope.application._id).then(function(result) {
                     if(result) {
                       var updatedAttachments = result;
-                      console.log('Updated attachments:');
-                      //For now, let's do it this way; this means we'll need a save button on each page, but converting it to be event-driven or watching the form adds a lot more complexity that we're not yet ready for.
                     } else {
-                        console.log('Error Updating Attachments');
-                      //Todo: handle the error state
+                      $scope.error = true;
                     }
                 });
             }
