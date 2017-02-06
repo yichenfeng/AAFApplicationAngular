@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap','ngAnimate', 'ngSanitize', 'ui.bootstrap.tpls', 'ngTable'])
+angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap', 'ui.bootstrap.tpls', 'naif.base64', 'ngAnimate', 'ngSanitize', 'ui.bootstrap.tpls', 'ngTable'])
   .factory('SignaturePad', function(){
     return SignaturePad;
   })
@@ -74,6 +74,11 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
         url: '/login',
         templateUrl: 'main/templates/login.html',
         controller: 'LoginCtrl as ctrl'
+      })
+      .state('attachments', {
+        url: '/attachments',
+        templateUrl: 'main/templates/attachments.html',
+        controller: 'AttachmentsCtrl as ctrl'
       })
       .state('about', {
         url: '/about',
