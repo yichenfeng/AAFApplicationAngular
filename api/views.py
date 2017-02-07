@@ -41,14 +41,6 @@ app.config['MONGO_PORT'] = 27017
 app.config['MONGO_DBNAME'] = 'aaf_db'
 mongo = PyMongo(app)
 
-from flask import g
-
-#decorator for creating callbacks to be executed after the response is generated
-def after_this_request(f):
-    if not hasattr(g, 'after_request_callbacks'):
-        g.after_request_callbacks = []
-    g.after_request_callbacks.append(f)
-    return f
 
 #check request type from the path
 def IsValidRequest(request_type):
@@ -73,19 +65,10 @@ def check_auth_header():
    if request.method != 'OPTIONS' and 'OpenAMHeaderID' not in request.headers:
        abort(401)
 
-   user_id = request.headers['OpenAMHeaderID']
-   is_admin = IsUserAdmin(int(user_id))
-   
-   @after_this_request
-   def set_user_headers(response):
-       response.headers['OpenAMHeaderID'] = user_id
-       response.headers['IsAdmin'] = is_admin
-       return response
-
 @app.after_request
-def per_request_callbacks(response):
-    for func in getattr(g, 'call_after_request', ()):
-        response = func(response)
+def add_headers(response):
+    response.headers['OpenAMHeaderID'] = request.headers['OpenAMHeaderID']
+    response.headers['IsAdmin'] = IsUserAdmin(int(request.headers['OpenAMHeaderID']))
     return response
 
 #Test route for the root directory - Remove
