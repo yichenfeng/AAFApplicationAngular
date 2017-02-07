@@ -5,7 +5,7 @@
 ###Depends on const.py and auth.py
 ##########################################################################
 
-from flask import Flask, request, redirect, url_for, abort, send_file
+from flask import Flask, request, redirect, url_for, abort, send_file, g
 from datetime import datetime
 from os import environ
 from functools import wraps
@@ -17,13 +17,13 @@ from bson import json_util
 from logging.handlers import RotatingFileHandler
 from logging import Formatter
 #constants file in this directory
-from const import RequestType, ResponseType, RequestActions
+from const import RequestType, ResponseType, RequestActions, RequestStatus
 from auth import AuthHelper
-from aafrequest import AAFRequest, AAFSearch
+from aafrequest import AAFRequest, AAFSearch, InvalidActionException
 from ldap import GetUserById, LdapError
 from voluptuous.error import MultipleInvalid
 from database import MongoConnection
-from flask.ext.pymongo import PyMongo
+from flask_pymongo import PyMongo
 
 #move this to init script - stest up the base app object
 app = Flask(__name__)
@@ -40,6 +40,15 @@ app.config['MONGO_HOST'] = 'data'
 app.config['MONGO_PORT'] = 27017 
 app.config['MONGO_DBNAME'] = 'aaf_db'
 mongo = PyMongo(app)
+
+from flask import g
+
+#decorator for creating callbacks to be executed after the response is generated
+def after_this_request(f):
+    if not hasattr(g, 'after_request_callbacks'):
+        g.after_request_callbacks = []
+    g.after_request_callbacks.append(f)
+    return f
 
 #check request type from the path
 def IsValidRequest(request_type):
@@ -62,7 +71,22 @@ def IsUserAdmin(user_id):
 @app.before_request
 def check_auth_header():
    if request.method != 'OPTIONS' and 'OpenAMHeaderID' not in request.headers:
-       abort(401) 
+       abort(401)
+
+   user_id = request.headers['OpenAMHeaderID']
+   is_admin = IsUserAdmin(int(user_id))
+   
+   @after_this_request
+   def set_user_headers(response):
+       response.headers['OpenAMHeaderID'] = user_id
+       response.headers['IsAdmin'] = is_admin
+       return response
+
+@app.after_request
+def per_request_callbacks(response):
+    for func in getattr(g, 'call_after_request', ()):
+        response = func(response)
+    return response
 
 #Test route for the root directory - Remove
 @app.route('/')
@@ -104,7 +128,9 @@ def get_upd_request(request_type, request_id=None):
         aaf_request = AAFRequest(conn, request_type, request_id)
         if request_id and not aaf_request.IsExistingRequest():
             return abort(404)
-        elif not IsUserAdmin(user_id) and not aaf_request.IsUserCreator(user_id):
+        elif not IsUserAdmin(user_id) and\
+                (not aaf_request.IsExistingRequest() or not aaf_request.IsUserCreator(user_id)) and\
+                aaf_request.IsExistingRequest():
             return abort(403)
         if request.method == 'POST':
            if request.json:
@@ -120,18 +146,20 @@ def get_upd_request(request_type, request_id=None):
 
 @app.route('/api/request/<request_type>/<request_id>/<action>', methods=['POST'])
 def request_action(request_type, request_id, action):
-    user_id = int(GetCurUserId())
-
-    #non-admin users may only submit new requests
-    if action != RequestActions.SUBMIT and not IsUserAdmin(user_id):
-        return abort(403)
     if not IsValidRequest(request_type):
         return GetResponseJson(ResponseType.ERROR, "invalid request")
-    else:
-        conn = MongoConnection(mongo.db)
-        aaf_request = AAFRequest(conn, request_type, request_id)
-        return('type: %s - id: %s - action: %s' % (request_type, request_id, action))
+    
+    user_id = int(GetCurUserId())
+    admin_flag = IsUserAdmin(user_id)
+    conn = MongoConnection(mongo.db)
+    aaf_request = AAFRequest(conn, request_type, request_id)
 
+    try: 
+        aaf_request.PerformAction(action, user_id, admin_flag)
+    except InvalidActionException as ex:
+        return GetResponseJson(ResponseType.ERROR, str(ex))
+
+    return GetResponseJson(ResponseType.SUCCESS, aaf_request.request_details)
 
 @app.route('/api/request/<request_type>/<request_id>/document', methods=['GET'])
 def get_request_docs():

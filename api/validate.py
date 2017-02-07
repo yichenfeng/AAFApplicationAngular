@@ -7,6 +7,7 @@
 from voluptuous import Schema, All, Any, Length, Required, Datetime, Boolean, Email
 from decimal import Decimal
 import datetime
+from const import RequestStatus
 
 def IsValid(schema, data):
     return schema(data)
@@ -50,7 +51,7 @@ incident_schema = Schema( { 'eventDate' : date_schema,
                               'eventDescription' : Any(str, unicode) } )
 
 requested_schema = Schema( { 'amountRequested' : Any(str, unicode),
-                              'shelter' : ['temporary', 'eviction', 'homeless'],
+                              'shelter' : ['temporary', 'eviction', 'homeless', ''],
                               'funeral' : Boolean(),
                               'utilities' : Boolean(),
                               'fire' : Boolean(),
@@ -72,7 +73,7 @@ review_schema = Schema ( { 'approver1' : int,
                               'denialReason' : Any(str, unicode),
                               'amountAwarded' : Any(str, unicode),
                               'dateAwarded' : date_schema,
-                              'review' : Any('approve', 'deny', ''),
+                              'review' : Any('Approve', 'Deny', ''),
                               'comments' : Any(str, unicode) } )
 
 assistance_schema = Schema( { 'applicantInfo' : applicant_schema,
@@ -87,4 +88,4 @@ if __name__ == '__main__':
     print type(1485382223700)
     print(IsValid(test_schema, { 1: 'one', 2 : 'three' , '3' : 2.5, 4 : ['4', 5, '6'] }))
     print(IsValid(date_schema, {"$date": 1485382223700}))
-    print(ValidateAsstReq({ 'applicantInfo' : { 'firstName' : 'Trevor', 'storeDeptNo' : 23, 'behalf' : 'yes' , 'status' : 'partTime', 'permanentAddress' : 'rent' }, 'incidentInfo' : { 'eventDate' : {"$date": 1485382223700} }, 'assistanceRequested': { 'funeral' : False} , 'eligiblePersonnel' : [{'row' : 1 }], 'reviewDetails' : { 'approver1' : 10705332, 'approver2' : 10705331, 'denialReason' : 'test denial reason', 'amountAwarded' : '$100.23', 'dateAwarded' : {"$date": 1485382223700}, 'review' : 'deny', 'comments' : 'test comments'} } ))
+    print(ValidateAsstReq({ 'applicantInfo' : { 'firstName' : 'Trevor', 'storeDeptNo' : 23, 'behalf' : 'yes' , 'status' : 'partTime', 'permanentAddress' : 'rent' }, 'incidentInfo' : { 'eventDate' : {"$date": 1485382223700} }, 'assistanceRequested': { 'funeral' : False} , 'eligiblePersonnel' : [{'row' : 1 }], 'reviewDetails' : { 'approver1' : 10705332, 'approver2' : 10705331, 'denialReason' : 'test denial reason', 'amountAwarded' : '$100.23', 'dateAwarded' : {"$date": 1485382223700}, 'review' : 'Deny', 'comments' : 'test comments'} } ))
