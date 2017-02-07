@@ -27,9 +27,9 @@
                                <label><input type="checkbox" name="shelter" ng-model="user.options" required> <b>SHELTER </b> </label>
 
                                <select ng-show="user.options" class="form-control" ng-model="application.requestContent.assistanceRequested.shelter">
-                                  <option ng-value="temporary">Temporary Living</option>
-                                  <option ng-value="eviction">Eviction</option>
-                                  <option ng-value="homeless">Homeless</option>
+                                  <option value="temporary">Temporary Living</option>
+                                  <option value="eviction">Eviction</option>
+                                  <option value="homeless">Homeless</option>
                               </select>
 
                             <div ng-switch="user.options">
