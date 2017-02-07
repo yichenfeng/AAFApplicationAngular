@@ -8,6 +8,7 @@ class RequestActions(object):
     APPROVE = 'approve'
     DENY = 'deny'
     CLOSE = 'close'
+    RETURN = 'return'
 
 class RequestStatus(object):
     DRAFT = 'Draft'
