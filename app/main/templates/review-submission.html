@@ -32,7 +32,7 @@
                               <uib-accordion-heading>
                                 Application Information <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
                               </uib-accordion-heading>
-                                <a ui-sref="applicationInformation" style="float:right">EDIT</a>
+                                <a ui-sref="applicationInformation{appId: application._id})" style="float:right">EDIT</a>
                                 <appplication-information-review />
                             </div>
                         </uib-accordion>
@@ -46,7 +46,7 @@
                               <uib-accordion-heading>
                                 Eligible Personnel <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
                               </uib-accordion-heading>
-                                <a ui-sref="eligiblePersonnel" style="float:right">EDIT</a>
+                                <a ui-sref="eligiblePersonnel{appId: application._id})" style="float:right">EDIT</a>
                                 <eligible-personnel-review/>
                             </div>
                         </uib-accordion>
@@ -60,7 +60,7 @@
                               <uib-accordion-heading>
                                 Incident Info <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
                               </uib-accordion-heading>
-                                <a ui-sref="incidentInfo" style="float:right">EDIT</a>
+                                <a ui-sref="incidentInfo{appId: application._id})" style="float:right">EDIT</a>
                                 <incident-info-review/>
                             </div>
                         </uib-accordion>
@@ -74,7 +74,7 @@
                               <uib-accordion-heading>
                                 Assistance Request <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
                               </uib-accordion-heading>
-                                <a ui-sref="assistanceRequest" style="float:right">EDIT</a>
+                                <a ui-sref="assistanceRequest{appId: application._id})" style="float:right">EDIT</a>
                                 <assistance-request-review/>
                             </div>
                         </uib-accordion>
@@ -88,7 +88,7 @@
                               <uib-accordion-heading>
                                 Assistance Requested and/or Received <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
                               </uib-accordion-heading>
-                                <a ui-sref="other" style="float:right">EDIT</a>
+                                <a ui-sref="other{appId: application._id})" style="float:right">EDIT</a>
                                 <other-review />
                             </div>
                         </uib-accordion>
@@ -102,7 +102,7 @@
                               <uib-accordion-heading>
                                 Attatchments <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
                               </uib-accordion-heading>
-                                <a ui-sref="applicationInformation" style="float:right">EDIT</a>
+                                <a ui-sref="applicationInformation{appId: application._id})" style="float:right">EDIT</a>
                                 <attatchments-review />
                             </div>
                         </uib-accordion>
