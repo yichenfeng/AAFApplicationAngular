@@ -21,7 +21,7 @@
                     <input type="text" placeholder="Enter a url" ng-model="urlLink" ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')" />
                     <button ng-click="addURL()" ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')">Add Link</button>
                         <input class="spacing" type="file" file-model="files" ng-model="uploadFile" base-sixty-four-input ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')"/>
-                        <div style="border-top: 2px solid black"</div>
+                        <div style="border-top: 2px solid black"></div>
                     <div class="attScroll">
                         <ul class="spacing">
                             <li ng-repeat="file in files" class="list-group-item">
