@@ -1,46 +1,45 @@
-<!-- Page Content -->
-<div class="container-fluid" style="padding-top:180px;">
-			<!-- /.row -->
-	<div class="w-row">
-        <div class="w-col w-col-9">
-            <header>
-                <h3>Approve Page</h3>
-            </header>
-                <form>
-                    <div class="form-group">
-                        <label>Approver One ID</label>
-                        <input type="text" ng-model = "application.requestContent.assistanceRecieved.assistSalvArmy" class="form-control" placeholder="Ignition ID">
-                    </div>
-                    <div class="form-group">
-                        <label>Approver Two ID</label>
-                        <input type="text" ng-model = "application.requestContent.assistanceRecieved.assistRedCross" class="form-control" placeholder="Ignition ID">
-                    </div>
-                    <div class="form-group">
-                        <label>Amount</label>
-                        <input type="text" ng-model = "application.requestContent.assistanceRecieved.assistGovt" class="form-control" placeholder="$">
-                    </div>
-                    <div>
-                      <label>Today's Date</label>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <p class="input-group">
-                            <input id="date" type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="dt"
-                              is-open="isOpen" ng-required="true" close-text="Close" placeholder="Date" ng-focus="dateChanged()" />
-                            <span class="input-group-btn">
-                              <button type="button" class="btn btn-default" ng-click="isOpen = true">
-                                <i class="glyphicon glyphicon-calendar"></i>
-                              </button>
-                            </span>
-                            <p class="error" ng-show="showErrorMessage">Please enter a date.</p>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-nav">
-                        <button ng-click="saveFormBtn()" class="button inverse w-button">Save Form</button>
-                        <button ng-click="nextButton()" class="button w-button">Next</button>
-                    </div>
-                </form>
+<div class="container-fluid">
+  <div class="main-section" id="posts">
+    <div class="w-container">
+      <div class="w-row">
+        <admin-navigation step="3" app-id="application._id"></admin-navigation>
+        <div class="w-col w-col-6" id="deny">
+          <h3>Approve</h3>
+            <form name="approveForm" ng-class="{'submitted':submitted}">
+              <div class="form-group">
+                <label>Approver One ID</label>
+                <input type="number" ng-model="application.requestContent.reviewDetails.approver1" class="form-control" placeholder="Ignition ID" required>
+              </div>
+              <div class="form-group">
+                <label>Approver Two ID</label>
+                <input type="number" ng-model="application.requestContent.reviewDetails.approver2" class="form-control" placeholder="Ignition ID" required>
+              </div>
+              <div class="form-group">
+                  <label>Amount</label>
+                  <input type="text" ng-model="application.requestContent.reviewDetails.amountAwarded" class="form-control" placeholder="$">
+              </div>
+              <div>
+                <label>Today's Date</label>
+                <div class="row">
+                  <div class="col-md-6">
+                    <p class="input-group">
+                      <input id="date" type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="dt"
+                        is-open="isOpen" ng-required="true" close-text="Close" placeholder="Date" ng-focus="dateChanged()" />
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="isOpen = true">
+                          <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="form-nav">
+                <button ng-click="approve($event)" class="button w-button">Approve</button>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>

@@ -1,22 +1,44 @@
 'use strict';
 angular.module('myApp')
-.controller('ApprovePageCtrl', function ($scope, $state, $rootScope) {
+.controller('ApprovePageCtrl', function ($scope, $state, DataService, $rootScope, $stateParams) {
 
-    $scope.nextButton = function() {
-        $state.go('review-submission');
-    };
+    var populateDate = function () {
+    if ($rootScope.application.requestContent.reviewDetails.dateAwarded) {
+      $scope.dt = new Date($rootScope.application.requestContent.reviewDetails.dateAwarded.$date);
+    }
+  };
 
-    $scope.saveFormBtn = function() {
-        $state.go('home');
-    };
+    $scope.appId = '';
+    if(!$stateParams.appId) {
+      $state.go('applicationInformation', {});
+    } else if(!$rootScope.application || $rootScope.application._id != $stateParams.appId) {
+      DataService.getApplicationById($stateParams.appId).then(function (result) {
+        if(result) {
+          $rootScope.application = result;
+          console.log($rootScope.application);
+          populateDate();
+        } else {
+          //TODO: handle error
+        }
+      });
+  } else {
+      populateDate();
+  }
 
     $scope.dateChanged = function () {
-      $scope.showErrorMessage = false;
-    //   if ($rootScope.application) {
-    //     var date = new Date(document.getElementById('date').value);
-    //     $rootScope.application.requestContent.incidentInfo = {
-    //       'eventDate' : { $date : date }
-    //     };
-    //   }
+      if ($rootScope.application) {
+        var date = new Date(document.getElementById('date').value);
+            $rootScope.application.requestContent.reviewDetails.dateAwarded = { $date : date };
+        }
+    };
+
+    $scope.approve = function (event) {
+      $scope.submitted = true;
+      if ($scope.approveForm.$valid) {
+        $rootScope.application.requestContent.reviewDetails.review = 'approve';
+        $state.go('approverHome', {appId: $rootScope.application._id});
+      } else {
+        event.preventDefault();
+      }
     };
 });
