@@ -14,19 +14,22 @@
                         <div style="border-top: 2px solid black"</div>
                     <div class="attScroll">
                         <ul class="spacing">
-                            <li ng-repeat="file in files" class="list-group-item">
-                                {{file.fileName}}
+                            <li ng-repeat="document in application.documentation" class="list-group-item">
+                                {{document.fileName}}
                                 <a class="close" ng-click="deleteAttachment($index)">x</a>
                             </li>
                         </ul>
                     </div>
-                        <ul class="spacing">
-                            <a>{{files.length}} File(s) of Maximum 20 Added</a>
-                            <div ng-show="atMax()">
-                                <h3>Please remove a file.</h3>
-                            </div>
-							<span class="error" ng-show="error">Error Updating Attachment(s), Please Try Again.</span>
-                        </ul>
+                    <ul class="spacing">
+                        <a>{{files.length}} File(s) of Maximum 20 Added</a>
+                        <div ng-show="atMax()">
+                            <h3>Please remove a file.</h3>
+                        </div>
+						<span class="error" ng-show="error">Error Updating Attachment(s), Please Try Again.</span>
+                    </ul>
+					<div ng-repeat="document in application.documentation">
+						{{ document.fileName }} {{ document.docId }}
+					</div>
                     <div class="form-nav">
                         <button ng-click="saveLaterBtn()" class="button inverse w-button">Save For Later</button>
                         <button ui-sref="reviewSubmission({appId: application._id})" class="button w-button">Next</button>
