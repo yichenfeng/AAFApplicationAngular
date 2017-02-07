@@ -51,7 +51,7 @@ incident_schema = Schema( { 'eventDate' : date_schema,
                               'eventDescription' : Any(str, unicode) } )
 
 requested_schema = Schema( { 'amountRequested' : Any(str, unicode),
-                              'shelter' : ['temporary', 'eviction', 'homeless', ''],
+                              'shelter' : Any('temporary', 'eviction', 'homeless', ''),
                               'funeral' : Boolean(),
                               'utilities' : Boolean(),
                               'fire' : Boolean(),
