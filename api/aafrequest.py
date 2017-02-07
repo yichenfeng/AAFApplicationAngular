@@ -1,7 +1,7 @@
 import json
 from bson import json_util
 from database import MongoConnection, MongoInterface
-from const import RequestType, RequestStatus
+from const import RequestType, RequestStatus, RequestActions
 from datetime import datetime
 from validate import ValidateAsstReq 
 
@@ -49,12 +49,12 @@ class AAFRequest(object):
         self.request_type = request_type
 
         if request_id:
-            self.request_details = self.mongo_interface.getDocument(self.mongo_collection, request_id)
+            self.request_details = self._retrieveRequest()
         else:
             self.request_details = None
     
     def _getNewMetaData(self, user_id):
-        now = datetime.utcnow() #.strftime("%m/%d/%Y %I:%M%p")
+        now = datetime.utcnow()
         meta = { }
         meta['createdBy'] = user_id
         meta['createdDate'] = now
@@ -68,22 +68,25 @@ class AAFRequest(object):
     def _getUpdateMetaData(self, user_id):
         meta = { }
         meta['updatedBy'] = user_id
-        meta['updateDate'] = datetime.utcnow() #.strftime("%m/%d/%Y %I:%M%p")
+        meta['updateDate'] = datetime.utcnow()
 
         return meta
 
     def _getNewDocumentMetaData(self, user_id, file_name, doc_id, description=None):
         meta = { }
         meta['createdBy'] = user_id
-        meta['createdDate'] = datetime.utcnow() #.strftime("%m/%d/%Y %I:%M%p") 
+        meta['createdDate'] = datetime.utcnow()
         meta['fileName'] = file_name
         meta['docId'] = doc_id
         meta['description'] = description
 
         return meta
 
+    def _retrieveRequest(self):
+        return self.mongo_interface.getDocument(self.mongo_collection, self.request_id)
+
     def IsUserCreator(self, user_id):
-        if self.request_details['createdBy'] == user_id:
+        if self.request_details and self.request_details['createdBy'] == user_id:
             return True
         else:
             return False
@@ -100,14 +103,52 @@ class AAFRequest(object):
         else:
             return False 
 
+    def IsRequestEditable(self, admin_flag):
+        if self.IsExistingRequest() or\
+               self.request_details == None or\
+               self.request_details.get('status') == RequestStatus.DRAFT or\
+               self.request_details.get('status') == RequestStatus.RETURNED or\
+               admin_flag:
+            return True
+        else:
+            return False
+
     def IsReadyToSubmit(self):
-        ##Add validation
-        return True
+        ##Add required field validation
+        if self.request_details and\
+               (self.request_details.get('status') == RequestStatus.DRAFT or\
+                self.request_details.get('status') == RequestStatus.RETURNED):
+            return True
+        else:
+            return False
 
     def GetRequestDetails(self):
         return self.request_details.to_son()
 
-    def Update(self, user_id, data):
+    def PerformAction(self, action, user_id, user_admin=False):
+        if action == RequestActions.SUBMIT:
+            new_status = RequestStatus.SUBMITTED
+        elif action == RequestActions.APPROVE:
+            new_status = RequestStatus.APPROVED
+        elif action == RequestActions.RETURN:
+            new_status = RequestStatus.RETURNED
+        elif action == RequestActions.DENY:
+            new_status = RequestStatus.DENIED
+        else:
+            raise InvalidActionException('Action %s not valid.' % (action))
+
+        if (self.IsUserSubmitter(user_id) and self.IsReadyToSubmit() and action == RequestActions.SUBMIT) or user_admin:
+            update_data = self._getUpdateMetaData(user_id)
+            update_data['status'] = new_status
+            self.mongo_interface.updateDocument(self.mongo_collection, update_data, self.request_id)
+            self.request_details = self._retrieveRequest()
+        else:
+            raise InvalidActionException('User id %s not authorized for this operation.' % (user_id))
+         
+    def Update(self, user_id, data, user_admin=False):
+        if not self.IsRequestEditable(user_admin):
+            raise InvalidUpdateException('User may not update records in status %s' % ())
+
         #validate the input against request schema, throws meanigful exception that 
         #is returned by the service
         data = ValidateAsstReq(data)
@@ -156,6 +197,12 @@ class AAFRequest(object):
                     self.mongo_interface.updateDocument(self.mongo_collection, update_details, self.request_id, pull_data={ 'documentation' : doc })
         else:
             raise Exception("Cannot delete from an unsaved request.")
+
+class InvalidUpdateException(Exception):
+    pass
+
+class InvalidActionException(Exception):
+    pass
 
 if __name__ == '__main__':
     request = AAFRequest(RequestType.ASSISTANCE)
