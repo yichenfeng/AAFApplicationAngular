@@ -1,11 +1,6 @@
 'use strict';
 angular.module('myApp')
 .controller('AttachmentsCtrl', function ($scope, $state, $rootScope, DataService) {
-
-    $scope.nextButton = function() {
-        $state.go('review-submission');
-    };
-
     $scope.saveLaterBtn = function() {
         $state.go('home');
     };
