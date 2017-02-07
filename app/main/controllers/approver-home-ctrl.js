@@ -5,11 +5,9 @@ angular.module('myApp')
   $scope.statuses = [
     'Draft',
     'Submitted',
-    'Approver Pending',
     'Returned',
     'Approved',
-    'Denied',
-    'Completed'
+    'Denied'
   ];
 
   $scope.viewApp = function (id) {

@@ -1,6 +1,6 @@
 'use strict';
 angular.module('myApp')
-.controller('ApproverApplicationCtrl', function ($scope, $state, $stateParams, DataService) {
+.controller('ApproverApplicationCtrl', function ($scope, $state, $stateParams, DataService, $rootScope) {
   if(!$stateParams.appId) {
     $state.go('approverHome', []);
   }
@@ -12,4 +12,13 @@ angular.module('myApp')
       //TODO: handle error
     }
   });
+
+  $scope.return = function () {
+    DataService.returnApplication($stateParams.appId).then(function (result) {
+      if(result) {
+        $rootScope.application = result;
+        $state.go('approverHome');
+      }
+    });
+  };
 });

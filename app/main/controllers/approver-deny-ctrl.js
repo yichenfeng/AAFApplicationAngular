@@ -23,7 +23,13 @@ angular.module('myApp')
         $rootScope.application.requestContent.reviewDetails.denialReason = document.getElementById('otherReason').value;
       }
       $rootScope.application.requestContent.reviewDetails.review = 'deny';
-      $state.go('approverHome');
+
+      DataService.denyApplication($stateParams.appId).then(function (result) {
+        if(result) {
+          $rootScope.application = result;
+          $state.go('approverHome');
+        }
+      });
     } else {
       event.preventDefault();
     }

@@ -11,8 +11,8 @@
     <ul class="progressbar">
         <li ng-class="(step >= statusEnum.Draft) ? 'active' : ''">In Progress</li>
         <li ng-class="(step >= statusEnum.Submitted) ? 'active' : ''">Submitted</li>
-        <li ng-class="(step >= statusEnum.Pending) ? 'active' : ''">Approver Pending</li>
-        <li ng-class="(step > statusEnum.Pending) ? 'active' : ''">{{status}}</li>
+        <li ng-show="step == statusEnum.Returned" ng-class="(step >= statusEnum.Returned) ? 'active' : ''">Returned</li>
+        <li ng-class="(step > statusEnum.Returned) ? 'active' : ''">{{status}}</li>
     </ul>
     <br>
     <div class="status"><a class="button w-button" ui-sref="applicationInformation">View Application</a></div>
