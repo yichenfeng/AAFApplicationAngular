@@ -2,10 +2,6 @@
 angular.module('myApp')
 .controller('AttachmentsCtrl', function ($scope, $state, $rootScope, DataService) {
 
-    $scope.nextButton = function() {
-        $state.go('review-submission', {appId: $rootScope.application._id});
-    };
-
     $scope.saveLaterBtn = function() {
         $state.go('home');
     };
