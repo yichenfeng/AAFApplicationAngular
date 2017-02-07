@@ -10,7 +10,7 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
       $rootScope.$state = $state;
       $rootScope.createApplication = function () {
         return DataService.createApplication({applicantInfo: {}, eligiblePersonnel: [], incidentInfo: {},
-            assistanceRequested: {}, assistanceRecieved: {}, submitDetails: {}}).then(function (result) {
+            assistanceRequested: {}, assistanceRecieved: {}, submitDetails: {}, reviewDetails: {}}).then(function (result) {
           if (result) {
             $rootScope.application = result;
           } else {
@@ -86,17 +86,22 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
       })
       .state('approver-application', {
         url: '/approver/application/:appId',
-        templateUrl: 'main/templates/adminApplication.html',
-        controller: 'AdminApplicationCtrl as ctrl'
+        templateUrl: 'main/templates/approver-application.html',
+        controller: 'ApproverApplicationCtrl as ctrl'
       })
       .state('approverHome', {
-        url: '/approverHome',
+        url: '/approver/home',
         templateUrl: 'main/templates/approver-home.html',
         controller: 'ApproverHomeCtrl as ctrl'
       })
       .state('approvePage', {
-        url: '/approvePage',
+        url: '/approvePage/:appId',
         templateUrl: 'main/templates/approvePage.html',
         controller: 'ApprovePageCtrl as ctrl'
+      })
+      .state('approverDeny', {
+        url: '/approver/deny/:appId',
+        templateUrl: 'main/templates/approver-deny.html',
+        controller: 'ApproverDenyCtrl as ctrl'
       });
   });

@@ -1,6 +1,6 @@
 'use strict';
 angular.module('myApp')
-.controller('ApproverHomeCtrl', function ($scope, $state, $rootScope, DataService, NgTableParams) {
+.controller('ApproverHomeCtrl', function ($scope, $state, $rootScope, DataService, NgTableParams, $stateParams, $filter) {
 
   $scope.statuses = [
     'Draft',
@@ -13,12 +13,19 @@ angular.module('myApp')
   ];
 
   $scope.viewApp = function (id) {
-    $state.go('admin-application', { id : id });
+    // will need to change once admin review page is done
+    $state.go('applicationInformation', { appId : id });
   };
 
-  DataService.getApplications().then(function (response) {
-    $scope.applications = response;
-    $scope.tableParams = new NgTableParams({}, { dataset: $scope.applications.results });
+  var loadTable = function () {
+    DataService.getApplications().then(function (response) {
+      $scope.applications = response;
+      $scope.tableParams = new NgTableParams({}, { dataset: $scope.applications.results });
+    });
+  };
+
+  angular.element(document).ready(function () {
+    loadTable();
   });
 
   $scope.search = function () {
@@ -38,7 +45,6 @@ angular.module('myApp')
         $scope.tableParams = new NgTableParams({}, { dataset: $scope.applications.results });
       });
     }
-
   };
 
 });
