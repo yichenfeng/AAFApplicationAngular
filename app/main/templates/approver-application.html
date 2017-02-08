@@ -39,6 +39,7 @@
           <div class="row">
             <div class="btn-group" role="group" aria-label="Basic example">
               <button ui-sref="approvePage({appId: application._id})" class="btn btn-success">Approve</button>
+              <button ng-click="return()" class="btn btn-success" id="returnBtn">Return</button>
               <button ui-sref="approverDeny({appId: application._id})" class="btn btn-danger">Deny</button>
             </div>
           </div>
@@ -47,3 +48,17 @@
     </div>
   </div>
 </div>
+
+<script type="text/ng-template" id="applicationReturnedModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Return Application</h3>
+      </div>
+      <div class="modal-body">
+        <p>Please add a comment explaining why this application is being returned.</p>
+        <textarea class="form-control" ng-model="comment"></textarea>
+    </div>
+    <div class="modal-footer">
+        <button class="btn " type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>

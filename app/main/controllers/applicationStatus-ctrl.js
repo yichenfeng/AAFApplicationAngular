@@ -5,11 +5,9 @@ angular.module('myApp')
   $scope.statusEnum = {
     'Draft' : 0,
     'Submitted' : 1,
-    'Pending' : 2,
-    'Returned' : 3,
-    'Approved' : 4,
-    'Denied' : 5,
-    'Completed' : 6
+    'Returned' : 2,
+    'Approved' : 3,
+    'Denied' : 4
   };
 
   $scope.status = 'Approval Status';
@@ -22,7 +20,7 @@ angular.module('myApp')
           return;
         }
       });
-      if ($scope.step > $scope.statusEnum.Pending) {
+      if ($scope.step > $scope.statusEnum.Returned) {
         $scope.status = $rootScope.application.status;
       }
     }
