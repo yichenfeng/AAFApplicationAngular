@@ -1,5 +1,12 @@
 'use strict';
 angular.module('myApp').controller('IncidentInfoCtrl', function ($scope, $http, $state, DataService, $rootScope, $filter, $stateParams) {
+
+  var populateDate = function () {
+    if ($rootScope.application.requestContent.incidentInfo.eventDate) {
+      $scope.dt = new Date($rootScope.application.requestContent.incidentInfo.eventDate.$date);
+    }
+  };
+
   $scope.appId = '';
   if(!$stateParams.appId) {
     $state.go('applicationInformation', {});
@@ -7,11 +14,15 @@ angular.module('myApp').controller('IncidentInfoCtrl', function ($scope, $http, 
     DataService.getApplicationById($stateParams.appId).then(function (result) {
       if(result) {
         $rootScope.application = result;
+        populateDate();
       } else {
         //TODO: handle error
       }
     });
+  } else {
+    populateDate();
   }
+
   $scope.max = 1000;
   $scope.count = 0;
   $scope.isOpen = false;
