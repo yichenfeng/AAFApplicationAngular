@@ -7,6 +7,7 @@
         <div class="w-col w-col-9">
           <h3>Eligible Personnel</h3>
             <form name="eligiblePersonnelForm">
+              <fieldset ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')">
               <div class="form-group">
                 <div class="col-xs-12">
                   <label for="EligiblePersonnelFirstName"><b>ELIGIBLE AUTOZONER:</b> Full and part-time
@@ -57,6 +58,7 @@
                 <button class="button inverse w-button" ng-click="saveForLater()">Save for Later</button>
                 <button class="button w-button" ui-sref="incidentInfo({appId: application._id})" type="submit">Next</button>
               </div>
+            </fieldset>
             </form>
           </div>
         </div>

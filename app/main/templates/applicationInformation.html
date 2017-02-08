@@ -6,6 +6,7 @@
           <div class="w-col w-col-9">
             <h3>Application Information</h3>
               <form name="applicationInfoForm" ng-class="{'submitted':submitted}">
+                <fieldset ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')">
                 <div class="col-md-9">
                   <p></p>
                   <div class="form-group">
@@ -109,6 +110,7 @@
                   <button type="submit" class="button inverse w-button" ng-click="saveForLater()">Save for Later</button>
                   <button class="button w-button" ng-click="next($event)">Next</button>
                 </div>
+              </fieldset>
             </form>
           </div>
         </div>

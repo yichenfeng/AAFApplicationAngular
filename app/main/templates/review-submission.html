@@ -112,6 +112,7 @@
                    <hr>
                   <div class="row">
                     <form name="submissionForm" >
+                      <fieldset ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')">
                         <div class="col-md-9">
                                   <div class="col-md-5 form-group" ng-class="{ 'has-error' : submissionForm.print.$invalid && submitted}">
                                     <label>Print Name :</label>
@@ -133,6 +134,7 @@
                                 </p>
                               </div>
                         </div>
+                      </fieldset>
                       </form>
                    </div>
 
@@ -145,8 +147,8 @@
           </div>
 
           <div class="form-nav">
-            <button ui-sref="home" class="button inverse w-button" id="save">Save for Later</button>
-            <button  class="button w-button" ng-click="submit(submissionForm.$valid)">Submit</button>
+            <button ui-sref="home" class="button inverse w-button" id="save" ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')">Save for Later</button>
+            <button  class="button w-button" ng-click="submit(submissionForm.$valid)" ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')">Submit</button>
           </div>
       </div>
   </div>
