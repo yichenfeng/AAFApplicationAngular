@@ -11,6 +11,7 @@
                   </header>
 
                     <form name="astReqForm" class="form-horizontal"  novalidate>
+                      <fieldset ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')">
 
                         <div class="form-group" ng-class="{ 'has-error' : astReqForm.amount.$invalid && submitted}">
                             <label >Amount Requested (in dollars) $ : </label>
@@ -73,6 +74,7 @@
                             <label><input type="checkbox" name="other"  ng-model="application.requestContent.assistanceRequested.other" required> <b>OTHER </b> </label>
                             <p ng-show="application.requestContent.assistanceRequested.other" class="form-text">Provide documentation to support need</p>
                         </div>
+                      </fieldset>
                     </form>
                 </div>
             </div>

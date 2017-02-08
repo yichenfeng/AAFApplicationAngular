@@ -6,6 +6,7 @@
         <div class="w-col w-col-9">
           <h3>Incident Info</h3>
             <form name="incidentInfoForm">
+              <fieldset ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')">
               <div class="form-group">
                 <div>
                   <label>When did the event occur?</label>
@@ -35,6 +36,7 @@
                   <button class="button w-button" ui-sref="assistanceRequest({appId: application._id})">Next</button>
                 </div>
               </div>
+            </fieldset>
             </form>
           </div>
         </div>

@@ -15,7 +15,7 @@ request_data = { "applicantInfo" : { "firstName" : "Trevor",
 
 nr_response = requests.post(test_url + 'request/assistance', headers=post_headers, data=json.dumps(request_data))
 nr_json = nr_response.json()
-print(nr_json)
+print(nr_json['result'])
 
 get_response = requests.get(test_url + 'request/assistance/' + nr_json['result'], headers=get_headers)
 get_json = get_response.json()
@@ -40,10 +40,18 @@ get_json = get_response.json()
 
 print(get_json)
 
-document_response = requests.get(test_url + 'request/assistance/' + nr_json['result'] + '/document/' + upload_json['result']['docId'], headers=get_headers)
+document_response = requests.get(test_url + 'request/assistance/' + nr_json['result'] + '/document/' + upload_json['result'][0]['docId'], headers=get_headers)
 doc_json = document_response.json()
 
 print(doc_json)
+
+submit_reponse = requests.post(test_url + 'request/assistance/' + nr_json['result'] + '/submit', headers=post_headers )
+
+print(submit_reponse.json())
+
+approve_reponse = requests.post(test_url + 'request/assistance/' + nr_json['result'] + '/approve', headers=post_headers )
+
+print(approve_reponse.json())
 
 #curl -X POST http://localhost/request/assistance/search -H "OpenAMHeaderID: 10705431"
 
