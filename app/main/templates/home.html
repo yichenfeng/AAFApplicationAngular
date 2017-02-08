@@ -14,8 +14,12 @@
         <li ng-show="step == statusEnum.Returned" ng-class="(step >= statusEnum.Returned) ? 'active' : ''">Returned</li>
         <li ng-class="(step > statusEnum.Returned) ? 'active' : ''">{{status}}</li>
     </ul>
+    <p ng-show="application.status === 'Approved'" class="approvedNote">***Your check will be Fedexed. You will be able to pick it up in your store tomorrow.</p>
     <br>
-    <div class="status"><a class="button w-button" ui-sref="applicationInformation">View Application</a></div>
+    <div class="status">
+      <a class="button w-button" ui-sref="applicationInformation">View Application</a>
+    </div>
+
   </div>
 
   <div class="main-section" id="posts">
