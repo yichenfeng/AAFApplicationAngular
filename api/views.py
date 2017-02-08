@@ -67,8 +67,8 @@ def check_auth_header():
 
 @app.after_request
 def add_headers(response):
-    response.headers['OpenAMHeaderID'] = request.headers['OpenAMHeaderID']
-    response.headers['IsAdmin'] = IsUserAdmin(int(request.headers['OpenAMHeaderID']))
+    response.headers['OpenAMHeaderID'] = request.headers.get('OpenAMHeaderID')
+    response.headers['IsAdmin'] = IsUserAdmin(int(request.headers.get('OpenAMHeaderID')))
     return response
 
 #Test route for the root directory - Remove
