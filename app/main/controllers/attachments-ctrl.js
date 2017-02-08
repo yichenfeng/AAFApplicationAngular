@@ -1,26 +1,13 @@
 'use strict';
 angular.module('myApp')
-.controller('AttachmentsCtrl', function ($scope, $state, $rootScope, DataService, $stateParams) {
-
-    if(!$stateParams.appId) {
-      $state.go('applicationInformation', {});
-    } else if(!$rootScope.application || $rootScope.application._id != $stateParams.appId) {
-      DataService.getApplicationById($stateParams.appId).then(function (result) {
-        if(result) {
-          $rootScope.application = result;
-        } else {
-          //TODO: handle error
-        }
-      });
-    }
-
+.controller('AttachmentsCtrl', function ($scope, $state, $rootScope, DataService) {
     $scope.saveLaterBtn = function() {
         $state.go('home');
     };
 
     $scope.name = '';
-    $scope.files = $rootScope.application.documentation;
-    $scope.error = false;
+    $scope.files = [];
+
     $scope.$watch('files', function(newValue) {
         console.log(newValue);
         if(newValue) {
@@ -28,12 +15,11 @@ angular.module('myApp')
                 DataService.updateAttachments($scope.files, $rootScope.application._id).then(function(result) {
                     if(result) {
                       var updatedAttachments = result;
-                      console.log('result');
-                      console.log($rootScope.application);
-                      $scope.error = false;
+                      console.log('Updated attachments:');
+                      //For now, let's do it this way; this means we'll need a save button on each page, but converting it to be event-driven or watching the form adds a lot more complexity that we're not yet ready for.
                     } else {
-                        console.log('error');
-                      $scope.error = true;
+                        console.log('Error Updating Attachments');
+                      //Todo: handle the error state
                     }
                 });
             }
