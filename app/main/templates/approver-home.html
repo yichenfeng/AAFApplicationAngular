@@ -28,7 +28,7 @@
               <td title="'AutoZoner Name'">{{ app.requestContent.applicantInfo.firstName }} {{app.requestContent.applicantInfo.middleName}} {{app.requestContent.applicantInfo.lastName}}</td>
               <td title="'Store/Dept'">{{ app.requestContent.applicantInfo.storeDeptNo }}</td>
               <td title="'Amount Requested'">${{ app.requestContent.assistanceRequested.amountRequested }}</td>
-              <td title="'Review'">{{ app.requestContent.reviewDetails.review }}</td>
+              <td title="'Review'">{{ app.status }}</td>
               <td title="'Amount Awarded'">{{ app.requestContent.reviewDetails.amountAwarded }}</td>
               <td title="'Date Awarded'">{{ app.requestContent.reviewDetails.dateAwarded | date:'MM/dd/yyyy' }}</td>
               <td title="'Comments'">{{ app.requestContent.reviewDetails.comments }}</td>

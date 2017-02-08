@@ -3,7 +3,6 @@ angular.module('myApp')
 .controller('ApproverHomeCtrl', function ($scope, $state, $rootScope, DataService, NgTableParams, $stateParams, $filter) {
 
   $scope.statuses = [
-    'Draft',
     'Submitted',
     'Returned',
     'Approved',
