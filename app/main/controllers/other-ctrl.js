@@ -2,8 +2,8 @@
 angular.module('myApp')
 .controller('OtherCtrl', function ($scope, $state, $rootScope, DataService, $stateParams) {
 
-      $scope.nextButton = function() {
-        $state.go('review-submission')
+  $scope.nextButton = function() {
+        $state.go('review-submission', {appId: $rootScope.application._id});
     };
 
     $scope.saveLaterBtn = function() {
