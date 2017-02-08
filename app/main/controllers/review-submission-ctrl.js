@@ -19,10 +19,15 @@ var $ctrl = this;
 
       $scope.submitted = true;
 
-      if(($rootScope.application.requestContent.submitDetails.signature !== undefined) && (isValid == true)) {
-          $state.go('home');
+      if(($rootScope.application.requestContent.submitDetails.signature !== undefined) && (isValid === true)) {
+        DataService.submitApplication($stateParams.appId).then(function (result) {
+          if(result) {
+            $rootScope.application = result;
+            $state.go('home');
+          }
+        });
       }
-        else if (isValid == false) {
+        else if (isValid === false) {
           console.log("Valid Check failed");
       }
         else {

@@ -22,8 +22,13 @@ angular.module('myApp')
       if ($rootScope.application.requestContent.reviewDetails.denialReason === 'Other') {
         $rootScope.application.requestContent.reviewDetails.denialReason = document.getElementById('otherReason').value;
       }
-      $rootScope.application.requestContent.reviewDetails.review = 'deny';
-      $state.go('approverHome');
+      // $rootScope.application.requestContent.reviewDetails.review = 'deny';
+      DataService.denyApplication($stateParams.appId).then(function (result) {
+        if(result) {
+          $rootScope.application = result;
+          $state.go('approverHome');
+        }
+      });
     } else {
       event.preventDefault();
     }
