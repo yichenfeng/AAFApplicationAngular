@@ -94,6 +94,11 @@ angular.module('myApp', ['ngRoute', 'myApp.version', 'ui.router', 'ui.bootstrap'
         templateUrl: 'main/templates/approver-home.html',
         controller: 'ApproverHomeCtrl as ctrl'
       })
+      .state('approvePage', {
+        url: '/approvePage/:appId',
+        templateUrl: 'main/templates/approvePage.html',
+        controller: 'ApprovePageCtrl as ctrl'
+      })
       .state('approverDeny', {
         url: '/approver/deny/:appId',
         templateUrl: 'main/templates/approver-deny.html',

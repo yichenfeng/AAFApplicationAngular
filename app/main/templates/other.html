@@ -9,6 +9,7 @@
                 <h3>Assistance Requested and/or Received</h3>
             </header>
                 <form>
+                  <fieldset ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')">
                     <div class="form-group">
                         <label>The Salvation Army</label>
                         <input type="text" ng-model = "application.requestContent.assistanceRecieved.assistSalvArmy" class="form-control" placeholder="$">
@@ -33,6 +34,7 @@
                         <button ui-sref="home()" class="button inverse w-button">Save For Later</button>
                         <button ui-sref="attachments({appId: application._id})" class="button w-button">Next</button>
                     </div>
+                  </fieldset>
                 </form>
 
         </div>
