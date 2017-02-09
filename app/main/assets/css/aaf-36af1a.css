@@ -68,7 +68,7 @@ table, td {
 }
 .progressbar li {
   list-style-type: none;
-  width: 26%;
+  width: 25%;
   float: left;
   font-size: 12px;
   position: relative;
