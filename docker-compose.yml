@@ -1,24 +1,21 @@
 version: '2'
 services:
   web_2:
-    image: "httpd"
+    shm_size: 2048M
+    build: ./api
     ports:
       - "80:80"
       - "443:443"
+    expose:
+     - "5555"
     volumes:
       - ./app:/usr/local/apache2/htdocs
       - ./configs/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      #- ./api:/usr/local/apache2/wsgi-bin
     depends_on:
-      - api
+     - data
 
   data:
     image: "mongo"
     expose:
      - "27017"
-
-  api:
-    build: ./api
-    expose:
-     - "5555"
-    depends_on:
-     - data
