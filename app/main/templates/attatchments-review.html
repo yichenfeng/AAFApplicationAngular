@@ -1,21 +1,9 @@
-<div class="w-col w-col-9">
-  <div class="attScroll">
-      <ul class="spacing">
-      <!-- <div ng-repeat="file in files" class="list-group-item">
-        person in application.requestContent.eligiblePersonnel track by person.row -->
-      <div ng-repeat="file in DataService.updateAttachments track by file.row" class="list-group-item">
-
-        <div class="col-xs-3">
-          <p>{{file.fileName}}</p>
-          <!-- <a class="close" ng-click="deleteAttachment($index)">x</a> -->
-        </div>
-      </div>
-      </ul>
-  </div>
-  <ul class="spacing">
-      <a>{{files.length}} File(s) of Maximum 20 Added</a>
-      <div ng-show="atMax()">
-          <h3>Please remove a file.</h3>
-      </div>
-  </ul>
+<div class="form-group">
+    <div class="w-col w-col-9">
+        <ul class="spacing">
+            <li ng-repeat="document in application.documentation" class="list-group-item">
+                {{document.fileName}}
+            </li>
+        </ul>
+    </div>
 </div>
