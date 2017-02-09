@@ -2,9 +2,11 @@
 angular.module('myApp')
 .controller('ApplicationInformationCtrl', function ($scope, $state, $rootScope, $stateParams, DataService, $location) {
   if(!$stateParams.appId) {
-    $rootScope.createApplication().then(function (result) {
-      $location.path('applicationInformation/' + $rootScope.application._id);
-    });
+    if ($stateParams.appId === null) {
+      $rootScope.createApplication().then(function (result) {
+        $location.path('applicationInformation/' + $rootScope.application._id);
+      });
+    }
   } else if(!$rootScope.application || $rootScope.application._id != $stateParams.appId) {
     DataService.getApplicationById($stateParams.appId).then(function (result) {
       if(result) {
@@ -17,7 +19,7 @@ angular.module('myApp')
 
   $scope.noWrapSlides = false;
   $scope.active = 0;
-  
+
   $scope.saveForLater = function() {
     $state.go('home');
   };
