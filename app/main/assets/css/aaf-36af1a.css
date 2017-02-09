@@ -1,3 +1,7 @@
+.reviewHeader {
+  background: rgba(128, 128, 128, .25);
+  padding-left: 15px;
+}
 .approvedNote {
   width: 200px;
   float: right;
@@ -1093,6 +1097,7 @@ img {
   font-family: Lato, sans-serif;
   color: #fff;
   text-align: center;
+  margin-bottom: 15px;
 }
 
 .utility-page-wrap {
