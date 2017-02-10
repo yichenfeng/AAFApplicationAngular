@@ -25,13 +25,14 @@ angular.module('myApp')
     });
   };
 
-  dataService.getApplications = function() {
+  dataService.getApplications = function(pageNumber) {
     return $http({
-      url: '/api/request/assistance/search',
+      url: '/api/request/assistance/search?perPage=10&&pageNumber=' + pageNumber,
       method: 'POST',
       headers: {
         'OpenAMHeaderID': '10705332'
-      }
+      },
+      data: {status : { $ne : 'Draft' }}
     }).then(function successCallback(response) {
       if (response.data && response.data.status == "success") {
         return response.data.result;

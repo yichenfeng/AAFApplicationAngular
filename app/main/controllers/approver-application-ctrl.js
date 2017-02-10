@@ -26,11 +26,10 @@ angular.module('myApp')
     });
 
     modalInstance.result.then(function (comment) {
-      $rootScope.application.requestContent.reviewDetails.comments = comment;
       DataService.returnApplication($stateParams.appId).then(function (result) {
         if(result) {
           $rootScope.application = result;
-          console.log($rootScope.application);
+          $rootScope.application.requestContent.reviewDetails.comments = comment;
           $state.go('approverHome');
         }
       });
