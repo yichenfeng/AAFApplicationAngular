@@ -31,7 +31,8 @@ angular.module('myApp')
       method: 'POST',
       headers: {
         'OpenAMHeaderID': '10705332'
-      }
+      },
+      data: {status : { $ne : 'Draft' }}
     }).then(function successCallback(response) {
       if (response.data && response.data.status == "success") {
         return response.data.result;
