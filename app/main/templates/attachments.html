@@ -1,37 +1,41 @@
 <!-- Page Content -->
-<div class="container-fluid" style="padding-top:180px;">
-	<div class="w-row">
+<div class="container-fluid">
+	<div class="main-section" id="posts">
+		<div class="w-container">
+			<div class="w-row">
 			  <side-navigation step="6" app-id="application._id"></side-navigation>
-        <div class="w-col w-col-9">
-            <header>
-                <h3>Attachments </h3>
-                <h5 align="right"> *Enter a URL and select 'Add Link' or Select 'Choose Files' </h5>
-            </header>
-                <div>
-                    <input type="text" placeholder="Enter a url" ng-model="urlLink" ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')" />
-                    <button ng-click="addURL()" ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')">Add Link</button>
-                        <input class="spacing" type="file" file-model="files" ng-model="uploadFile" base-sixty-four-input ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')"/>
-                        <div style="border-top: 2px solid black"></div>
-                    <div class="attScroll">
-                        <ul class="spacing">
-                            <li ng-repeat="document in application.documentation" class="list-group-item">
-                                {{document.fileName}}
-                                <a class="close" ng-click="deleteAttachment($index)">x</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <ul class="spacing">
-                        <a>{{files.length}} File(s) of Maximum 20 Added</a>
-                        <div ng-show="atMax()">
-                            <h3>Please remove a file.</h3>
-                        </div>
-						<span class="error" ng-show="error">Error Updating Attachment(s), Please Try Again.</span>
-                    </ul>
-                    <div class="form-nav">
-                        <button ng-click="saveLaterBtn()" class="button inverse w-button" ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')">Save For Later</button>
-                        <button ui-sref="reviewSubmission({appId: application._id})" class="button w-button" ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')">Next</button>
-                    </div>
-                </div>
-        </div>
-    </div>
+		    <div class="w-col w-col-9">
+		      <header>
+		        <h3>Attachments </h3>
+		        <h5 align="right"> *Enter a URL and select 'Add Link' or Select 'Choose Files' </h5>
+		      </header>
+		      <div>
+		        <input type="text" placeholder="Enter a url" ng-model="urlLink" ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')" />
+		        <button ng-click="addURL()" ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')">Add Link</button>
+		        <input class="spacing" type="file" file-model="files" ng-model="uploadFile" base-sixty-four-input ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')"/>
+		        <div style="border-top: 2px solid black"></div>
+		        <div class="attScroll">
+		          <ul class="spacing">
+		            <li ng-repeat="document in application.documentation" class="list-group-item">
+		              {{document.fileName}}
+		              <a class="close" ng-click="deleteAttachment($index)">x</a>
+		            </li>
+		          </ul>
+		        </div>
+		        <ul class="spacing">
+		          <a>{{files.length}} File(s) of Maximum 20 Added</a>
+		          <div ng-show="atMax()">
+		            <h3>Please remove a file.</h3>
+		          </div>
+							<span class="error" ng-show="error">Error Updating Attachment(s), Please Try Again.</span>
+		        </ul>
+		        <div class="form-nav">
+		          <button ng-click="saveLaterBtn()" class="button inverse w-button" ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')">Save For Later</button>
+		          <button ui-sref="reviewSubmission({appId: application._id})" class="button w-button" ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')">Next</button>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>
 </div>

@@ -3,86 +3,86 @@
   <div class="main-section" id="posts">
     <div class="w-container">
       <div class="w-row">
-           <side-navigation step="4" app-id="application._id"></side-navigation>
-            <div class="col-sm-8 ">
-                <div class="col-xs-6">
-                  <header>
-                      <h3>Assistance Request</h3>
-                  </header>
+         <side-navigation step="4" app-id="application._id"></side-navigation>
+          <div class="col-sm-8 ">
+            <div class="col-xs-6">
+              <header>
+                <h3>Assistance Request</h3>
+              </header>
 
-                    <form name="astReqForm" class="form-horizontal"  novalidate>
-                      <fieldset ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')">
+              <form name="astReqForm" class="form-horizontal"  novalidate>
+                <fieldset ng-disabled="(application.status !== 'Draft' && application.status !== 'Returned')">
 
-                        <div class="form-group" ng-class="{ 'has-error' : astReqForm.amountRequested.$invalid && submitted}">
-                            <label >Amount Requested (in dollars) $ : </label>
-                            <input placeholder="$" name="amountRequested" class="form-control" ng-model="application.requestContent.assistanceRequested.amountRequested"  required>
-                            <p ng-show="astReqForm.amountRequested.$invalid && submitted" class="help-block">Please enter a requested amount</p>
+                  <div class="form-group" ng-class="{ 'has-error' : astReqForm.amountRequested.$invalid && submitted}">
+                    <label >Amount Requested (in dollars) $ : </label>
+                    <input placeholder="$" name="amountRequested" class="form-control" ng-model="application.requestContent.assistanceRequested.amountRequested"  required>
+                    <p ng-show="astReqForm.amountRequested.$invalid && submitted" class="help-block">Please enter a requested amount</p>
+                  </div>
+                  <div class="form-group" ng-class="{ 'has-error' :astReqForm.shelter.$invalid && astReqForm.funeral.$invalid && astReqForm.utilities.$invalid && astReqForm.fire.$invalid && astReqForm.disaster.$invalid && astReqForm.other.$invalid && submitted }" required>
+                    <p name="top"  ng-model="user.top"> <b><u>Select atleast one of the following:</u></b></p>
+                    <p ng-show="astReqForm.shelter.$invalid && astReqForm.funeral.$invalid && astReqForm.funeral.$invalid && astReqForm.utilities.$invalid && astReqForm.fire.$invalid && astReqForm.disaster.$invalid  &&  astReqForm.other.$invalid &&submitted" class="help-block">Please select atleast one of the following</p>
+                  </div>
+
+                  <!-- Check if Shelter assistance needed -->
+                   <div class="form-group" ng-class="{ 'has-error' : astReqForm.shelter.$invalid && submitted }">
+                     <label><input type="checkbox" name="shelter" ng-model="user.options" required> <b>SHELTER </b> </label>
+
+                     <select ng-show="user.options" class="form-control" ng-model="application.requestContent.assistanceRequested.shelter">
+                        <option value="temporary">Temporary Living</option>
+                        <option value="eviction">Eviction</option>
+                        <option value="homeless">Homeless</option>
+                      </select>
+
+                      <div ng-switch="user.options">
+                        <div ng-switch-when="Temporary Living">Provide evidence of immediate housing costs i.e..
+                          Hotel bill, lease agreement, etc.
                         </div>
-                        <div class="form-group" ng-class="{ 'has-error' :astReqForm.shelter.$invalid && astReqForm.funeral.$invalid && astReqForm.utilities.$invalid && astReqForm.fire.$invalid && astReqForm.disaster.$invalid && astReqForm.other.$invalid && submitted }" required>
-                            <p name="top"  ng-model="user.top"> <b><u>Select atleast one of the following:</u></b></p>
-                            <p ng-show="astReqForm.shelter.$invalid && astReqForm.funeral.$invalid && astReqForm.funeral.$invalid && astReqForm.utilities.$invalid && astReqForm.fire.$invalid && astReqForm.disaster.$invalid  &&  astReqForm.other.$invalid &&submitted" class="help-block">Please select atleast one of the following</p>
-                        </div>
+                        <div ng-switch-when="Eviction">Copy of eviction notice is required</div>
+                        <div ng-switch-when="Homeless">HR Verification Required</div>
+                        <div ng-switch-default></div>
+                      </div>
+                    </div>
 
-                        <!-- Check if Shelter assistance needed -->
-                         <div class="form-group" ng-class="{ 'has-error' : astReqForm.shelter.$invalid && submitted }">
-                               <label><input type="checkbox" name="shelter" ng-model="user.options" required> <b>SHELTER </b> </label>
+                  <!-- Check if Funeral is Needed -->
+                  <div class="form-group" ng-class="{ 'has-error' : astReqForm.funeral.$invalid && submitted }">
+                    <label><input type="checkbox" name="funeral"  ng-model="application.requestContent.assistanceRequested.funeral" required> <b>FUNERAL </b> </label>
+                    <p ng-show="application.requestContent.assistanceRequested.funeral" class="form-text">Provide evidence of fiscal responsibility and/or burial
+                        receipts</p>
+                  </div>
 
-                               <select ng-show="user.options" class="form-control" ng-model="application.requestContent.assistanceRequested.shelter">
-                                  <option value="temporary">Temporary Living</option>
-                                  <option value="eviction">Eviction</option>
-                                  <option value="homeless">Homeless</option>
-                              </select>
+                  <!-- Check if Utilities is Needed -->
+                  <div class="form-group" ng-class="{ 'has-error' : astReqForm.utilities.$invalid && submitted }">
+                    <label><input type="checkbox" name="utilities"  ng-model="application.requestContent.assistanceRequested.utilities" required> <b>UTILITIES </b> </label>
+                     <p ng-show="application.requestContent.assistanceRequested.utilities"  class="form-text">Provide shut off notice <i>(Must meet requirement of the board to
+                        receive funds)</i></p>
+                  </div>
 
-                            <div ng-switch="user.options">
-                                <div ng-switch-when="Temporary Living">Provide evidence of immediate housing costs i.e..
-                                    Hotel bill, lease agreement, etc.
-                                </div>
-                                <div ng-switch-when="Eviction">Copy of eviction notice is required</div>
-                                <div ng-switch-when="Homeless">HR Verification Required</div>
-                                <div ng-switch-default></div>
-                            </div>
-                          </div>
+                  <!-- Check if FIRE assistance needed -->
+                  <div class="form-group" ng-class="{ 'has-error' : astReqForm.fire.$invalid && submitted }">
+                    <label><input type="checkbox" name="fire"  ng-model="application.requestContent.assistanceRequested.fire" required> <b>FIRE </b> </label>
+                    <p ng-show="application.requestContent.assistanceRequested.fire" class="form-text">Provide fire report</p>
+                  </div>
 
-                        <!-- Check if Funeral is Needed -->
-                        <div class="form-group" ng-class="{ 'has-error' : astReqForm.funeral.$invalid && submitted }">
-                            <label><input type="checkbox" name="funeral"  ng-model="application.requestContent.assistanceRequested.funeral" required> <b>FUNERAL </b> </label>
-                            <p ng-show="application.requestContent.assistanceRequested.funeral" class="form-text">Provide evidence of fiscal responsibility and/or burial
-                                receipts</p>
-                        </div>
+                  <!-- Check if Natrual disaster assistance needed -->
+                  <div class="form-group" ng-class="{ 'has-error' : astReqForm.naturalDisaster.$invalid && submitted }">
+                    <label><input type="checkbox" name="disaster"  ng-model="application.requestContent.assistanceRequested.naturalDisaster" required> <b>NATURAL DISASTER </b> </label>
+                    <p ng-show="application.requestContent.assistanceRequested.naturalDisaster" class="form-text">Provide documentation to support need</p>
+                  </div>
 
-                        <!-- Check if Utilities is Needed -->
-                        <div class="form-group" ng-class="{ 'has-error' : astReqForm.utilities.$invalid && submitted }">
-                            <label><input type="checkbox" name="utilities"  ng-model="application.requestContent.assistanceRequested.utilities" required> <b>UTILITIES </b> </label>
-                             <p ng-show="application.requestContent.assistanceRequested.utilities"  class="form-text">Provide shut off notice <i>(Must meet requirement of the board to
-                                receive funds)</i></p>
-                        </div>
-
-                        <!-- Check if FIRE assistance needed -->
-                        <div class="form-group" ng-class="{ 'has-error' : astReqForm.fire.$invalid && submitted }">
-                            <label><input type="checkbox" name="fire"  ng-model="application.requestContent.assistanceRequested.fire" required> <b>FIRE </b> </label>
-                            <p ng-show="application.requestContent.assistanceRequested.fire" class="form-text">Provide fire report</p>
-                        </div>
-
-                        <!-- Check if Natrual disaster assistance needed -->
-                        <div class="form-group" ng-class="{ 'has-error' : astReqForm.naturalDisaster.$invalid && submitted }">
-                            <label><input type="checkbox" name="disaster"  ng-model="application.requestContent.assistanceRequested.naturalDisaster" required> <b>NATURAL DISASTER </b> </label>
-                            <p ng-show="application.requestContent.assistanceRequested.naturalDisaster" class="form-text">Provide documentation to support need</p>
-                        </div>
-
-                        <!-- Check if Other assistance needed -->
-                        <div class="form-group" ng-class="{ 'has-error' : astReqForm.other.$invalid && submitted }">
-                            <label><input type="checkbox" name="other"  ng-model="application.requestContent.assistanceRequested.other" required> <b>OTHER </b> </label>
-                            <p ng-show="application.requestContent.assistanceRequested.other" class="form-text">Provide documentation to support need</p>
-                        </div>
-                      </fieldset>
-                    </form>
-                </div>
+                  <!-- Check if Other assistance needed -->
+                  <div class="form-group" ng-class="{ 'has-error' : astReqForm.other.$invalid && submitted }">
+                    <label><input type="checkbox" name="other"  ng-model="application.requestContent.assistanceRequested.other" required> <b>OTHER </b> </label>
+                    <p ng-show="application.requestContent.assistanceRequested.other" class="form-text">Provide documentation to support need</p>
+                  </div>
+                </fieldset>
+              </form>
             </div>
+            <div class="form-nav" id="assistRequestBtns">
+              <a class="button inverse w-button" ui-sref="home" >Save for Later</a>
+              <button type="submit" class="button w-button" ng-click="submitForm(astReqForm)">Next</button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div> <!-- /.row -->
-
-<ul class="pager">
-  <div class="form-nav"><a class="button inverse w-button" ui-sref="home" >Save for Later</a>
-  <button type="submit" class="button w-button" ng-click="submitForm(astReqForm)">Next</button>
-</ul>
+  </div>
