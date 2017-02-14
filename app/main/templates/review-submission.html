@@ -102,7 +102,7 @@
                               <uib-accordion-heading>
                                 Attatchments <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
                               </uib-accordion-heading>
-                                <a ui-sref="applicationInformation({appId: application._id})" style="float:right">EDIT</a>
+                                <a ui-sref="attachments({appId: application._id})" style="float:right">EDIT</a>
                                 <attatchments-review />
                             </div>
                         </uib-accordion>
@@ -156,7 +156,7 @@
     <script type="text/ng-template" id="ReviewErrorModal.html">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">Please sign your name</h3>
-            <p>Please make sure all of your application is correct before signing your name. </p>
+            <p>Once you have signed your name, click the "Accept" button </p>
         </div>
         <div class="modal-footer">
             <button class="btn " type="button" ng-click="$ctrl.ok()">OK</button>
