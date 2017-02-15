@@ -2,48 +2,74 @@
   <div class="main-section" id="posts">
     <div class="w-container">
       <div class="w-row">
-        <div class="row">
         <admin-navigation step="2" app-id="application._id"></admin-navigation>
-        <div class="col-md-9">
-          <div class="row">
+        <div class="w-col w-col-9">
+          <div class="w-row">
             <div>
-              <h2>Application</h2>
+              <h3 class="reviewHeader">Applicant Information</h3>
               <appplication-information-review />
             </div>
           </div>
-          <div class="row">
+          <div class="w-row">
             <div>
-              <eligible-personnel-review/>
+              <h3 class="reviewHeader">Eligible Personnel</h3>
+              <label class="col-md-6" ng-show="application.requestContent.eligiblePersonnel.length == 0">None submitted</label>
+              <eligible-personnel-review ng-show="application.requestContent.eligiblePersonnel.length > 0" />
             </div>
           </div>
-          <div class="row">
+          <div class="w-row">
             <div>
+              <h3 class="reviewHeader">Incident Information</h3>
               <incident-info-review/>
             </div>
           </div>
-          <div class="row">
+          <div class="w-row">
             <div>
+              <h3 class="reviewHeader">Assistance Request</h3>
               <assistance-request-review/>
             </div>
           </div>
-          <div class="row">
+          <div class="w-row">
             <div>
+              <h3 class="reviewHeader">Assistance Requested and/or Received</h3>
               <other-review />
             </div>
           </div>
-          <div class="row">
+          <div class="w-row">
             <div>
-              <attatchments-review />
+              <h3 class="reviewHeader">Attachments</h3>
+              <label class="col-md-6" ng-show="application.documentation.length == 0">None submitted</label>
+              <attatchments-review ng-show="application.documentation.length > 0" />
             </div>
           </div>
-          <div class="row">
+          <div class="w-row">
+            <div>
+              <h3 class="reviewHeader">Applicant Signature</h3>
+              <img ng-src="{{application.requestContent.submitDetails.signature}}" alt="signature" />
+            </div>
+          </div>
+          <div class="w-row">
             <div class="btn-group" role="group" aria-label="Basic example">
               <button ui-sref="approvePage({appId: application._id})" class="btn btn-success">Approve</button>
+              <button ng-click="return()" class="btn btn-success" id="returnBtn">Return</button>
               <button ui-sref="approverDeny({appId: application._id})" class="btn btn-danger">Deny</button>
             </div>
           </div>
         </div>
-      </div>
     </div>
   </div>
 </div>
+
+<script type="text/ng-template" id="applicationReturnedModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Return Application</h3>
+      </div>
+      <div class="modal-body">
+        <p>Please add a comment explaining why this application is being returned.</p>
+        <textarea class="form-control" ng-model="comment"></textarea>
+    </div>
+    <div class="modal-footer">
+        <button class="btn " type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>

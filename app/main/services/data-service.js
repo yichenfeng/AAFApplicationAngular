@@ -25,13 +25,14 @@ angular.module('myApp')
     });
   };
 
-  dataService.getApplications = function() {
+  dataService.getApplications = function(pageNumber) {
     return $http({
-      url: '/api/request/assistance/search',
+      url: '/api/request/assistance/search?perPage=10&&pageNumber=' + pageNumber,
       method: 'POST',
       headers: {
         'OpenAMHeaderID': '10705332'
-      }
+      },
+      data: {status : { $ne : 'Draft' }}
     }).then(function successCallback(response) {
       if (response.data && response.data.status == "success") {
         return response.data.result;
@@ -136,6 +137,66 @@ angular.module('myApp')
         'OpenAMHeaderID': '10705332' //TODO: remove this, it wont be needed in prod
       },
       data: requestContent
+    }).then(function callback(response) {
+      if (response.data && response.data.status == "success") {
+        return response.data.result;
+      }
+      return false;
+    });
+  };
+
+  dataService.submitApplication = function(id) {
+    return $http({
+      url: '/api/request/assistance/' + id + '/submit',
+      method: 'POST',
+      headers: {
+        'OpenAMHeaderID': '10705332' //TODO: remove this, it wont be needed in prod
+      }
+    }).then(function callback(response) {
+      if (response.data && response.data.status == "success") {
+        return response.data.result;
+      }
+      return false;
+    });
+  };
+
+  dataService.denyApplication = function(id) {
+    return $http({
+      url: '/api/request/assistance/' + id + '/deny',
+      method: 'POST',
+      headers: {
+        'OpenAMHeaderID': '10705332' //TODO: remove this, it wont be needed in prod
+      }
+    }).then(function callback(response) {
+      if (response.data && response.data.status == "success") {
+        return response.data.result;
+      }
+      return false;
+    });
+  };
+
+  dataService.approveApplication = function(id) {
+    return $http({
+      url: '/api/request/assistance/' + id + '/approve',
+      method: 'POST',
+      headers: {
+        'OpenAMHeaderID': '10705332' //TODO: remove this, it wont be needed in prod
+      }
+    }).then(function callback(response) {
+      if (response.data && response.data.status == "success") {
+        return response.data.result;
+      }
+      return false;
+    });
+  };
+
+  dataService.returnApplication = function(id) {
+    return $http({
+      url: '/api/request/assistance/' + id + '/return',
+      method: 'POST',
+      headers: {
+        'OpenAMHeaderID': '10705332' //TODO: remove this, it wont be needed in prod
+      }
     }).then(function callback(response) {
       if (response.data && response.data.status == "success") {
         return response.data.result;
