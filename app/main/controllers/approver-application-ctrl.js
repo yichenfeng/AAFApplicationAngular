@@ -44,44 +44,40 @@ angular.module('myApp')
     var id = $rootScope.application._id;
     var docId = doc.docId;
     function b64toBlob(b64Data, contentType, sliceSize) {
-           contentType = contentType || '';
-           sliceSize = sliceSize || 512;
+        contentType = contentType || '';
+        sliceSize = sliceSize || 512;
 
-           var byteCharacters = atob(b64Data);
-           var byteArrays = [];
+        var byteCharacters = atob(b64Data);
+        var byteArrays = [];
 
-           for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-             var slice = byteCharacters.slice(offset, offset + sliceSize);
+        for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            var slice = byteCharacters.slice(offset, offset + sliceSize);
 
-             var byteNumbers = new Array(slice.length);
-             for (var i = 0; i < slice.length; i++) {
+            var byteNumbers = new Array(slice.length);
+            for (var i = 0; i < slice.length; i++) {
                byteNumbers[i] = slice.charCodeAt(i);
-             }
-
-             var byteArray = new Uint8Array(byteNumbers);
-
-             byteArrays.push(byteArray);
-           }
-
-           var blob = new Blob(byteArrays, {type: contentType});
-           return blob;
-         }
+            }
+            var byteArray = new Uint8Array(byteNumbers);
+            byteArrays.push(byteArray);
+        }
+        var blob = new Blob(byteArrays, {type: contentType});
+        return blob;
+    }
 
     DataService.getAttachment(id, docId).then(function (result) {
         if(result) {
             var base64 = result.base64String;
             var fileName = result.fileName;
-            var a = document.createElement("a"); //Create an anchor on the page so we have a place to initiate the download
-            document.body.appendChild(a); //Add the anchor to the DOM
-            a.style = "display: none"; //Hide the anchor
-            var blob = b64toBlob(base64, "octet/stream", 512); //TODO: use the real base64 string
+            var a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+            var blob = b64toBlob(base64, "octet/stream", 512);
             var url = window.URL.createObjectURL(blob);
             a.href = url;
-            a.download = fileName; //TODO: set the real filename
+            a.download = fileName;
             a.click();
             window.URL.revokeObjectURL(url);
         }
     });
-
-};
+  };
 });
