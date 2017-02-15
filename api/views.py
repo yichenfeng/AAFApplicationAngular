@@ -197,6 +197,8 @@ def curr_user_details(user_id=None):
         else:
             user_details = GetUserById(GetCurUserId())
 
+        user_details['IsAdmin'] = IsUserAdmin()
+
         return GetResponseJson(ResponseType.SUCCESS, user_details)
     except LdapError as ex:
         return GetResponseJson(ResponseType.ERROR, str(ex))
