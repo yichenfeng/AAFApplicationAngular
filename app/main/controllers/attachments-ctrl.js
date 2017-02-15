@@ -45,7 +45,6 @@ angular.module('myApp')
     };
 
     $scope.addURL = function(newValue) {
-        console.log('link');
         $rootScope.application.documentation.push({fileName:$scope.urlLink, description: "", base64String: "" });
     };
 
