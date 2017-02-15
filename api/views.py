@@ -157,8 +157,13 @@ def request_action(request_type, request_id, action):
 def get_request_docs():
     return('type: %s - id: %s - get_docs' % (request_type, request_id))
 
+<<<<<<< HEAD
 @app.route('/api/request/<request_type>/<request_id>/document', methods=['POST'])
 @app.route('/api/request/<request_type>/<request_id>/document/<document_id>', methods=['GET', 'DELETE'])
+=======
+@app.route('/request/<request_type>/<request_id>/document', methods=['POST'])
+@app.route('/request/<request_type>/<request_id>/document/<document_id>', methods=['GET'])
+>>>>>>> Modified Dockerfile to install OpenAM, run Python using mod wsgi and enable ssl.
 def document(request_type, request_id, document_id=None):
     user_id = int(GetCurUserId())  
     if not IsValidRequest(request_type):
