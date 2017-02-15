@@ -20,7 +20,7 @@
             <button class="searchBtn" type="submit" ng-click="search()">Search</button>
           </form>
         </div>
-        <div class="w-col w-col-10" id="approveTable">
+        <div class="w-col w-col-10">
           <table ng-table="tableParams" class="table">
             <tr ng-repeat="app in $data">
               <td title="'Date'">{{ app.updateDate.$date | date:'MM/dd/yyyy' }}</td>
