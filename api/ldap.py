@@ -1,4 +1,5 @@
 from ldap3 import Server, Connection, ALL_ATTRIBUTES
+from ldap3.utils.dn import parse_dn
 from getpass import getpass
 
 def GetUserById(ignition_id, ldap_id=None, password=None):
@@ -22,6 +23,16 @@ def GetUserById(ignition_id, ldap_id=None, password=None):
         user_details[attribute] = conn.response[0]['attributes'][attribute]
 
     return user_details
+
+def IsAdminGroupDn(dn_str):
+    admin_groups = ['aaf-council', 'it-infosec']
+
+    for attr in parse_dn(dn_str, escape=True):
+        if attr[0] == 'cn' and attr[1] in admin_groups:
+            return True
+        else:
+            return False
+
 
 class LdapError(Exception):
     pass
