@@ -6,13 +6,14 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    expose:
+     - "5555"
     volumes:
       - ./app:/usr/local/apache2/htdocs
       - ./configs/httpd.conf:/usr/local/apache2/conf/httpd.conf
       - ./configs/httpd-ssl.conf:/usr/local/apache2/conf/extra/httpd-ssl.conf
       - ./configs/server.crt:/usr/local/apache2/conf/server.crt
       - ./configs/server.key:/usr/local/apache2/conf/server.key
-
     depends_on:
      - data
 
