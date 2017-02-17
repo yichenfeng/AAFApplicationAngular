@@ -68,13 +68,11 @@ def IsUserAdmin():
 
 @app.before_request
 def check_auth_header():
-    app.logger.error(request.path)
     if request.method != 'OPTIONS' and 'Uid' not in request.headers:
         abort(401)
 
 @app.after_request
 def set_user_headers(response):
-    app.logger.error(request.headers.get('Memberof'))
     response.headers['Uid'] = GetCurUserId() #user_id
     response.headers['IsAdmin'] = IsUserAdmin() #request.headers.get('Memberof') #is_admin
     return response
