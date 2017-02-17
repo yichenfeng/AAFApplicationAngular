@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y unzip curl pyth
       curl -k https://infosec.autozone.com/files/openam/Apache_v24_Linux_64bit_4.1.0.zip > /var/tmp/agent.zip && \
       unzip /var/tmp/agent.zip && rm /var/tmp/agent.zip && \
       echo "{OpenAM Password}" > /var/tmp/pw.txt  && chmod 0400 /var/tmp/pw.txt && \
-      setfacl -m user:daemon:rwx /var/log && rm -rf /var/lib/apt/lists/* && \
+      rm -rf /var/lib/apt/lists/* && \
       apt-get remove -y unzip curl 
 RUN /opt/web_agents/apache24_agent/bin/agentadmin --s /usr/local/apache2/conf/httpd.conf \
         "https://{OpenAM Server}:443/auth" \

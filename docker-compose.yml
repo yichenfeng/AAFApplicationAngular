@@ -12,6 +12,7 @@ services:
       - ./configs/httpd-ssl.conf:/usr/local/apache2/conf/extra/httpd-ssl.conf
       - ./configs/server.crt:/usr/local/apache2/conf/server.crt
       - ./configs/server.key:/usr/local/apache2/conf/server.key
+      - ./logs:/var/log
     depends_on:
      - data
 
