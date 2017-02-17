@@ -17,24 +17,32 @@
               <label>Search</label>
               <input ng-model="employeeID" type="number" placeholder="Employee ID" class="form-control">
             </div>
-            <button type="submit" ng-click="search()">Search</button>
+            <button class="searchBtn" type="submit" ng-click="search()">Search</button>
           </form>
         </div>
         <div class="w-col w-col-10">
           <table ng-table="tableParams" class="table">
             <tr ng-repeat="app in $data">
-              <td title="'Date'">{{ app.createdDate.$date | date:'MM/dd/yyyy' }}</td>
+              <td title="'Date'">{{ app.updateDate.$date | date:'MM/dd/yyyy' }}</td>
               <td title="'Employee ID'"><a ui-sref="approver-application({appId: app._id})">{{ app.createdBy }}</a></td>
               <td title="'AutoZoner Name'">{{ app.requestContent.applicantInfo.firstName }} {{app.requestContent.applicantInfo.middleName}} {{app.requestContent.applicantInfo.lastName}}</td>
               <td title="'Store/Dept'">{{ app.requestContent.applicantInfo.storeDeptNo }}</td>
               <td title="'Amount Requested'">${{ app.requestContent.assistanceRequested.amountRequested }}</td>
-              <td title="'Review'">{{ app.requestContent.reviewDetails.review }}</td>
+              <td title="'Review'">{{ app.status }}</td>
               <td title="'Amount Awarded'">${{ app.requestContent.reviewDetails.amountAwarded }}</td>
               <td title="'Date Awarded'">{{ app.requestContent.reviewDetails.dateAwarded.$date | date:'MM/dd/yyyy' }}</td>
               <td title="'Comments'">{{ app.requestContent.reviewDetails.comments }}</td>
               <td title="'Date of Event'">{{ app.requestContent.incidentInfo.eventDate.$date | date:'MM/dd/yyyy' }}</td>
             </tr>
           </table>
+          <div class="tableNav">
+            <button ng-show="applications.pageNum > 1" ng-click="prev()"><</button>
+            <a>{{applications.pageNum}} of {{pages}}</a>
+            <button ng-show="applications.pageNum != pages" ng-click="next()">></button>
+            <p>Jump to page #</p>
+            <input ng-model="jumpPage" type="number">
+            <button ng-click="jump()">Go</button>
+          </div>
         </div>
       </div>
     </div>

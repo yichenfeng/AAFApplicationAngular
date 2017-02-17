@@ -1,10 +1,10 @@
 <div class="sidenav w-col w-col-3">
   <h3></h3>
-  <a ui-sref="applicationInformation({appId: appId})" ng-class="step == 1 ? 'working' : step > 1 ? 'complete' : 'todo'" class="formsteps" >Applicant Information</a>
-  <a ui-sref="eligiblePersonnel({appId: appId})" ng-class="step == 2 ? 'working' : step > 2 ? 'complete' : 'todo'" class="formsteps">Eligible Personnel</a>
-  <a ui-sref="incidentInfo({appId: appId})" ng-class="step == 3 ? 'working' : step > 3 ? 'complete' : 'todo'" class="formsteps">Incident Info</a>
-  <a ui-sref="assistanceRequest({appId: appId})" ng-class="step == 4 ? 'working' : step > 4 ? 'complete' : 'todo'" class="formsteps">Assistance Request</a>
-  <a ui-sref="other({appId: appId})" ng-class="step == 5 ? 'working' : step > 5 ? 'complete' : 'todo'" class="formsteps">Assistance Requested and/or Received</a>
-  <a ui-sref="attachments({appId: appId})" ng-class="step == 6 ? 'working' : step > 6 ? 'complete' : 'todo'" class="formsteps">Attachments</a>
-  <a ui-sref="reviewSubmission({appId: appId})" ng-class="step == 7 ? 'working' : step > 7 ? 'complete' : 'todo'" class="formsteps">Review and Submission</a>
+  <div ng-class="step == 1 ? 'working' : step > 1 ? 'complete' : 'todo'" class="formsteps"><a ui-sref="applicationInformation({appId:appId})">Applicant Information</a></div>
+  <div ng-class="step == 2 ? 'working' : step > 2 ? 'complete' : 'todo'" class="formsteps"><a ui-sref="eligiblePersonnel({appId:appId})">Eligible Personnel</a></div>
+  <div ng-class="step == 3 ? 'working' : step > 3 ? 'complete' : 'todo'" class="formsteps"><a ui-sref="incidentInfo({appId:appId})">Incident Info</a></div>
+  <div ng-class="step == 4 ? 'working' : step > 4 ? 'complete' : 'todo'" class="formsteps"><a ui-sref="assistanceRequest({appId:appId})">Assistance Request</a></div>
+  <div ng-class="step == 5 ? 'working' : step > 5 ? 'complete' : 'todo'" class="formsteps"><a ui-sref="other({appId:appId})">Assistance Requested and/or Received</a></div>
+  <div ng-class="step == 6 ? 'working' : step > 6 ? 'complete' : 'todo'" class="formsteps"><a ui-sref="attachments({appId:appId})">Attachments</a></div>
+  <div ng-class="step == 7 ? 'working' : step > 7 ? 'complete' : 'todo'" class="formsteps"><a ui-sref="review-submission({appId:appId})">Review and Submission</a></div>
 </div>

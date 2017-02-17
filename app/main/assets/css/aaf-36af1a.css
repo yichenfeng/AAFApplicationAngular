@@ -1,18 +1,71 @@
+div.formsteps.complete a {
+  color: black;
+}
+div.formsteps.todo a {
+  pointer-events: none;
+  cursor: default;
+  color: #999;
+}
+div.formsteps.working a {
+  pointer-events: none;
+  cursor: default;
+}
+#assistRequestBtns {
+  clear: both;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 160px;
+}
+.tableNav, .tableNav button, .tableNav p, .tableNav input {
+  display: inline;
+}
+.tableNav button {
+  color: #F37F00;
+  background: rgba(128, 128, 128, .30);
+  border-radius: 5px;
+}
+.tableNav p {
+  font-size: 14px;
+  margin-left: 10px;
+}
+.searchBtn {
+  color: #F37F00;
+  background: rgba(128, 128, 128, .25);
+  border-radius: 5px;
+}
+/*#approveTable {
+  height: 55vh;
+}*/
+.reviewHeader {
+  background: rgba(128, 128, 128, .25);
+  padding-left: 15px;
+}
+.approvedNote {
+  width: 200px;
+  float: right;
+  font-size: 12px;
+  color: red;
+}
+#returnBtn {
+  background-color: #F37F00;
+  border: 1px solid #F37F00;
+}
 .spacing {
     margin-top:20px;
 }
-
 .attScroll {
     height: 375px;
     overflow: auto;
 }
-
 .container-fluid {
   padding-top:180px;
 }
 #deny {
   margin-left: 50px;
-  height: 60vh;
+  /*height: 60vh;*/
 }
 .carousel-control.left, .carousel-control.right {
   background-image: none;
@@ -127,6 +180,8 @@ body {
   color: #333;
   font-size: 14px;
   line-height: 20px;
+  min-height: 100%;
+  position: relative;
 }
 
 h1 {
@@ -327,7 +382,7 @@ img {
 
 .main-section {
   padding-top: 0px;
-  padding-bottom: 62px;
+  padding-bottom: 220px;
 }
 
 .main-section.dark {
@@ -1085,6 +1140,7 @@ img {
   font-family: Lato, sans-serif;
   color: #fff;
   text-align: center;
+  margin-bottom: 15px;
 }
 
 .utility-page-wrap {

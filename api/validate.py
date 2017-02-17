@@ -15,7 +15,7 @@ def IsValid(schema, data):
 def ValidateAsstReq(data):
     return IsValid(assistance_schema, data)
 
-test_schema = Schema( { Required(1) : 'one', 
+test_schema = Schema( { Required(1) : 'one',
                         Required(2) : All(Any(str, unicode), Length(min=1)),
                         Required('3') : float,
                         4 : [ Any(str, unicode), 5, 'five' ]} )
