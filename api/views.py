@@ -69,13 +69,11 @@ def IsUserAdmin():
 
 @app.before_request
 def check_auth_header():
-    app.logger.error(request.path)
     if request.method != 'OPTIONS' and 'Uid' not in request.headers:
         abort(401)
 
 @app.after_request
 def set_user_headers(response):
-    app.logger.error(request.headers.get('Memberof'))
     response.headers['Uid'] = GetCurUserId() #user_id
     response.headers['IsAdmin'] = IsUserAdmin() #request.headers.get('Memberof') #is_admin
     return response
@@ -157,13 +155,8 @@ def request_action(request_type, request_id, action):
 def get_request_docs():
     return('type: %s - id: %s - get_docs' % (request_type, request_id))
 
-<<<<<<< HEAD
 @app.route('/api/request/<request_type>/<request_id>/document', methods=['POST'])
 @app.route('/api/request/<request_type>/<request_id>/document/<document_id>', methods=['GET', 'DELETE'])
-=======
-@app.route('/request/<request_type>/<request_id>/document', methods=['POST'])
-@app.route('/request/<request_type>/<request_id>/document/<document_id>', methods=['GET'])
->>>>>>> Modified Dockerfile to install OpenAM, run Python using mod wsgi and enable ssl.
 def document(request_type, request_id, document_id=None):
     user_id = int(GetCurUserId())  
     if not IsValidRequest(request_type):
