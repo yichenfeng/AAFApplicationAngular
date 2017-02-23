@@ -19,7 +19,7 @@ from logging import Formatter
 #constants file in this directory
 from const import RequestType, ResponseType, RequestActions, RequestStatus
 from aafrequest import AAFRequest, AAFSearch, InvalidActionException
-from ldap import GetUserById, IsAdminGroupDn, LdapError
+from ldap import GetUserById, GetAdminUsers, LdapError
 from voluptuous.error import MultipleInvalid
 from database import MongoConnection
 from flask_pymongo import PyMongo
@@ -39,8 +39,6 @@ app.config['MONGO_HOST'] = 'data'
 app.config['MONGO_PORT'] = 27017 
 app.config['MONGO_DBNAME'] = 'aaf_db'
 mongo = PyMongo(app)
-
-from flask import g
 
 #decorator for creating callbacks to be executed after the response is generated
 def after_this_request(f):
@@ -64,7 +62,11 @@ def GetResponseJson(response_status, results):
     return json_util.dumps({"status" : response_status, "result" : results}, json_options=json_util.STRICT_JSON_OPTIONS)
 
 def IsUserAdmin():
-    return IsAdminGroupDn(request.headers.get('Memberof'))
+    user_id = int(request.headers.get('Uid'))
+    if any(d['userId'] == user_id for d in GetAdminUsers()):
+        return True
+    else:
+        return False
 
 @app.before_request
 def check_auth_header():
