@@ -1,5 +1,3 @@
-MONGO_HOST = 'data'
-MONGO_PORT = 27017
-MONGO_DBNAME = 'aaf_db'
+ADMIN_GROUPS = ['aaf-board', 'it-infosec']
 
-LOG_LOCATION = '/var/log/aaf_api.log'
+LDAP_SERVER = "ldaptest.autozone.com"
