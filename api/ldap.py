@@ -43,7 +43,8 @@ def GetAdminUsers():
     for group in config.ADMIN_GROUPS:
         response = _LdapSearch(conn, "(memberOf=cn=%s,ou=groups,dc=autozone,dc=com)" % (group))
         for user in response:
-            admin_users.append({ "userName" : user['attributes']['cn'][0], "userId" : int(user['attributes']['uid'][0]) })
+            admin_users.append({ "userName" : user['attributes']['cn'][0], \
+                                  "userId" : int(user['attributes']['uid'][0]) })
 
     return admin_users
 
