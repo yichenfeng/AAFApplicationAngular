@@ -188,7 +188,6 @@ def document(request_type, request_id, document_id=None):
 
 #returns current user info from ldap
 @app.route('/userinfo', methods=['GET'])
-@app.route('/userinfo/', methods=['GET'])
 @app.route('/userinfo/<user_id>', methods=['GET'])
 def curr_user_details(user_id=None):
     try:
@@ -200,6 +199,15 @@ def curr_user_details(user_id=None):
         user_details['IsAdmin'] = IsUserAdmin()
 
         return GetResponseJson(ResponseType.SUCCESS, user_details)
+    except LdapError as ex:
+        return GetResponseJson(ResponseType.ERROR, str(ex))
+
+@app.route('/adminlist', methods=['GET'])
+def get_admins():
+    if not IsUserAdmin():
+        abort(403)
+    try:
+        return GetResponseJson(ResponseType.SUCCESS, GetAdminUsers())
     except LdapError as ex:
         return GetResponseJson(ResponseType.ERROR, str(ex))
 
