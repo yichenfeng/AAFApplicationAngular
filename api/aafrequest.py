@@ -4,7 +4,6 @@ from database import MongoConnection, MongoInterface
 from const import RequestType, RequestStatus, RequestActions
 from datetime import datetime
 from validate import ValidateAsstReq 
-from flask import current_app
 
 class AAFSearch(object):
     @staticmethod
@@ -169,7 +168,6 @@ class AAFRequest(object):
 
     def GetDocument(self, document_id):
         for doc in self.request_details['documentation']:
-            current_app.logger.error('%s %s' % (doc['docId'], document_id))
             if doc['docId'] == document_id:
                 doc['base64String'] = self.mongo_interface.getFile(self.file_collection, document_id).decode('utf-8')
                 return doc
