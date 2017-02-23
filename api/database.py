@@ -70,6 +70,9 @@ class MongoInterface(object):
         file = collection.put(data.encode("UTF-8"))
         return self._getObjectId(file)
 
+    def deleteFile(self, collection, id):
+        return collection.remove(ObjectId(id))
+
 
 """
 if __name__ == '__main__':

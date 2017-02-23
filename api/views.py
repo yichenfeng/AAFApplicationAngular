@@ -24,11 +24,12 @@ from ldap import GetUserById, LdapError
 from voluptuous.error import MultipleInvalid
 from database import MongoConnection
 from flask_pymongo import PyMongo
+import config
 
 #move this to init script - stest up the base app object
 app = Flask(__name__)
 
-handler = RotatingFileHandler('/var/log/aaf_api.log', maxBytes=10000, backupCount=1)
+handler = RotatingFileHandler(config.LOG_LOCATION, maxBytes=10000, backupCount=1)
 handler.setLevel(logging.INFO)
 handler.setFormatter(Formatter(
     '%(asctime)s %(levelname)s: %(message)s '
@@ -36,9 +37,9 @@ handler.setFormatter(Formatter(
 ))
 app.logger.addHandler(handler)
 
-app.config['MONGO_HOST'] = 'data' 
-app.config['MONGO_PORT'] = 27017 
-app.config['MONGO_DBNAME'] = 'aaf_db'
+app.config['MONGO_HOST'] = config.MONGO_HOST
+app.config['MONGO_PORT'] = config.MONGO_PORT
+app.config['MONGO_DBNAME'] = config.MONGO_DBNAME
 mongo = PyMongo(app)
 
 from flask import g
@@ -166,7 +167,7 @@ def get_request_docs():
     return('type: %s - id: %s - get_docs' % (request_type, request_id))
 
 @app.route('/api/request/<request_type>/<request_id>/document', methods=['POST'])
-@app.route('/api/request/<request_type>/<request_id>/document/<document_id>', methods=['GET'])
+@app.route('/api/request/<request_type>/<request_id>/document/<document_id>', methods=['GET', 'DELETE'])
 def document(request_type, request_id, document_id=None):
     user_id = int(GetCurUserId())  
     if not IsValidRequest(request_type):
@@ -188,6 +189,12 @@ def document(request_type, request_id, document_id=None):
                 return GetResponseJson(ResponseType.SUCCESS, results)
             else:
                 return GetResponseJson(ResponseType.ERROR, 'No file data recieved')
+        elif request.method == 'DELETE':
+            if document_id:
+                aaf_request.DeleteDocument(user_id, document_id)
+                return GetResponseJson(ResponseType.SUCCESS, 'File %s deleted.' % (document_id))
+            else:
+                abort(404)
         else:
             if document_id:
                 document = aaf_request.GetDocument(document_id)
