@@ -18,7 +18,7 @@
                         <ul class="spacing">
                             <li ng-repeat="document in application.documentation" class="list-group-item">
                                 {{document.fileName}}
-                                <a class="close" ng-click="deleteAttachment($index)">x</a>
+                                <a class="close" ng-click="delete($index)">Delete</a>
                             </li>
                         </ul>
                     </div>
