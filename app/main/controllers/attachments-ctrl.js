@@ -40,8 +40,16 @@ angular.module('myApp')
         }
     }, true);
 
-    $scope.deleteAttachment = function(index) {
-        $rootScope.application.documentation.splice(index, 1);
+    $scope.delete = function(index) {
+        var id = $rootScope.application._id;
+        var docId = $rootScope.application.documentation[index].docId;
+        if($rootScope.application) {
+            DataService.deleteAttachment(id, docId).then(function (result) {
+                if(result) {
+                    $rootScope.application.documentation.splice(result, 1);
+                }
+            });
+        }
     };
 
     $scope.addURL = function(newValue) {
