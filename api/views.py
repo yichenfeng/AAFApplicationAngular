@@ -26,6 +26,7 @@ from flask_pymongo import PyMongo
 
 #move this to init script - stest up the base app object
 app = Flask(__name__)
+app.config.from_pyfile('services.cfg')
 
 handler = RotatingFileHandler('/var/log/aaf_api.log', maxBytes=10000, backupCount=1)
 handler.setLevel(logging.INFO)
@@ -35,9 +36,9 @@ handler.setFormatter(Formatter(
 ))
 app.logger.addHandler(handler)
 
-app.config['MONGO_HOST'] = 'data' 
-app.config['MONGO_PORT'] = 27017 
-app.config['MONGO_DBNAME'] = 'aaf_db'
+#app.config['MONGO_HOST'] = 'data' 
+#app.config['MONGO_PORT'] = 27017 
+#app.config['MONGO_DBNAME'] = 'aaf_db'
 mongo = PyMongo(app)
 
 #decorator for creating callbacks to be executed after the response is generated
