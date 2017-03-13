@@ -1,9 +1,10 @@
+from flask import current_app
 from ldap3 import Server, Connection, ALL_ATTRIBUTES
 from ldap3.utils.dn import parse_dn
-import config
+#import config
 
 def _GetConnection(ldap_id=None, password=None):
-    server = Server(config.LDAP_SERVER, use_ssl=True)
+    server = Server(current_app.config.get('LDAP_SERVER'), use_ssl=True)
     if ldap_id:
         conn = Connection(server, user="uid=%s,ou=users,dc=autozone,dc=com" % (ldap_id), password=password)
     else:
@@ -40,7 +41,7 @@ def GetAdminUsers():
 
     admin_users = [ ]
  
-    for group in config.ADMIN_GROUPS:
+    for group in current_app.config.get('ADMIN_GROUPS'):
         response = _LdapSearch(conn, "(memberOf=cn=%s,ou=groups,dc=autozone,dc=com)" % (group))
         for user in response:
             admin_users.append({ "userName" : user['attributes']['cn'][0], \

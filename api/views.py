@@ -27,6 +27,7 @@ import config
 
 #move this to init script - stest up the base app object
 app = Flask(__name__)
+app.config.from_pyfile('services.cfg')
 
 handler = RotatingFileHandler(config.LOG_LOCATION, maxBytes=10000, backupCount=1)
 handler.setLevel(logging.INFO)
