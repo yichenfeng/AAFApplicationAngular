@@ -23,13 +23,12 @@ from ldap import GetUserById, GetAdminUsers, LdapError
 from voluptuous.error import MultipleInvalid
 from database import MongoConnection
 from flask_pymongo import PyMongo
-import config
 
 #move this to init script - stest up the base app object
 app = Flask(__name__)
 app.config.from_pyfile('services.cfg')
 
-handler = RotatingFileHandler(config.LOG_LOCATION, maxBytes=10000, backupCount=1)
+handler = RotatingFileHandler(app.config.get('LOG_LOCATION'), maxBytes=10000, backupCount=1)
 handler.setLevel(logging.INFO)
 handler.setFormatter(Formatter(
     '%(asctime)s %(levelname)s: %(message)s '
@@ -37,9 +36,6 @@ handler.setFormatter(Formatter(
 ))
 app.logger.addHandler(handler)
 
-app.config['MONGO_HOST'] = config.MONGO_HOST
-app.config['MONGO_PORT'] = config.MONGO_PORT
-app.config['MONGO_DBNAME'] = config.MONGO_DBNAME
 mongo = PyMongo(app)
 
 #decorator for creating callbacks to be executed after the response is generated

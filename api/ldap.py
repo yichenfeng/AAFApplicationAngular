@@ -1,7 +1,6 @@
 from flask import current_app
 from ldap3 import Server, Connection, ALL_ATTRIBUTES
 from ldap3.utils.dn import parse_dn
-#import config
 
 def _GetConnection(ldap_id=None, password=None):
     server = Server(current_app.config.get('LDAP_SERVER'), use_ssl=True)
