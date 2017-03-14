@@ -6,6 +6,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    expose:
+     - "5555"
     volumes:
       - ./app:/usr/local/apache2/htdocs
       - ./configs/httpd.conf:/usr/local/apache2/conf/httpd.conf
