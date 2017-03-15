@@ -76,7 +76,7 @@ def check_auth_header():
 
    user_id = request.headers['OpenAMHeaderID']
    is_admin = IsUserAdmin(int(user_id))
-   
+
    @after_this_request
    def set_user_headers(response):
        response.headers['OpenAMHeaderID'] = user_id
@@ -93,6 +93,12 @@ def per_request_callbacks(response):
 @app.route('/')
 def hello():
     return GetResponseJson(ResponseType.SUCCESS, "Hello World!")
+
+#Test route for the root directory - Remove
+@app.route('/api/adminlist')
+def admin_list():
+    dummy_obj = [{"userName": "Aaron Wrasman", "userId": 10047364}, {"userName": "Aragon Etzel", "userId": 10316189}]
+    return GetResponseJson(ResponseType.SUCCESS, dummy_obj)
 
 #Search method - query string can contain any of the attributes of a request
 #If _id is previded as a search param, redirects to /request_type/id
@@ -149,13 +155,13 @@ def get_upd_request(request_type, request_id=None):
 def request_action(request_type, request_id, action):
     if not IsValidRequest(request_type):
         return GetResponseJson(ResponseType.ERROR, "invalid request")
-    
+
     user_id = int(GetCurUserId())
     admin_flag = IsUserAdmin(user_id)
     conn = MongoConnection(mongo.db)
     aaf_request = AAFRequest(conn, request_type, request_id)
 
-    try: 
+    try:
         aaf_request.PerformAction(action, user_id, admin_flag)
     except InvalidActionException as ex:
         return GetResponseJson(ResponseType.ERROR, str(ex))
@@ -169,7 +175,7 @@ def get_request_docs():
 @app.route('/api/request/<request_type>/<request_id>/document', methods=['POST'])
 @app.route('/api/request/<request_type>/<request_id>/document/<document_id>', methods=['GET', 'DELETE'])
 def document(request_type, request_id, document_id=None):
-    user_id = int(GetCurUserId())  
+    user_id = int(GetCurUserId())
     if not IsValidRequest(request_type):
         return GetResponseJson(ResponseType.ERROR, "invalid request")
     else:
