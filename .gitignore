@@ -10,3 +10,5 @@ __pycache__/
 *.ipr
 *.iws
 atlassian-ide-plugin.xml
+*.egg-info
+dist/

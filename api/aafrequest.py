@@ -4,6 +4,7 @@ from database import MongoConnection, MongoInterface
 from const import RequestType, RequestStatus, RequestActions
 from datetime import datetime
 from validate import ValidateAsstReq 
+from notification import send_email
 
 class AAFSearch(object):
     @staticmethod
@@ -136,6 +137,8 @@ class AAFRequest(object):
             new_status = RequestStatus.DENIED
         else:
             raise InvalidActionException('Action %s not valid.' % (action))
+
+        #send_email("", "")
 
         if (self.IsUserSubmitter(user_id) and self.IsReadyToSubmit() and action == RequestActions.SUBMIT) or user_admin:
             update_data = self._getUpdateMetaData(user_id)
