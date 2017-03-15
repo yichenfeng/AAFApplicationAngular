@@ -8,6 +8,12 @@ angular.module('myApp')
     }
   };
 
+  angular.element(document).ready(function () {
+    DataService.getAdminList().then(function (result) {
+      $scope.adminList = result;
+    });
+  });
+
   $scope.appId = '';
   if(!$stateParams.appId) {
     $state.go('applicationInformation', {});

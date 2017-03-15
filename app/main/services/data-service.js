@@ -235,5 +235,20 @@ angular.module('myApp')
     });
   };
 
+  dataService.getAdminList = function() {
+    return $http({
+      url: '/api/adminlist',
+      method: 'GET',
+      headers: {
+        'OpenAMHeaderID': '10705332' //TODO: remove this, it wont be needed in prod
+      }
+    }).then(function callback(response) {
+      if (response.data && response.data.status == "success") {
+        return response.data.result;
+      }
+      return false;
+    });
+  };
+
   return dataService;
 });

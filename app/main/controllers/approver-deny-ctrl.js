@@ -16,6 +16,12 @@ angular.module('myApp')
 
   $scope.reasons = ['Does not qualify', 'Lack of documentation', 'Other'];
 
+  angular.element(document).ready(function () {
+    DataService.getAdminList().then(function (result) {
+      $scope.adminList = result;
+    });
+  });
+
   $scope.deny = function (event) {
     $scope.submitted = true;
     if ($scope.denyForm.$valid) {
