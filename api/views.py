@@ -18,18 +18,17 @@ from logging.handlers import RotatingFileHandler
 from logging import Formatter
 #constants file in this directory
 from const import RequestType, ResponseType, RequestActions, RequestStatus
-from auth import AuthHelper
 from aafrequest import AAFRequest, AAFSearch, InvalidActionException
-from ldap import GetUserById, LdapError
+from ldap import GetUserById, GetAdminUsers, LdapError
 from voluptuous.error import MultipleInvalid
 from database import MongoConnection
 from flask_pymongo import PyMongo
-import config
 
 #move this to init script - stest up the base app object
 app = Flask(__name__)
+app.config.from_pyfile('services.cfg')
 
-handler = RotatingFileHandler(config.LOG_LOCATION, maxBytes=10000, backupCount=1)
+handler = RotatingFileHandler(app.config.get('LOG_LOCATION'), maxBytes=10000, backupCount=1)
 handler.setLevel(logging.INFO)
 handler.setFormatter(Formatter(
     '%(asctime)s %(levelname)s: %(message)s '
@@ -37,12 +36,7 @@ handler.setFormatter(Formatter(
 ))
 app.logger.addHandler(handler)
 
-app.config['MONGO_HOST'] = config.MONGO_HOST
-app.config['MONGO_PORT'] = config.MONGO_PORT
-app.config['MONGO_DBNAME'] = config.MONGO_DBNAME
 mongo = PyMongo(app)
-
-from flask import g
 
 #decorator for creating callbacks to be executed after the response is generated
 def after_this_request(f):
@@ -59,34 +53,28 @@ def IsValidRequest(request_type):
         return False
 
 def GetCurUserId():
-    return request.headers.get('OpenAMHeaderID')
+    return request.headers.get('Uid')
 
 #prepare the response for the user
 def GetResponseJson(response_status, results):
     return json_util.dumps({"status" : response_status, "result" : results}, json_options=json_util.STRICT_JSON_OPTIONS)
 
-def IsUserAdmin(user_id):
-    helper = AuthHelper()
-    return helper.IsUserAdmin(user_id)
+def IsUserAdmin():
+    user_id = int(request.headers.get('Uid'))
+    if any(d['userId'] == user_id for d in GetAdminUsers()):
+        return True
+    else:
+        return False
 
 @app.before_request
 def check_auth_header():
-   if request.method != 'OPTIONS' and 'OpenAMHeaderID' not in request.headers:
-       abort(401)
-
-   user_id = request.headers['OpenAMHeaderID']
-   is_admin = IsUserAdmin(int(user_id))
-
-   @after_this_request
-   def set_user_headers(response):
-       response.headers['OpenAMHeaderID'] = user_id
-       response.headers['IsAdmin'] = is_admin
-       return response
+    if request.method != 'OPTIONS' and 'Uid' not in request.headers:
+        abort(401)
 
 @app.after_request
-def per_request_callbacks(response):
-    for func in getattr(g, 'call_after_request', ()):
-        response = func(response)
+def set_user_headers(response):
+    response.headers['Uid'] = GetCurUserId() #user_id
+    response.headers['IsAdmin'] = IsUserAdmin() #request.headers.get('Memberof') #is_admin
     return response
 
 #Test route for the root directory - Remove
@@ -102,7 +90,7 @@ def admin_list():
 
 #Search method - query string can contain any of the attributes of a request
 #If _id is previded as a search param, redirects to /request_type/id
-@app.route('/api/request/<request_type>/search', methods=['POST'])
+@app.route('/request/<request_type>/search', methods=['POST'])
 def search_requests(request_type):
     per_page = request.args.get('perPage')
     page_num = request.args.get('pageNumber')
@@ -113,7 +101,7 @@ def search_requests(request_type):
             find_input = request.json
         else:
             find_input = { }
-        if not IsUserAdmin(request.headers['OpenAMHeaderID']):
+        if not IsUserAdmin():
             find_input['createdBy'] = GetCurUserId()
         conn = MongoConnection(mongo.db)
 
@@ -124,8 +112,8 @@ def search_requests(request_type):
         return GetResponseJson(ResponseType.ERROR, "invalid request - type")
 
 #view method for requests - takes MongoDB id and returns the dict result from Mongo
-@app.route('/api/request/<request_type>', methods=['POST'])
-@app.route('/api/request/<request_type>/<request_id>', methods=['GET','POST'])
+@app.route('/request/<request_type>', methods=['POST'])
+@app.route('/request/<request_type>/<request_id>', methods=['GET','POST'])
 def get_upd_request(request_type, request_id=None):
     user_id = int(GetCurUserId())
     if not IsValidRequest(request_type):
@@ -135,7 +123,7 @@ def get_upd_request(request_type, request_id=None):
         aaf_request = AAFRequest(conn, request_type, request_id)
         if request_id and not aaf_request.IsExistingRequest():
             return abort(404)
-        elif not IsUserAdmin(user_id) and\
+        elif not IsUserAdmin() and\
                 (not aaf_request.IsExistingRequest() or not aaf_request.IsUserCreator(user_id)) and\
                 aaf_request.IsExistingRequest():
             return abort(403)
@@ -151,13 +139,13 @@ def get_upd_request(request_type, request_id=None):
         else:
             return GetResponseJson(ResponseType.SUCCESS, aaf_request.request_details)
 
-@app.route('/api/request/<request_type>/<request_id>/<action>', methods=['POST'])
+@app.route('/request/<request_type>/<request_id>/<action>', methods=['POST'])
 def request_action(request_type, request_id, action):
     if not IsValidRequest(request_type):
         return GetResponseJson(ResponseType.ERROR, "invalid request")
 
     user_id = int(GetCurUserId())
-    admin_flag = IsUserAdmin(user_id)
+    admin_flag = IsUserAdmin()
     conn = MongoConnection(mongo.db)
     aaf_request = AAFRequest(conn, request_type, request_id)
 
@@ -168,7 +156,7 @@ def request_action(request_type, request_id, action):
 
     return GetResponseJson(ResponseType.SUCCESS, aaf_request.request_details)
 
-@app.route('/api/request/<request_type>/<request_id>/document', methods=['GET'])
+@app.route('/request/<request_type>/<request_id>/document', methods=['GET'])
 def get_request_docs():
     return('type: %s - id: %s - get_docs' % (request_type, request_id))
 
@@ -209,8 +197,8 @@ def document(request_type, request_id, document_id=None):
             return GetResponseJson(ResponseType.SUCCESS, document)
 
 #returns current user info from ldap
-@app.route('/api/userinfo', methods=['GET'])
-@app.route('/api/userinfo/<user_id>', methods=['GET'])
+@app.route('/userinfo', methods=['GET'])
+@app.route('/userinfo/<user_id>', methods=['GET'])
 def curr_user_details(user_id=None):
     try:
         if user_id:
@@ -218,7 +206,18 @@ def curr_user_details(user_id=None):
         else:
             user_details = GetUserById(GetCurUserId())
 
+        user_details['IsAdmin'] = IsUserAdmin()
+
         return GetResponseJson(ResponseType.SUCCESS, user_details)
+    except LdapError as ex:
+        return GetResponseJson(ResponseType.ERROR, str(ex))
+
+@app.route('/adminlist', methods=['GET'])
+def get_admins():
+    if not IsUserAdmin():
+        abort(403)
+    try:
+        return GetResponseJson(ResponseType.SUCCESS, GetAdminUsers())
     except LdapError as ex:
         return GetResponseJson(ResponseType.ERROR, str(ex))
 
