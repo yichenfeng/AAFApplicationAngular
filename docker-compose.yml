@@ -15,6 +15,7 @@ services:
       - ./configs/services.cfg:/usr/local/apache2/wsgi-bin/services.cfg
       - ./configs/server.crt:/usr/local/apache2/conf/server.crt
       - ./configs/server.key:/usr/local/apache2/conf/server.key
+      - ./configs/pw.txt:/var/tmp/pw.txt
       - ./logs:/var/log
     depends_on:
      - data
