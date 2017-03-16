@@ -59,6 +59,9 @@ def IsValidRequest(request_type):
 def GetCurUserId():
     return request.headers.get('Uid')
 
+def GetCurUserEmail():
+    return request.headers.get('Mail')
+
 #prepare the response for the user
 def GetResponseJson(response_status, results):
     return json_util.dumps({"status" : response_status, "result" : results}, json_options=json_util.STRICT_JSON_OPTIONS)
@@ -85,6 +88,15 @@ def set_user_headers(response):
 @app.route('/')
 def hello():
     return GetResponseJson(ResponseType.SUCCESS, "Hello World!")
+
+@app.route('/headers')
+def headers():
+    ret_val = "Headers:<br>"
+
+    for header in request.headers:
+        ret_val += header[0] + ': ' + header[1]  + '<br/>'
+    return ret_val
+
 
 #Test route for the root directory - Remove
 @app.route('/testmail')
@@ -134,7 +146,7 @@ def get_upd_request(request_type, request_id=None):
         if request.method == 'POST':
            if request.json:
                try:
-                   aaf_request.Update(user_id, request.json)
+                   aaf_request.Update(user_id, GetCurUserEmail(), request.json)
                    return GetResponseJson(ResponseType.SUCCESS, aaf_request.request_id)
                except MultipleInvalid as ex:
                    return GetResponseJson(ResponseType.ERROR, str(ex))
@@ -154,7 +166,7 @@ def request_action(request_type, request_id, action):
     aaf_request = AAFRequest(conn, request_type, request_id)
 
     try: 
-        aaf_request.PerformAction(action, user_id, admin_flag)
+        aaf_request.PerformAction(action, user_id, GetCurUserEmail(), admin_flag)
     except InvalidActionException as ex:
         return GetResponseJson(ResponseType.ERROR, str(ex))
 
@@ -182,14 +194,14 @@ def document(request_type, request_id, document_id=None):
                 if type(input) == dict:
                     input = [input]
                 for document in input:
-                    results.append(aaf_request.UploadDocument(user_id, document['fileName'], document['base64String'], document['description']))
+                    results.append(aaf_request.UploadDocument(user_id, GetCurUserEmail(), document['fileName'], document['base64String'], document['description']))
 
                 return GetResponseJson(ResponseType.SUCCESS, results)
             else:
                 return GetResponseJson(ResponseType.ERROR, 'No file data recieved')
         elif request.method == 'DELETE':
             if document_id:
-                aaf_request.DeleteDocument(user_id, document_id)
+                aaf_request.DeleteDocument(user_id, GetCurUserEmail(), document_id)
                 return GetResponseJson(ResponseType.SUCCESS, 'File %s deleted.' % (document_id))
             else:
                 abort(404)

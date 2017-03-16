@@ -1,10 +1,12 @@
 import json
+from flask import current_app
 from bson import json_util
 from database import MongoConnection, MongoInterface
 from const import RequestType, RequestStatus, RequestActions
 from datetime import datetime
 from validate import ValidateAsstReq 
 from notification import send_email
+from ldap import GetUserById 
 
 class AAFSearch(object):
     @staticmethod
@@ -54,7 +56,7 @@ class AAFRequest(object):
         else:
             self.request_details = None
     
-    def _getNewMetaData(self, user_id):
+    def _getNewMetaData(self, user_id, email):
         now = datetime.utcnow()
         meta = { }
         meta['createdBy'] = user_id
@@ -62,14 +64,17 @@ class AAFRequest(object):
         meta['updatedBy'] = user_id
         meta['updateDate'] = now
         meta['status'] = RequestStatus.DRAFT
+        meta['submitterEmail'] = email
         meta['documentation'] = [ ]
 
         return meta
 
-    def _getUpdateMetaData(self, user_id):
+    def _getUpdateMetaData(self, user_id, email):
         meta = { }
         meta['updatedBy'] = user_id
         meta['updateDate'] = datetime.utcnow()
+        if self.request_details['createdBy'] == user_id:
+            meta['submitterEmail'] = email
 
         return meta
 
@@ -126,7 +131,7 @@ class AAFRequest(object):
     def GetRequestDetails(self):
         return self.request_details.to_son()
 
-    def PerformAction(self, action, user_id, user_admin=False):
+    def PerformAction(self, action, user_id, email, user_admin=False):
         if action == RequestActions.SUBMIT:
             new_status = RequestStatus.SUBMITTED
         elif action == RequestActions.APPROVE:
@@ -138,17 +143,25 @@ class AAFRequest(object):
         else:
             raise InvalidActionException('Action %s not valid.' % (action))
 
-        #send_email("", "")
-
         if (self.IsUserSubmitter(user_id) and self.IsReadyToSubmit() and action == RequestActions.SUBMIT) or user_admin:
-            update_data = self._getUpdateMetaData(user_id)
+            update_data = self._getUpdateMetaData(user_id, email)
             update_data['status'] = new_status
             self.mongo_interface.updateDocument(self.mongo_collection, update_data, self.request_id)
             self.request_details = self._retrieveRequest()
+
+            cc_list = [ ]
+            for group in current_app.config['ADMIN_GROUPS']:
+                cc_list.append('%s@%s' % (group, current_app.config['DOMAIN']))
+
+            subject = 'AAF Request %s' % (new_status)
+            message = 'AAF Request # %s has been %s.' % (self.request_details['_id'], new_status)
+
+            send_email(subject, message, [ email ], cc_list)
+
         else:
             raise InvalidActionException('User id %s not authorized for this operation.' % (user_id))
          
-    def Update(self, user_id, data, user_admin=False):
+    def Update(self, user_id, email, data, user_admin=False):
         if not self.IsRequestEditable(user_admin):
             raise InvalidUpdateException('User may not update records in status %s' % ())
 
@@ -158,12 +171,12 @@ class AAFRequest(object):
         #convert input to bson object that can be sent to mongodb
         data_bson = json_util.loads(json.dumps(data))
         if self.IsExistingRequest():
-            update_details = self._getUpdateMetaData(user_id)         
+            update_details = self._getUpdateMetaData(user_id, email)         
             for key in data:
                 update_details['requestContent.'+ key] = data_bson[key] 
             self.mongo_interface.updateDocument(self.mongo_collection, update_details, self.request_id)
         else:
-            insert_details = self._getNewMetaData(user_id)
+            insert_details = self._getNewMetaData(user_id, email)
             insert_details['requestContent'] = data_bson
             self.request_id = self.mongo_interface.insertDocument(self.mongo_collection, insert_details)
         
@@ -176,15 +189,15 @@ class AAFRequest(object):
                 return doc
         raise Exception("No such document for this request %s." % (document_id))        
 
-    def UploadDocument(self, user_id, document_name, document_data, description=None):
+    def UploadDocument(self, user_id, email, document_name, document_data, description=None):
         file_id = self.mongo_interface.insertFile(self.file_collection, document_data)
         doc_data = self._getNewDocumentMetaData(user_id, document_name, file_id, description)
 
         if self.IsExistingRequest():
-            update_details = self._getUpdateMetaData(user_id)
+            update_details = self._getUpdateMetaData(user_id, email)
             self.mongo_interface.updateDocument(self.mongo_collection, update_details, self.request_id, push_data={'documentation' : doc_data})
         else:
-            insert_details = self._getNewMetaData(user_id)
+            insert_details = self._getNewMetaData(user_id, email)
             insert_details['documentation'].append(data)
             self.mongo_interface.insertDocument(self.mongo_collection, insert_details)
         
@@ -192,9 +205,9 @@ class AAFRequest(object):
 
         return doc_data
 
-    def DeleteDocument(self, user_id, document_id):
+    def DeleteDocument(self, user_id, email, document_id):
         if self.IsExistingRequest():
-            update_details = self._getUpdateMetaData(user_id)
+            update_details = self._getUpdateMetaData(user_id, email)
             for doc in self.request_details['documentation']:
                 if doc['docId'] == document_id:
                     self.mongo_interface.updateDocument(self.mongo_collection, update_details, self.request_id, pull_data={ 'documentation' : doc })
