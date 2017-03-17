@@ -156,7 +156,7 @@ class AAFRequest(object):
             subject = 'AAF Request %s' % (new_status)
             message = 'AAF Request # %s has been %s.' % (self.request_details['_id'], new_status)
 
-            send_email(subject, message, [ email ], cc_list)
+            send_email(subject, self.request_details, new_status, [ self.request_details["submitterEmail"] ], cc_list)
 
         else:
             raise InvalidActionException('User id %s not authorized for this operation.' % (user_id))

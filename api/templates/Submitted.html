@@ -1,0 +1,32 @@
+﻿{% extends "layout.html" %}
+{% block content %}
+<tr>
+    <td class="wrapper">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <p>Thank you for submitting an assistance request. </p>
+                    <p>You may view your request by clicking the button below.</p>
+                    <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                        <tbody>
+                            <tr>
+                                <td align="left">
+                                    <table border="0" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                            <tr>
+                                                <td> <a href="{{ host_url }}#/applicationInformation/{{ request_details._id }}" target="_blank">View Application</a> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Your application will be reviewed and you will recieve an email once the request is approved or if any additional documentaion is required.</p>
+                    <p>Thank you!.</p>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+{% endblock %}
