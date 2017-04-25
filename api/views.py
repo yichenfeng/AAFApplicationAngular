@@ -18,6 +18,7 @@ from logging.handlers import RotatingFileHandler
 from logging import Formatter
 #constants file in this directory
 from const import RequestType, ResponseType, RequestActions, RequestStatus
+from export import getCsvResponseFromJson
 from aafrequest import AAFRequest, AAFSearch, InvalidActionException
 from ldap import GetUserById, GetAdminUsers, LdapError
 from voluptuous.error import MultipleInvalid
@@ -110,6 +111,7 @@ def testmail():
 def search_requests(request_type):
     per_page = request.args.get('perPage')
     page_num = request.args.get('pageNumber')
+    out_format = request.args.get('format')
     if not page_num:
         page_num = 1
     if IsValidRequest(request_type):
@@ -123,7 +125,10 @@ def search_requests(request_type):
 
         search_results = AAFSearch.Search(conn, request_type, find_input, per_page, page_num)
 
-        return GetResponseJson(ResponseType.SUCCESS, search_results)
+        if out_format == 'csv':
+            pass
+        else:
+            return GetResponseJson(ResponseType.SUCCESS, search_results)
     else:
         return GetResponseJson(ResponseType.ERROR, "invalid request - type")
 

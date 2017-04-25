@@ -8,7 +8,7 @@ mail = Mail()
 #@async
 def send_email(subject, request_details, new_status, recipients, cc):
     message = ""
-    if current_app.config['DEBUG']:
+    if current_app.config['DEBUG_NOTIFICATIONS']:
         message += '<p>Original Recipients:</p>'
         for recpient in recipients:
             message += '<p>%s</p>' % recpient
@@ -16,8 +16,8 @@ def send_email(subject, request_details, new_status, recipients, cc):
         for group in cc:
             message += '<p>%s</p>' % group
 
-        recipients = current_app.config['DEBUG_RECIPIENTS']
-        cc = current_app.config['DEBUG_RECIPIENTS']
+    recipients = current_app.config['DEBUG_RECIPIENTS']
+    cc = current_app.config['DEBUG_RECIPIENTS']
 
     msg = Message(subject,
                   recipients=recipients,
