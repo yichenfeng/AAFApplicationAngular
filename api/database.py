@@ -5,12 +5,14 @@ from datetime import datetime
 from os import environ
 from const import RequestType
 
-def get_admin_list(db=None):
+def GetAdminUsers(db=None):
     if not db:
         client = MongoClient('data', 27017)
         db = client.aaf_db
-
-    return db.admin_users.find()
+    admins = []
+    for admin in db.admin_users.find():
+        admins.append(dict(admin))
+    return admins
 
 def set_admin_list(new_admin_list, db=None):
     if not db:
@@ -96,9 +98,16 @@ class MongoInterface(object):
 
 if __name__ == '__main__':
     db = MongoClient('172.18.0.2', 27017).aaf_db
-    print(dict(get_admin_list(db)))
-    print(set_admin_list({'user_id' : 10705332, 'user_name' : 'Trevor Robinson'}, db))
-    print(dict(get_admin_list(db)))
+    print(GetAdminUsers(db))
+
+    if any(d['userId'] == 10705332 for d in GetAdminUsers(db)):
+        print('Admin')
+
+
+
+    #db = MongoClient('172.18.0.2', 27017).aaf_db
+    #db.admin_users.insert({'userId' : 10705332, 'userName' : 'Trevor Robinson'})
+    #print(GetAdminUsers(db))
 """
 if __name__ == '__main__':
     conn = MongoConnection()
