@@ -2,6 +2,20 @@ from flask import current_app
 from ldap3 import Server, Connection, ALL_ATTRIBUTES
 from ldap3.utils.dn import parse_dn
 
+def set_admin_list(new_admin_list, db=None):
+    if not db:
+        client = MongoClient('data', 27017)
+        db = client.aaf_db
+
+    existing_admin_list = db.admin_users.find()
+    for admin in existing_admin_list:
+        if admin.get('user_id') in new_admin_list.keys():
+            new_admin_list.pop(admin.get('user_id'))
+        else:
+            db.admin_users.remove(admin.get('_id'))
+    for new_admin in new_admin_list:
+        db.admin_users.insert(new_admin)
+
 def _GetConnection(ldap_id=None, password=None):
     server = Server(current_app.config.get('LDAP_SERVER'), use_ssl=True)
     if ldap_id:

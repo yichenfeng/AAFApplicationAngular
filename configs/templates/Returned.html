@@ -1,0 +1,33 @@
+﻿{% extends "layout.html" %}
+{% block content %}
+<tr>
+    <td class="wrapper">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <p>Your request requires additional information.</p>
+                    <p>Please see the comment(s) below.</p>
+                    <p>{{ request_details['requestContent']['reviewDetails']['comments'] }}</p>
+                    <p>Please update your request and hit Submit to send your changes to the reviewers.</p>
+                    <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                        <tbody>
+                            <tr>
+                                <td align="left">
+                                    <table border="0" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                            <tr>
+                                                <td> <a href="{{ host_url }}#/applicationInformation/{{ request_details._id }}" target="_blank">View Application</a> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Thank you!.</p>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+{% endblock %}
