@@ -5,6 +5,27 @@ from datetime import datetime
 from os import environ
 from const import RequestType
 
+def get_admin_list(db=None):
+    if not db:
+        client = MongoClient('data', 27017)
+        db = client.aaf_db
+
+    return db.admin_users.find()
+
+def set_admin_list(new_admin_list, db=None):
+    if not db:
+        client = MongoClient('data', 27017)
+        db = client.aaf_db
+
+    existing_admin_list = db.admin_users.find()
+    for admin in existing_admin_list:
+        if admin.get('user_id') in new_admin_list.keys():
+            new_admin_list.pop(admin.get('user_id'))
+        else:
+            db.admin_users.remove(admin.get('_id'))
+    for new_admin in new_admin_list:
+        db.admin_users.insert(new_admin)
+
 class MongoConnection(object):
     def __init__(self, db=None):
         if db:
@@ -73,7 +94,11 @@ class MongoInterface(object):
     def deleteFile(self, collection, id):
         return collection.remove(ObjectId(id))
 
-
+if __name__ == '__main__':
+    db = MongoClient('172.18.0.2', 27017).aaf_db
+    print(dict(get_admin_list(db)))
+    print(set_admin_list({'user_id' : 10705332, 'user_name' : 'Trevor Robinson'}, db))
+    print(dict(get_admin_list(db)))
 """
 if __name__ == '__main__':
     conn = MongoConnection()
