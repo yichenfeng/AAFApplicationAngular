@@ -24,6 +24,7 @@ from voluptuous.error import MultipleInvalid
 from database import MongoConnection, GetAdminUsers 
 from notification import mail, send_email
 from flask_pymongo import PyMongo
+from validate import validateB64FileSize, validateFileExtension
 
 #move this to init script - stest up the base app object
 app = Flask(__name__)
@@ -81,15 +82,6 @@ def set_user_headers(response):
 @app.route('/')
 def hello():
     return GetResponseJson(ResponseType.SUCCESS, "Hello World!")
-
-@app.route('/headers')
-def headers():
-    ret_val = "Headers:<br>"
-
-    for header in request.headers:
-        ret_val += header[0] + ': ' + header[1]  + '<br/>'
-    return ret_val
-
 
 #Test route for the root directory - Remove
 @app.route('/testmail')
@@ -156,25 +148,19 @@ def get_upd_request(request_type, request_id=None):
 def request_action(request_type, request_id, action):
     if not IsValidRequest(request_type):
         return GetResponseJson(ResponseType.ERROR, "invalid request")
-    
+
     user_id = int(GetCurUserId())
     admin_flag = IsUserAdmin(user_id)
     conn = MongoConnection(mongo.db)
     aaf_request = AAFRequest(conn, request_type, request_id)
 
-    try: 
+    try:
         aaf_request.PerformAction(action, user_id, GetCurUserEmail(), admin_flag)
     except InvalidActionException as ex:
         return GetResponseJson(ResponseType.ERROR, str(ex))
 
-    return GetResponseJson(ResponseType.SUCCESS, aaf_request.request_details)
-
-@app.route('/request/<request_type>/<request_id>/document', methods=['GET'])
-def get_request_docs():
-    return('type: %s - id: %s - get_docs' % (request_type, request_id))
-
-@app.route('/api/request/<request_type>/<request_id>/document', methods=['POST'])
-@app.route('/api/request/<request_type>/<request_id>/document/<document_id>', methods=['GET', 'DELETE'])
+@app.route('/request/<request_type>/<request_id>/document', methods=['POST'])
+@app.route('/request/<request_type>/<request_id>/document/<document_id>', methods=['GET', 'DELETE'])
 def document(request_type, request_id, document_id=None):
     user_id = int(GetCurUserId())  
     if not IsValidRequest(request_type):
@@ -191,7 +177,12 @@ def document(request_type, request_id, document_id=None):
                 if type(input) == dict:
                     input = [input]
                 for document in input:
-                    results.append(aaf_request.UploadDocument(user_id, GetCurUserEmail(), document['fileName'], document['base64String'], document['description']))
+                    if not validateFileExtension(document['fileName']):
+                        return GetResponseJson(ResponseType.ERROR, 'Invalid file format %s.' % (document['fileName']))
+                    elif not validateB64FileSize(document['base64String'].encode('utf-8')):
+                        return GetResponseJson(ResponseType.ERROR, 'File size too large %s.' % (document['fileName']))
+                    else:
+                        results.append(aaf_request.UploadDocument(user_id, GetCurUserEmail(), document['fileName'], document['base64String'], document['description']))
 
                 return GetResponseJson(ResponseType.SUCCESS, results)
             else:
@@ -238,7 +229,6 @@ def get_admins():
 @app.errorhandler(500)
 def server_error(e):
     return GetResponseJson(ResponseType.ERROR, "Unexpected server error, please see app logs for additional details.")
-
 
 #run the app, needs to be moved to init file
 if __name__ == '__main__':
