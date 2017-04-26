@@ -17,7 +17,7 @@ def set_admin_list(new_admin_list, db=None):
         db.admin_users.insert(new_admin)
 
 def _GetConnection(ldap_id=None, password=None):
-    server = Server(current_app.config.get('LDAP_SERVER'), use_ssl=True)
+    server = Server('ldaptest.autozone.com', use_ssl=True)
     if ldap_id:
         conn = Connection(server, user="uid=%s,ou=users,dc=autozone,dc=com" % (ldap_id), password=password)
     else:
@@ -49,12 +49,12 @@ def GetUserById(ignition_id, ldap_id=None, password=None):
 
     return user_details
 
-def GetAdminUsers():
+def GetAdminUsers(groups):
     conn = _GetConnection()
 
     admin_users = [ ]
  
-    for group in current_app.config.get('ADMIN_GROUPS'):
+    for group in groups:
         response = _LdapSearch(conn, "(memberOf=cn=%s,ou=groups,dc=autozone,dc=com)" % (group))
         for user in response:
             admin_users.append({ "userName" : user['attributes']['cn'][0], \
@@ -74,3 +74,16 @@ def IsAdminGroupDn(dn_str):
 
 class LdapError(Exception):
     pass
+
+
+if __name__ == '__main__':
+    from pymongo import MongoClient 
+    admin_groups = ['aafboard']
+
+    db = MongoClient('172.18.0.2', 27017).aaf_db
+
+    users = GetAdminUsers(admin_groups)
+    print(str(users))
+    db.admin_users.insert(users, db)
+    
+ 

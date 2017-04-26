@@ -100,10 +100,7 @@ if __name__ == '__main__':
     db = MongoClient('172.18.0.2', 27017).aaf_db
     print(GetAdminUsers(db))
 
-    if any(d['userId'] == 10705332 for d in GetAdminUsers(db)):
-        print('Admin')
-
-
+    #GetAdminUsers
 
     #db = MongoClient('172.18.0.2', 27017).aaf_db
     #db.admin_users.insert({'userId' : 10705332, 'userName' : 'Trevor Robinson'})
