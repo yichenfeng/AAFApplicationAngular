@@ -5,7 +5,7 @@
 ###Depends on const.py and auth.py
 ##########################################################################
 
-from flask import Flask, request, redirect, url_for, abort, send_file, g
+from flask import Flask, request, redirect, url_for, abort, send_file, g, make_response
 from datetime import datetime
 from os import environ
 from functools import wraps
@@ -25,6 +25,7 @@ from database import MongoConnection, GetAdminUsers
 from notification import mail, send_email
 from flask_pymongo import PyMongo
 from validate import validateB64FileSize, validateFileExtension
+from export import getCsvResponseFromJsonList
 
 #move this to init script - stest up the base app object
 app = Flask(__name__)
@@ -83,12 +84,6 @@ def set_user_headers(response):
 def hello():
     return GetResponseJson(ResponseType.SUCCESS, "Hello World!")
 
-#Test route for the root directory - Remove
-@app.route('/testmail')
-def testmail():
-    send_email("Test Subject", "<p>Test Message</p>",['trevor.robinson@autozone.com'])
-    return GetResponseJson(ResponseType.SUCCESS, "Email Sent!")
-
 #Search method - query string can contain any of the attributes of a request
 #If _id is previded as a search param, redirects to /request_type/id
 @app.route('/request/<request_type>/search', methods=['POST'])
@@ -96,6 +91,7 @@ def search_requests(request_type):
     per_page = request.args.get('perPage')
     page_num = request.args.get('pageNumber')
     out_format = request.args.get('format')
+    app.logger.error(str(request.args))
     if not page_num:
         page_num = 1
     if IsValidRequest(request_type):
@@ -110,7 +106,11 @@ def search_requests(request_type):
         search_results = AAFSearch.Search(conn, request_type, find_input, per_page, page_num)
 
         if out_format == 'csv':
-            pass
+            csv_result = getCsvResponseFromJsonList(search_results['results'])
+            response = make_response(csv_result)
+            response.headers["Content-Disposition"] = "attachment; filename=export.csv"
+            response.headers["Content-type"] = "text/csv"
+            return response
         else:
             return GetResponseJson(ResponseType.SUCCESS, search_results)
     else:
