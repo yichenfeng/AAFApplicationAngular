@@ -9,11 +9,17 @@ def set_admin_list(new_admin_list, db=None):
 
     existing_admin_list = db.admin_users.find()
     for admin in existing_admin_list:
-        if admin.get('user_id') in new_admin_list.keys():
-            new_admin_list.pop(admin.get('user_id'))
-        else:
+        user_found = False
+        for index in range(0, len(new_admin_list)):
+            if admin['userId'] == new_admin_list[index]['userId']:
+                new_admin_list.pop(index)
+                user_found = True
+                break
+        if not user_found:
             db.admin_users.remove(admin.get('_id'))
+
     for new_admin in new_admin_list:
+        print(new_admin)
         db.admin_users.insert(new_admin)
 
 def _GetConnection(ldap_id=None, password=None):
@@ -84,6 +90,6 @@ if __name__ == '__main__':
 
     users = GetAdminUsers(admin_groups)
     print(str(users))
-    db.admin_users.insert(users, db)
+    set_admin_list(users, db)
     
  
