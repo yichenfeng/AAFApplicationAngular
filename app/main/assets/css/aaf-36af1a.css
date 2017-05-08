@@ -10,8 +10,16 @@ div.formsteps.working a {
   pointer-events: none;
   cursor: default;
 }
-#assistRequestBtns {
+#assistRequestBtns, .assistanceRequestNote {
   clear: both;
+}
+.attachmentNote {
+  margin-bottom: 0;
+  margin-top: 10px;
+  font-size: 12px;
+}
+#exportBtn {
+  float: right;
 }
 footer {
   position: absolute;

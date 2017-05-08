@@ -21,7 +21,7 @@ from const import RequestType, ResponseType, RequestActions, RequestStatus
 #from export import getCsvResponseFromJson
 from aafrequest import AAFRequest, AAFSearch, InvalidActionException
 from voluptuous.error import MultipleInvalid
-from database import MongoConnection, GetAdminUsers 
+from database import MongoConnection, GetAdminUsers
 from notification import mail, send_email
 from flask_pymongo import PyMongo
 from validate import validateB64FileSize, validateFileExtension
@@ -162,7 +162,7 @@ def request_action(request_type, request_id, action):
 @app.route('/request/<request_type>/<request_id>/document', methods=['POST'])
 @app.route('/request/<request_type>/<request_id>/document/<document_id>', methods=['GET', 'DELETE'])
 def document(request_type, request_id, document_id=None):
-    user_id = int(GetCurUserId())  
+    user_id = int(GetCurUserId())
     if not IsValidRequest(request_type):
         return GetResponseJson(ResponseType.ERROR, "invalid request")
     else:

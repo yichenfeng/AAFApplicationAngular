@@ -40,9 +40,7 @@ angular.module('myApp').controller('IncidentInfoCtrl', function ($scope, $http, 
     $scope.showErrorMessage = false;
     if ($rootScope.application) {
       var date = new Date(document.getElementById('date').value);
-      $rootScope.application.requestContent.incidentInfo = {
-        'eventDate' : { $date : date }
-      };
+      $rootScope.application.requestContent.incidentInfo.eventDate = { $date : date };
     }
   };
 

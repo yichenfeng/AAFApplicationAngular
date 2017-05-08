@@ -122,11 +122,10 @@
                               <div class="col-md-4 form-group" ng-class="{ 'has-error' : submissionForm.date.$invalid && submitted}">
                                 <label>Date : </label>
                                 <p class="input-group">
-                                <input id="reviewDate" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt"
-                                    is-open="popup1.opened" name="date" datepicker-options="dateOptions" ng-required="true" ng-focus="dateChanged()" close-text="Close"
-                                    alt-input-formats="altInputFormats" placeholder="Date" required>
+                                <input id="reviewDate" type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="dt"
+                                    is-open="isOpen" ng-required="true" close-text="Close" placeholder="Date" ng-focus="dateChanged()" required>
                                   <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-click="open1()">
+                                    <button type="button" class="btn btn-default" ng-click="isOpen = true">
                                       <i class="glyphicon glyphicon-calendar"></i>
                                     </button>
                                   </span>
