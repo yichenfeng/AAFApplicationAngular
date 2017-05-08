@@ -6,7 +6,6 @@ from const import RequestType, RequestStatus, RequestActions
 from datetime import datetime
 from validate import ValidateAsstReq 
 from notification import send_email
-from ldap import GetUserById 
 
 class AAFSearch(object):
     @staticmethod

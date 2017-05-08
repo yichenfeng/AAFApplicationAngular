@@ -84,6 +84,14 @@ assistance_schema = Schema( { 'applicantInfo' : applicant_schema,
                               'submitDetails' : submit_schema,
                               'reviewDetails' : review_schema } )
 
+def validateB64FileSize(fileBytes):
+    return bool(((len(fileBytes) / 4) * 3) < 25000000)
+
+def validateFileExtension(fileName):
+    fileNameParts = fileName.split('.')
+    fileExtension = fileNameParts[len(fileNameParts) - 1]
+    return bool(fileExtension in ['jpg', 'doc', 'docx', 'pdf'])
+
 if __name__ == '__main__':
     print type(1485382223700)
     print(IsValid(test_schema, { 1: 'one', 2 : 'three' , '3' : 2.5, 4 : ['4', 5, '6'] }))

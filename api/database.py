@@ -14,20 +14,6 @@ def GetAdminUsers(db=None):
         admins.append(dict(admin))
     return admins
 
-def set_admin_list(new_admin_list, db=None):
-    if not db:
-        client = MongoClient('data', 27017)
-        db = client.aaf_db
-
-    existing_admin_list = db.admin_users.find()
-    for admin in existing_admin_list:
-        if admin.get('user_id') in new_admin_list.keys():
-            new_admin_list.pop(admin.get('user_id'))
-        else:
-            db.admin_users.remove(admin.get('_id'))
-    for new_admin in new_admin_list:
-        db.admin_users.insert(new_admin)
-
 class MongoConnection(object):
     def __init__(self, db=None):
         if db:
@@ -100,50 +86,8 @@ if __name__ == '__main__':
     db = MongoClient('172.18.0.2', 27017).aaf_db
     print(GetAdminUsers(db))
 
-    if any(d['userId'] == 10705332 for d in GetAdminUsers(db)):
-        print('Admin')
-
-
+    #GetAdminUsers
 
     #db = MongoClient('172.18.0.2', 27017).aaf_db
     #db.admin_users.insert({'userId' : 10705332, 'userName' : 'Trevor Robinson'})
     #print(GetAdminUsers(db))
-"""
-if __name__ == '__main__':
-    conn = MongoConnection()
-    interface = MongoInterface()
-    collection = conn.GetCollection(RequestType.ASSISTANCE)
-
-    print(interface.findDocuments(collection, {"user_id" : "10705332"}))
-
-    test_data = {"user_id" : "10705332", "user_name" : "Trevor Robinson", "value_1" : "test value", "value_2" : "val 2"}
-
-    id = interface.insertDocument(collection, test_data)
-    print(id)
-
-    doc = interface.getDocument(collection, id)
-    print(doc)
-
-    del doc['_id']
-    del doc["value_2"]
-    doc["value_1"] = "test value update"
-    doc["value_3"] = "new value"
-
-    print(doc)
-    result = interface.updateDocument(collection, doc, id)
-    print(result)
-
-    last_val = interface.getDocument(collection, id)
-
-    print(last_val)
-
-    input_file = open('./test.txt', 'rb')
-
-    fs = conn.GetGridFS()
-    file_id = interface.insertFile(fs, input_file)
-    print(file_id)
-    input_file.close()
-    output_file = open('./test_out.txt', 'wb')
-    output_file.write(interface.getFile(fs, file_id))
-    output_file.close()
- """
