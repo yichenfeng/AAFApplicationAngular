@@ -14,27 +14,6 @@ def GetAdminUsers(db=None):
         admins.append(dict(admin))
     return admins
 
-def set_admin_list(new_admin_list, db=None):
-    if not db:
-        client = MongoClient('data', 27017)
-        db = client.aaf_db
-
-    existing_admin_list = db.admin_users.find()
-    for admin in existing_admin_list:
-        user_found = False
-        for index in range(0, len(new_admin_list)):
-            if admin['userId'] == new_admin_list[index]['userId']:
-                new_admin_list.pop(index)
-                user_found = True
-                break
-        if not user_found:
-            db.admin_users.remove(admin.get('_id'))
-
-    for new_admin in new_admin_list:
-        print(new_admin)
-        db.admin_users.insert(new_admin)
-
-
 class MongoConnection(object):
     def __init__(self, db=None):
         if db:
