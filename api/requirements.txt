@@ -9,7 +9,7 @@ Flask-Mail==0.9.1
 Flask-PyMongo==0.4.1
 html5lib==0.999
 itsdangerous==0.24
-Jinja2==2.8
+Jinja2==2.11.3
 ldap3==2.1.1
 lxml==3.7.3
 MarkupSafe==0.23
