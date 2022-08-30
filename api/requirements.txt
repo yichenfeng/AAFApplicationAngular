@@ -13,7 +13,7 @@ Jinja2==2.8
 ldap3==2.1.1
 lxml==3.7.3
 MarkupSafe==0.23
-mod-wsgi==4.5.14
+mod-wsgi==4.9.3
 premailer==3.0.1
 pyasn1==0.1.9
 pymongo==3.4.0
